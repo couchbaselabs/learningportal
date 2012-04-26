@@ -1,4 +1,7 @@
 LearningPortal::Application.routes.draw do
+
+  resource :search
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
