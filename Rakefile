@@ -4,4 +4,10 @@
 
 require File.expand_path('../config/application', __FILE__)
 
+begin
+  require 'ci/reporter/rake/rspec'
+rescue LoadError
+  STDERR.puts "WARNING: gem ci_reporter not found"
+end
+
 LearningPortal::Application.load_tasks
