@@ -15,7 +15,7 @@ class SearchesController < ApplicationController
     end
 
     @couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
-    @document = @couchbase.get(@documents.first.id)
+    @document = @couchbase.get('00411460f7c92d21')
     #@document = nil
     #@couchbase.run do |conn|
     #  @document = conn.get("00411460f7c92d21")
