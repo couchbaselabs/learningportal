@@ -13,6 +13,13 @@ class SearchesController < ApplicationController
     @search.results.each do |result|
       @documents << result
     end
+
+    @couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
+    @document = @couchbase.get(@documents.first.id)
+    #@document = nil
+    #@couchbase.run do |conn|
+    #  @document = conn.get("00411460f7c92d21")
+    #end
   end
 
 
