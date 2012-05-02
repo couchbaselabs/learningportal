@@ -1,7 +1,7 @@
 RailsExceptionHandler.configure do |config|
   config.environments = [:staging, :production]                             # Defaults to [:production]
   # config.storage_strategies = [:active_record, :rails_log, :remote_url => {:target => 'http://example.com'}] # Defaults to []
-  config.storage_strategies = [:remote_url => {:target => 'http://guardian.rumblelabs.com/webhooks/errors'}]
+  config.storage_strategies = [:rails_log, :remote_url => {:target => 'http://guardian.rumblelabs.com/webhooks/errors'}]
   # config.fallback_layout = 'home'                                         # Defaults to 'application'
   # config.store_user_info = {:method => :current_user, :field => :login}   # Defaults to false
   # config.filters = [                                                      # No filters are  enabled by default
