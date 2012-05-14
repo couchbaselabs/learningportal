@@ -23,6 +23,8 @@ end
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
+  gem 'bootstrap-sass', '~> 2.0.3'
+  gem 'compass-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer'
@@ -30,6 +32,8 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem "haml"
+gem "haml-rails"
 gem 'jquery-rails'
 gem 'rails_exception_handler', :git => 'git://github.com/rumblelabs/rails_exception_handler.git'
 gem 'tire'
@@ -55,7 +59,7 @@ group :development, :test do
   gem 'autotest'
   gem 'autotest-rails-pure'
   gem 'autotest-fsevent'
-  gem 'autotest-growl' 
+  gem 'autotest-growl'
 
   gem 'rspec'
   gem 'rspec-rails', '>= 2.0.0.beta.22'

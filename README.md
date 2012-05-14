@@ -6,7 +6,7 @@ A Couchbase / Elastic Search proof of concept app.
 
 * libcouchbase **1.1.0.dp2**
 * couchbase server **2.0** [download](http://packages.couchbase.com/releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.zip)
-* elastic search **0.19.2**
+* elastic search **0.19.3**
 
 ### libcouchbase
 
@@ -42,7 +42,7 @@ Download and install this updated `libcouchbase` homebrew recipe.
     COUCHBASE_URL=http://localhost:8091
     HTTP_AUTH_PASSWORD=xxxx" > .env
 
-[foreman](https://github.com/ddollar/foreman) uses a `.env` file for ENV variables and loads this automatically when `foreman start is ran`. To load variables for other processes
+[foreman](https://github.com/ddollar/foreman) uses a `.env` file for ENV variables and loads this automatically when `foreman start` is ran. To load variables for other processes
 
     export $(cat .env)
 
