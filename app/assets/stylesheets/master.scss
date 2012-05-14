@@ -11,6 +11,37 @@
   width: 480px;
   height: 800px;
   background-color:#666666;
+  .navbar {
+    padding:0 20px;
+    float:left;
+    width:440px;
+    border-bottom:1px solid #B8B8B8;
+    h1 {
+      font-family: Helvetica;
+      font-size:18px;
+      color: #FFF;
+      height:60px;
+      line-height:60px;
+      float:left;
+    }
+    ul.nav {
+      float:right;
+      margin:0;
+      li {
+        margin-right:20px;
+        &:last-child {
+          margin-right:0;
+        }
+        a {
+          color:#FFF;
+          font-size:15px;
+          height:60px;
+          line-height:60px;
+          padding:0;
+        }
+      }
+    }
+  }
 }
 
 #body {

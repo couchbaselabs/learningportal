@@ -9,6 +9,12 @@
     .container-fluid
       .row-fluid
         #sidebar
-          / Sidebar content
+          .navbar
+            %h1 LOGO
+            %ul.nav
+              %li
+                %a Admin
+              %li
+                %a Login
         #body
           = yield
