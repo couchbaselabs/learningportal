@@ -42,7 +42,7 @@ Download and install this updated `libcouchbase` homebrew recipe.
     COUCHBASE_URL=http://localhost:8091
     HTTP_AUTH_PASSWORD=xxxx" > .env
 
-[foreman](https://github.com/ddollar/foreman) uses a `.env` file for ENV variables and loads this automatically when `foreman start` is ran. To load variables for other processes
+[foreman](https://github.com/ddollar/foreman) uses a `.env` file for ENV variables and loads this automatically when running `foreman start`. To load variables for other processes
 
     export $(cat .env)
 
