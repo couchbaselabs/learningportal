@@ -1,5 +1,9 @@
 class SearchesController < ApplicationController
 
+  def build
+    render :build
+  end
+
   def show
     Tire.configure do
       url ENV["ELASTIC_SEARCH_URL"]
