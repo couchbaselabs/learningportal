@@ -59,4 +59,7 @@ Download and install this updated `libcouchbase` homebrew recipe.
 
 http://karmi.github.com/tire/
 https://github.com/karmi/tire
-
+https://github.com/couchbase/couchbase-ruby-client
+https://github.com/collectiveidea/delayed_job
+https://github.com/dbalatero/typhoeus
+http://www.elasticsearch.org/guide/reference/setup/installation.html
