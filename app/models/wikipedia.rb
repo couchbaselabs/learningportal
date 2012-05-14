@@ -1,7 +1,9 @@
 class Wikipedia
 
-  BASE_URL = "http://en.wikipedia.org/w/api.php"
-  BATCH    = 10
+  ARTICLE_TYPES = ["text", "video", "audio"]
+  BASE_URL      = "http://en.wikipedia.org/w/api.php"
+  BATCH         = 10
+  BATCHES       = 10
 
   # return an array of random wikipedia article references
   def self.random
@@ -36,10 +38,39 @@ class Wikipedia
     JSON.parse(response.body)["query"]["pages"].map {|key, value| value }
   end
 
-  def self.seed!(number)
+  def self.seed!
     # 1. iterate through batches of random articles up to number
     # 2. cache ID so no duplicate requests
     # 3. schedule delayed job for download of each article
+    (1..BATCHES).each do |batch|
+      Delayed::Job.enqueue( WikipediaDownloadJob.new( self.random ) )
+    end
+  end
+
+
+  def self.parse(json)
+    id = json["pageid"]
+    categories = json["categories"].map {|c| c['title'].split(':').last }
+
+    random_type = rand(3)
+    random_quality = rand(100) + 1;
+
+    revision = json["revisions"].first
+
+    document = {
+      :title => json['title'],
+      :url => json['fullurl'],
+      :type => ARTICLE_TYPES[random_type],
+      :is_text => (random_type == 0),
+      :is_video => (random_type == 1),
+      :is_audio => (random_type == 2),
+      :quality => random_quality,
+      :categories => categories,
+      :timestamp => revision['timestamp'],
+      :content => revision['*'],
+      :user => revision['user']
+    }
+    return id, document
   end
 
 end
