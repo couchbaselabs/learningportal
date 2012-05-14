@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.2'
-
+gem 'typhoeus'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'thin'
+gem 'delayed_job_active_record'
 
 gem 'couchbase', '1.2.0.dp'
 
