@@ -1,0 +1,19 @@
+@import "compass";
+@import "bootstrap";
+
+
+.container-fluid {
+  padding:0;
+}
+
+#sidebar {
+  float: left;
+  width: 480px;
+  height: 800px;
+  background-color:#666666;
+}
+
+#body {
+  float: left;
+  min-width:480px;
+}
