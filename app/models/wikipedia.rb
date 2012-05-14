@@ -4,16 +4,36 @@ class Wikipedia
   BATCH    = 10
 
   # return an array of random wikipedia article references
-  def self.random_article_ids
-    response = Typhoeus::Request.get(
-      "#{BASE_URL}?action=query&list=random&rnnamespace=0&rnlimit=#{BATCH}&rvprop=content&format=json",
-      :headers => {"User-Agent" => "ES-CB-WikiDownloader"}
+  def self.random
+    response = Typhoeus::Request.get(BASE_URL,
+      :headers => {"User-Agent" => "ES-CB-WikiDownloader"},
+      :params => {
+        :action      => "query",
+        :list        => "random",
+        :rnnamespace => 0,
+        :rnlimit     => BATCH,
+        :rvprop      => "content",
+        :format      => "json"
+      }
     )
     JSON.parse(response.body)["query"]["random"].map {|article| article["id"]}
   end
 
-  def self.get(id)
-    
+  def self.fetch(article_ids)
+    ids = article_ids.join('|')
+    response = Typhoeus::Request.get(BASE_URL,
+      :headers => {"User-Agent" => "ES-CB-WikiDownloader"},
+      :params => {
+        :action  => "query",
+        :prop    => "revisions|categories|info",
+        :pageids => ids,
+        :rvprop  => "timestamp|user|content|tags",
+        :format  => "json",
+        :inprop  => "url",
+        :cllimit => 500
+      }
+    )
+    JSON.parse(response.body)["query"]["pages"].map {|key, value| value }
   end
 
   def self.seed!(number)
