@@ -6,7 +6,7 @@ gem 'typhoeus'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'thin'
 gem 'delayed_job_active_record'
-
+gem 'devise'
 gem 'couchbase', '1.2.0.dp'
 
 group :production do
