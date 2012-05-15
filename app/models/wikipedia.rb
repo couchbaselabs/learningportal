@@ -57,6 +57,15 @@ class Wikipedia
 
     revision = json["revisions"].first
 
+    contributions = []
+    authors = []
+    json["revisions"].each do |r|
+      authors << r["user"]
+      contributions << {:author => r["user"], :timestamp => r["timestamp"]}
+    end
+
+    authors.uniq!
+
     document = {
       :title => json['title'],
       :url => json['fullurl'],
@@ -68,7 +77,8 @@ class Wikipedia
       :categories => categories,
       :timestamp => revision['timestamp'],
       :content => revision['*'],
-      :user => revision['user']
+      :authors => authors,
+      :contributions => contributions
     }
     return id, document
   end
