@@ -67,6 +67,7 @@
     li {
       width:25%;
       a {
+        cursor:pointer;
         display:block;
         height:53px;
         padding-top:15px;
@@ -129,7 +130,7 @@
       min-height:60px;
       width:440px;
       color:#FFF;
-      border-bottom:2px solid #3C3C3C;
+      border-bottom:1px solid #000;
       background-color:#4C4C4C;
       padding:20px;
     }
