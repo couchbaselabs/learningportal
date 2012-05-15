@@ -18,15 +18,14 @@
           .icon
           .article-body
             %h3.title= link_to item['title'], result_search_path(:id => item.id)
-            %span.meta
+            .meta
               Contributed by
               = item['contributors'].first['name']
               on
               = Time.parse(item['contributors'].first['timestamp']).strftime('%B %d, %Y at %H:%M')
             .tag-section
-              - tag_count = 1
               - item['categories'].each do |category|
-              - next if tag_count >= 5
-              - tag_count += 1
-                %span.tag-nub
-                %span.tag= category
+                .tag
+                  .tag-nub
+                  .tag-text= category
+              .clearfix
