@@ -9,6 +9,36 @@
     .container-fluid
       .row-fluid
         #sidebar
-          / Sidebar content
+          %nav
+            %h1 LOGO
+            %ul
+              %li
+                %a Admin
+              %li
+                %a Login
+          .tagline
+            %h2 Discover content with the Learning Portal
+          %ul.tabbed-nav
+            %li
+              %a{"data-toggle" => "tab", :href => "#allcontent"}
+                %span.number 29391
+                %span.text All Content
+            %li
+              %a{"data-toggle" => "tab", :href => "#articles"}
+                %span.number 18451
+                %span.text Articles
+            %li
+              %a{"data-toggle" => "tab", :href => "#videos"}
+                %span.number 6983
+                %span.text Videos
+            %li
+              %a{"data-toggle" => "tab", :href => "#images"}
+                %span.number 3957
+                %span.text Images
+          .tab-content
+            #allcontent.tab-pane.active tab1
+            #articles.tab-pane tab2
+            #videos.tab-pane tab3
+            #images.tab-pane tab4
         #body
           = yield
