@@ -1,6 +1,8 @@
 class SearchesController < ApplicationController
 
   def build
+    @couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
+    @items = @couchbase.all_docs(:include_docs => true, :limit => 10).entries
     render :build
   end
 

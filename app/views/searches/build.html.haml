@@ -12,17 +12,21 @@
         / dropdown menu links
 %nav.article-navigation
   %ul
-    - 5.times do
+    - @items.each do |item|
       %li
         .article
           .icon
           .article-body
-            %h3.title Article Name Here
+            %h3.title= item['title']
             %span.meta
               Contributed by
-              %a John Doe
-              on 06/07/12, 435 views
+              = item['contributions'].first['author']
+              on
+              = item['contributions'].first['timestamp']
             .tag-section
-              - 5.times do
+              - tag_count = 1
+              - item['categories'].each do |category|
+              - next if tag_count >= 5
+              - tag_count += 1
                 %span.tag-nub
-                %span.tag A Tag
+                %span.tag= category
