@@ -1,6 +1,10 @@
 @import "compass";
 @import "bootstrap";
 
+// MediaWiki markup cleanup
+.editsection{
+  display:none;
+}
 
 .container-fluid {
   padding:0;

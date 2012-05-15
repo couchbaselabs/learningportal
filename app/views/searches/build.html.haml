@@ -17,7 +17,7 @@
         .article
           .icon
           .article-body
-            %h3.title= item['title']
+            %h3.title= link_to item['title'], result_search_path(:id => item.id)
             %span.meta
               Contributed by
               = item['contributors'].first['name']

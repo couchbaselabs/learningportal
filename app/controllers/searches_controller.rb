@@ -6,6 +6,17 @@ class SearchesController < ApplicationController
     render :build
   end
 
+  def result
+    @couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
+    @item = @couchbase.get(params[:id])
+    
+    wiki = WikiCloth::Parser.new({
+      :data => @item['content']
+    })
+    @content = wiki.to_html
+    render :result
+  end
+
   def show
     Tire.configure do
       url ENV["ELASTIC_SEARCH_URL"]
