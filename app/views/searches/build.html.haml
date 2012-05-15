@@ -22,7 +22,7 @@
               Contributed by
               = item['contributors'].first['name']
               on
-              = item['contributors'].first['timestamp']
+              = Time.parse(item['contributors'].first['timestamp']).strftime('%B %d, %Y at %H:%M')
             .tag-section
               - tag_count = 1
               - item['categories'].each do |category|
