@@ -12,12 +12,16 @@
           %nav
             %h1= link_to "LOGO", root_path
             %ul
-              %li
-                %a Admin
-              %li
-                = link_to "Sign in", new_user_session_path
-              %li
-                = link_to "Sign up", new_user_registration_path
+              - if !current_user
+                %li
+                  = link_to "Sign in", new_user_session_path
+                %li
+                  = link_to "Sign up", new_user_registration_path
+              - if current_user
+                %li
+                  %a Admin
+                %li
+                  = link_to current_user.email, edit_user_registration_path
           .tagline
             %h2 Discover content with the Learning Portal
           %ul.tabbed-nav
