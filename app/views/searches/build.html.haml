@@ -1,1 +1,28 @@
-%h1 this is the view
+%nav.fixed-navigation
+  %span.title
+    %strong SHOWING: POPULAR CONTENT
+    (412 results)
+  .right-fixed
+    %span.desc Sort By:
+    .btn-group
+      %button.btn Most Popular
+      %button.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+        %span.caret
+      %ul.dropdown-menu
+        / dropdown menu links
+%nav.article-navigation
+  %ul
+    - 5.times do
+      %li
+        .article
+          .icon
+          .article-body
+            %h3.title Article Name Here
+            %span.meta
+              Contributed by
+              %a John Doe
+              on 06/07/12, 435 views
+            .tag-section
+              - 5.times do
+                %span.tag-nub
+                %span.tag A Tag
