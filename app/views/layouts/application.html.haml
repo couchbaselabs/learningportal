@@ -22,6 +22,8 @@
                   %a Admin
                 %li
                   = link_to current_user.email, edit_user_registration_path
+                %li
+                  = link_to "logout", destroy_user_session_path, :method => :delete
           .tagline
             %h2 Discover content with the Learning Portal
           %ul.tabbed-nav
