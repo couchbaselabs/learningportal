@@ -51,5 +51,8 @@
             #articles.tab-pane tab2
             #videos.tab-pane tab3
             #images.tab-pane tab4
+          - @authors.each do |author|
+            %p= author.first
+            %p= author.last
         #body
           = yield
