@@ -20,9 +20,9 @@
             %h3.title= item['title']
             %span.meta
               Contributed by
-              = item['contributions'].first['author']
+              = item['contributors'].first['name']
               on
-              = item['contributions'].first['timestamp']
+              = item['contributors'].first['timestamp']
             .tag-section
               - tag_count = 1
               - item['categories'].each do |category|
