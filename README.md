@@ -48,7 +48,7 @@ Download and install this updated `libcouchbase` homebrew recipe.
 
 ## Startup
 
-    open /Applications/Couchbase \Server.app
+    open /Applications/Couchbase\ Server.app/
 
     foreman start              # start rails app server and elasticsearch
 
