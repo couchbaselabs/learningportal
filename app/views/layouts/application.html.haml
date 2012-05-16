@@ -64,9 +64,9 @@
             %a.btn.viewall View all tags
             %h3 Popular Tags
             %ul.tag-section
-            - 20.times do
+            - @categories.each do |category|
               %li.tag
                 .tag-nub
-                .tag-text Category
+                .tag-text= category.name
         #body
           = yield

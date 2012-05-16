@@ -3,5 +3,6 @@
 #
 
 Author.update_design_doc!
+Category.update_design_doc!
 Couch.client.flush
 Wikipedia.seed!

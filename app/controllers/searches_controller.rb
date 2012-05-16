@@ -17,6 +17,7 @@ public
     @couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
     @items = @couchbase.all_docs(:include_docs => true, :limit => 10).entries
     @authors = Author.popular.take(8)
+    @categories = Category.popular.take(25)
     render :build
   end
 
