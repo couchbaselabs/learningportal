@@ -17,7 +17,7 @@ public
     @couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
     @items = @couchbase.all_docs(:include_docs => true, :limit => 5).entries
     @authors = Author.popular.take(8)
-    @categories = Category.popular.take(25)
+    @categories = Category.popular.take(10)
     render :build
   end
 
@@ -25,6 +25,7 @@ public
     @couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
     @item = @couchbase.get(params[:id])
     @authors = Author.popular.take(8)
+    @categories = Category.popular.take(10)
 
     wiki = WikiCloth::Parser.new({
       :data => @item['content']
