@@ -348,10 +348,23 @@ article.single {
     padding:60px;
     background-color:#E1E1E1;
   }
+  div {
+    font-size:19px;
+  }
   p {
     font-size:19px;
     line-height:30px;
     margin-bottom:40px;
+  }
+  ul {
+    margin: 20px 0;
+  }
+  li {
+    font-size:19px;
+    margin-bottom:10px;
+  }
+  .meta {
+    font-size:13px;
   }
 }
 article.video {}

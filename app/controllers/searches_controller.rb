@@ -13,7 +13,7 @@ class SearchesController < ApplicationController
     wiki = WikiCloth::Parser.new({
       :data => @item['content']
     })
-    @content = Sanitize.clean(wiki.to_html, :elements => ['p', 'ul', 'li', 'i'])
+    @content = Sanitize.clean(wiki.to_html, :elements => ['p', 'ul', 'li', 'i', 'h2', 'h3'], :remove_contents => ['table', 'div'])
 
     render :result
   end
