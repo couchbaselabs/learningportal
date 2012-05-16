@@ -22,3 +22,5 @@
           = pluralize(@item['contributors'].size, 'other')
         76 views
     %div= @content.html_safe
+    %a.btn.btn-large.original-source{:href => @item['url']}
+      View Original Source
