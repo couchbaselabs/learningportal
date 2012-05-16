@@ -19,3 +19,7 @@
 $(function () {
   $('.tabbed-nav a:first').tab('show');
 })
+
+$(document).ready(function(){
+  $('#sidebar').css('height',$('.article-navigation').height()+42)
+});
