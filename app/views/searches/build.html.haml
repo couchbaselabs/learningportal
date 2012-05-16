@@ -12,7 +12,7 @@
         / dropdown menu links
 %section.article-navigation
   - @items.each do |item|
-    %article
+    %article{:class => item['type']}
       .article-body
         %span.score
           = succeed "%" do

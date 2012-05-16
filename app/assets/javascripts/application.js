@@ -21,5 +21,11 @@ $(function () {
 })
 
 $(document).ready(function(){
-  $('#sidebar').css('height',$('.article-navigation').height()+42)
+  var newSize = 0;
+  $('#body section article').each(function(){
+    newSize += $(this).height();
+  });
+  if(newSize > 800){
+    $('#sidebar').css('height',newSize+62)
+  }
 });
