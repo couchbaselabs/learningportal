@@ -2,13 +2,13 @@ class SearchesController < ApplicationController
 
 protected
   def popular_authors
-    authors = []
-    results = @couchbase.design_docs["author"].author(:group => true).entries
-    results.each do |a|
-      authors << [a.key, a.value]
-    end
-    authors.sort! {|a,b| a.last <=> b.last}.reverse!
-    authors.take(10)
+    #authors = []
+    #results = @couchbase.design_docs["author"].author(:group => true).entries
+    #results.each do |a|
+    #  authors << [a.key, a.value]
+    #end
+    #authors.sort! {|a,b| a.last <=> b.last}.reverse!
+    #authors.take(10)
   end
 
 public
@@ -16,7 +16,7 @@ public
   def build
     @couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
     @items = @couchbase.all_docs(:include_docs => true, :limit => 10).entries
-    @authors = popular_authors
+    @authors = Author.popular.take(8)
     render :build
   end
 

@@ -58,8 +58,8 @@
               - @authors.each do |author|
                 %li
                   .avatar
-                  .name= author.first
-                  .counts 12 articles, 4 videos, 9 images
+                  .name= author.name
+                  .counts= "#{author.contributions_count} contributions"
           %section.pane
             %a.btn.viewall View all tags
             %h3 Popular Tags
