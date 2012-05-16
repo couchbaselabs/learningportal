@@ -197,6 +197,11 @@ nav.fixed-navigation {
     display:block;
     color:#4C4C4C;
     font-size:13px;
+    .score {
+      color:#E1E1E1;
+      font-size:25px;
+      float:right;
+    }
     .article-body {
       padding:30px;
     }
