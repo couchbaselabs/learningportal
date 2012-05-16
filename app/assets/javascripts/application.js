@@ -19,13 +19,3 @@
 $(function () {
   $('.tabbed-nav a:first').tab('show');
 })
-
-$(document).ready(function(){
-  var newSize = 0;
-  $('#body section article').each(function(){
-    newSize += $(this).height();
-  });
-  if(newSize > 800){
-    $('#sidebar').css('height',newSize+62)
-  }
-});

@@ -9,11 +9,12 @@ class SearchesController < ApplicationController
   def result
     @couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
     @item = @couchbase.get(params[:id])
-    
+
     wiki = WikiCloth::Parser.new({
       :data => @item['content']
     })
-    @content = wiki.to_html
+    @content = Sanitize.clean(wiki.to_html, :elements => ['p', 'ul', 'li', 'i'])
+
     render :result
   end
 

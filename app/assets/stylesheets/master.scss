@@ -1,6 +1,27 @@
 @import "compass";
 @import "bootstrap";
 
+//--------------------------------
+// Rumble Style Guide
+//--------------------------------
+// 1.  Break style application into logical sections based on the functionality we are expressing, not markup
+// 2.  Break into sections "Structure", "Typography" and "Skin"
+// 3.  Use surrounded comment style for each section
+// 4.  Leave two line spaces after a section
+// 5.  Leave one line space after a related group of rules
+// 6.  Describe the purpose of a logical group of rules in terms of UI
+// 7.  Use one space after rule declaration and starting bracket
+// 8.  Use one space between attribute: and value.
+// 9.  Separate a list of values by a space // need to do this with CSS anyway, FML
+// 10. Terminate all lines with a semi-colon (Required in SCSS can be left of in SASS)
+// 11. One line per attribute: value
+// 12. Use only ONE (class) qualifier in a selector e.g. (.column header a) not (.nav-cols.column header a) where possible
+// 13. Do not use IDs unless it is absolutely 100% necessary e.g. (on a style that is only applicable to one element on one page ever)
+// 14. Order CSS declarations alphabetically e.g. (padding comes after height)
+// 15. Do not use SCSS nesting except for;
+//      * referencing an element by id ONCE in a source file
+//      * applying styles to pseudo classes of an element
+
 // MediaWiki markup cleanup
 .editsection{
   display:none;
@@ -241,45 +262,45 @@ nav.fixed-navigation {
 .article-navigation {
   margin-top:42px;
   position:absolute;
-  article {
-    background-color:#BFBFBF;
-    border-bottom:1px solid #999;
-    border-top:1px solid #CCC;
-    width:auto;
-    display:block;
-    color:#4C4C4C;
-    font-size:13px;
-    .score {
-      color:#E1E1E1;
-      font-size:25px;
-      float:right;
+}
+article {
+  background-color:#BFBFBF;
+  border-bottom:1px solid #999;
+  border-top:1px solid #CCC;
+  width:auto;
+  display:block;
+  color:#4C4C4C;
+  font-size:13px;
+  .score {
+    color:#E1E1E1;
+    font-size:25px;
+    float:right;
+  }
+  .article-body {
+    padding:30px;
+  }
+  .icon {
+    width:60px;
+    height:60px;
+    float:left;
+    background-color:#CCCCCC;
+    margin-right:30px;
+  }
+  h1 {
+    font-weight:normal;
+    color:#0A72A3;
+    font-size:25px;
+    line-height:20px;
+    margin-bottom:10px;
+  }
+  .meta {
+    margin-bottom:12px;
+    a {
+      color:#4C4C4C;
     }
-    .article-body {
-      padding:30px;
-    }
-    .icon {
-      width:60px;
-      height:60px;
-      float:left;
-      background-color:#CCCCCC;
-      margin-right:30px;
-    }
-    h1 {
-      font-weight:normal;
-      color:#0A72A3;
-      font-size:25px;
-      line-height:20px;
-      margin-bottom:10px;
-    }
-    .meta {
-      margin-bottom:12px;
-      a {
-        color:#4C4C4C;
-      }
-    }
-    .tag-section {
-      margin-left:90px;
-    }
+  }
+  .tag-section {
+    margin-left:90px;
   }
 }
 li.tag {
@@ -315,6 +336,27 @@ li.tag {
     margin-bottom:5px;
   }
 }
+article.single {
+  margin-top:42px;
+  position:absolute;
+  h1 {
+    font-size:36px;
+    color:#333;
+    font-weight:bold;
+  }
+  .article-body {
+    padding:60px;
+    background-color:#E1E1E1;
+  }
+  p {
+    font-size:19px;
+    line-height:30px;
+    margin-bottom:40px;
+  }
+}
+article.video {}
+article.text {}
+article.audio {}
 
 .viewall {
   font-size:11px;
