@@ -2,7 +2,7 @@ class SearchesController < ApplicationController
 
   def build
     @couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
-    @items = @couchbase.all_docs(:include_docs => true, :limit => 10).entries
+    @items = @couchbase.all_docs(:include_docs => true, :limit => 5).entries
     render :build
   end
 
@@ -13,7 +13,7 @@ class SearchesController < ApplicationController
     wiki = WikiCloth::Parser.new({
       :data => @item['content']
     })
-    @content = Sanitize.clean(wiki.to_html, :elements => ['p', 'ul', 'li', 'i', 'h2', 'h3'], :remove_contents => ['table', 'div'])
+    @content = Sanitize.clean(wiki.to_html, :elements => ['p', 'ul', 'li', 'i', 'h2', 'h3'], :remove_contents => ['table', 'div']).gsub(/\[[A-z0-9]+\]/, '')
 
     render :result
   end

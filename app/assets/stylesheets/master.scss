@@ -1,6 +1,8 @@
 @import "compass";
 @import "bootstrap";
 
+@import "partials/tags";
+
 //--------------------------------
 // Rumble Style Guide
 //--------------------------------
@@ -298,42 +300,6 @@ article {
     a {
       color:#4C4C4C;
     }
-  }
-  .tag-section {
-    margin-left:90px;
-  }
-}
-li.tag {
-  display:block;
-  float:left;
-  &.darker {
-    .tag-nub {
-      border-color:transparent #A3A3A3 transparent transparent;
-    }
-    .tag-text {
-      background-color:#A3A3A3;
-      color:#333333;
-    }
-  }
-  .tag-nub {
-    width: 0px;
-    height: 0px;
-    border-style: solid;
-    border-width: 9.5px 8.5px 9.5px 0;
-    border-color: transparent #e1e1e1 transparent transparent;
-    -webkit-transform:rotate(360deg);
-    float:left;
-  }
-  .tag-text {
-    color:#666666;
-    background-color:#e1e1e1;
-    font-size:11px;
-    font-weight:bold;
-    padding:0 5px;
-    border-radius:0 2px 2px 0;
-    float:left;
-    margin-right:5px;
-    margin-bottom:5px;
   }
 }
 article.single {
