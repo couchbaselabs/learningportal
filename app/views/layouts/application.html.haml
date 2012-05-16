@@ -51,5 +51,20 @@
             #articles.tab-pane tab2
             #videos.tab-pane tab3
             #images.tab-pane tab4
+          %section.pane
+            %h3 Popular Contributors
+            %ol
+              - 8.times do
+                %li
+                  .avatar
+                  .name Abbott, Isabella
+                  .counts 12 articles, 4 videos, 9 images
+          %section.pane
+            %h3 Popular Tags
+            %ul.tag-section
+            - 20.times do
+              %li.tag.darker
+                .tag-nub
+                .tag-text Category
         #body
           = yield
