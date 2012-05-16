@@ -15,7 +15,7 @@ public
 
   def build
     @couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
-    @items = @couchbase.all_docs(:include_docs => true, :limit => 10).entries
+    @items = @couchbase.all_docs(:include_docs => true, :limit => 5).entries
     @authors = Author.popular.take(8)
     @categories = Category.popular.take(25)
     render :build
@@ -24,12 +24,13 @@ public
   def result
     @couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
     @item = @couchbase.get(params[:id])
-    @authors = popular_authors
+    @authors = Author.popular.take(8)
 
     wiki = WikiCloth::Parser.new({
       :data => @item['content']
     })
-    @content = wiki.to_html
+    @content = Sanitize.clean(wiki.to_html, :elements => ['p', 'ul', 'li', 'i', 'h2', 'h3'], :remove_contents => ['table', 'div']).gsub(/\[[A-z0-9]+\]/, '')
+
     render :result
   end
 

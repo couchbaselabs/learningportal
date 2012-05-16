@@ -1,0 +1,32 @@
+.original-source {
+  color:#333333;
+  font-size:19px;
+  font-weight:bold;
+}
+
+.viewall {
+  border-color:#353535;
+  color:#BFBFBF;
+  font-size:11px;
+  height:16px;
+  float:right;
+  line-height:16px;
+  text-shadow:none;
+  @include background-image(linear-gradient(#666,#4c4c4c));
+  &:hover {
+    background:#4c4c4c;
+    color:#BFBFBF;
+  }
+}
+
+.btn-group {
+  float:left;
+  margin-top:6px;
+  button.btn {
+    width:125px;
+    text-align:left;
+  }
+  button.dropdown-toggle {
+    width:26px;
+  }
+}
