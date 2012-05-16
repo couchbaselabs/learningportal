@@ -51,8 +51,22 @@
             #articles.tab-pane tab2
             #videos.tab-pane tab3
             #images.tab-pane tab4
-          - @authors.each do |author|
-            %p= author.first
-            %p= author.last
+          %section.pane
+            %a.btn.viewall View all contributors
+            %h3 Popular Contributors
+            %ol
+              - @authors.each do |author|
+                %li
+                  .avatar
+                  .name= author.first
+                  .counts 12 articles, 4 videos, 9 images
+          %section.pane
+            %a.btn.viewall View all tags
+            %h3 Popular Tags
+            %ul.tag-section
+            - 20.times do
+              %li.tag
+                .tag-nub
+                .tag-text Category
         #body
           = yield

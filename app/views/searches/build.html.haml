@@ -10,23 +10,23 @@
         %span.caret
       %ul.dropdown-menu
         / dropdown menu links
-%nav.article-navigation
-  %ul
-    - @items.each do |item|
-      %li
-        .article
-          .icon
-          .article-body
-            %h3.title= link_to item['title'], result_search_path(:id => item.id)
-            %span.meta
-              Contributed by
-              = item['contributors'].first['name']
-              on
-              = Time.parse(item['contributors'].first['timestamp']).strftime('%B %d, %Y at %H:%M')
-            .tag-section
-              - tag_count = 1
-              - item['categories'].each do |category|
-              - next if tag_count >= 5
-              - tag_count += 1
-                %span.tag-nub
-                %span.tag= category
+%section.article-navigation
+  - @items.each do |item|
+    %article{:class => item['type']}
+      .article-body
+        %span.score
+          = succeed "%" do
+            = item['quality']
+        .icon
+        %h1= link_to item['title'], result_search_path(:id => item.id)
+        .meta
+          Contributed by
+          = item['contributors'].first['name']
+          on
+          = Time.parse(item['contributors'].first['timestamp']).strftime('%B %d, %Y at %H:%M')
+        %ul.tag-section
+          - item['categories'].each do |category|
+            %li.tag
+              .tag-nub
+              .tag-text= category
+          .clearfix
