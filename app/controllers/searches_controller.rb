@@ -1,7 +1,20 @@
 class SearchesController < ApplicationController
 
   def build
+    @couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
+    @items = @couchbase.all_docs(:include_docs => true, :limit => 10).entries
     render :build
+  end
+
+  def result
+    @couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
+    @item = @couchbase.get(params[:id])
+    
+    wiki = WikiCloth::Parser.new({
+      :data => @item['content']
+    })
+    @content = wiki.to_html
+    render :result
   end
 
   def show
