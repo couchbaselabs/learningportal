@@ -15,14 +15,4 @@
         = succeed ',' do
           = pluralize(@item['contributors'].size, 'other')
         76 views
-    %div= @content.html_safe
-    .contributors
-      %h4
-        = pluralize(@item['contributors'].size, 'Contributor').gsub(/^\d+\s/, "")
-        = surround '(', ')' do
-          = @item['contributors'].size
-      - @item['contributors'].each do |contributor|
-        .media.contributor
-          %a.img{:href => ""}
-            %img{:alt => "", :src => ""}/
-          .bd= contributor['name']
+      = render @item['type']

@@ -296,7 +296,7 @@ article {
     margin-bottom: 10px;
   }
   .meta {
-    margin-bottom: 12px;
+    margin-bottom: 35px;
     a {
       color: #4C4C4C;
     }
@@ -304,14 +304,17 @@ article {
 }
 article.single {
   position: absolute;
+  left:0;
+  right:0;
   h1 {
     font-size: 36px;
     color: #333;
     font-weight: bold;
   }
   .article-body {
-    padding: 60px;
     background-color: #E1E1E1;
+    min-width: 680px;
+    padding: 60px;
   }
   p {
     font-size: 19px;
