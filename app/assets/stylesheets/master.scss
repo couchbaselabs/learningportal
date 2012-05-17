@@ -39,13 +39,20 @@ ul {
   padding: 0;
 }
 
+#sidebar-inner {
+  position:absolute;
+  width:480px;
+}
+
 #sidebar {
   background-color:$sectionBg;
+  bottom:0;
   float: left;
-  height: 800px;
-  width: 480px;
+  height: auto;
+  overflow-y:scroll;
   position: fixed;
-  overflow-y: scroll;
+  top:0;
+  width: 480px;
   nav {
     padding: 0 20px;
     float: left;
@@ -217,9 +224,13 @@ section.pane {
   }
 }
 
-#body {
-  float: left;
-  min-width: 800px;
+#content {
+  bottom: 0;
+  left: 480px;
+  overflow-y: scroll;
+  position: fixed;
+  right: 0;
+  top: 42px;
 }
 
 nav.fixed-navigation {
@@ -252,9 +263,7 @@ nav.fixed-navigation {
 }
 
 .article-navigation {
-  margin-top: 42px;
   position: absolute;
-  left:480px;
 }
 article {
   background-color: $navListBg;

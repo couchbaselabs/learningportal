@@ -9,64 +9,65 @@
     .container-fluid
       .row-fluid
         #sidebar
-          %nav
-            %h1= link_to "LOGO", root_path
-            %ul
-              - if !current_user
-                %li
-                  = link_to "Sign in", new_user_session_path
-                %li
-                  = link_to "Sign up", new_user_registration_path
-              - if current_user
-                %li
-                  %a Admin
-                %li
-                  = link_to current_user.email, edit_user_registration_path
-                %li
-                  = link_to "logout", destroy_user_session_path, :method => :delete
-          .tagline
-            %h2 Discover content with the Learning Portal
-          %ul.tabbed-nav
-            %li
-              %a{"data-toggle" => "tab", :href => "#allcontent"}
-                %span.number 29391
-                %span.text All Content
-            %li
-              %a{"data-toggle" => "tab", :href => "#articles"}
-                %span.number 18451
-                %i.icon-align-justify.icon-white
-                %span.text Articles
-            %li
-              %a{"data-toggle" => "tab", :href => "#videos"}
-                %span.number 6983
-                %i.icon-play.icon-white
-                %span.text Videos
-            %li
-              %a{"data-toggle" => "tab", :href => "#images"}
-                %span.number 3957
-                %i.icon-picture.icon-white
-                %span.text Images
-          .tab-content
-            #allcontent.tab-pane.active tab1
-            #articles.tab-pane tab2
-            #videos.tab-pane tab3
-            #images.tab-pane tab4
-          %section.pane
-            %a.btn.viewall View all contributors
-            %h3 Top Contributors
-            %ol
-              - @authors.each do |author|
-                %li
-                  .avatar
-                  .name= author.name
-                  .counts= "#{author.contributions_count} all time contributions"
-          %section.pane
-            %a.btn.viewall View all tags
-            %h3 Popular Tags
-            %ul.tag-section
-            - @categories.each do |category|
-              %li.tag
-                .tag-nub
-                .tag-text= category.name
-        #body
+          #sidebar-inner
+            %nav
+              %h1= link_to "LOGO", root_path
+              %ul
+                - if !current_user
+                  %li
+                    = link_to "Sign in", new_user_session_path
+                  %li
+                    = link_to "Sign up", new_user_registration_path
+                - if current_user
+                  %li
+                    %a Admin
+                  %li
+                    = link_to current_user.email, edit_user_registration_path
+                  %li
+                    = link_to "logout", destroy_user_session_path, :method => :delete
+            .tagline
+              %h2 Discover content with the Learning Portal
+            %ul.tabbed-nav
+              %li
+                %a{"data-toggle" => "tab", :href => "#allcontent"}
+                  %span.number 29391
+                  %span.text All Content
+              %li
+                %a{"data-toggle" => "tab", :href => "#articles"}
+                  %span.number 18451
+                  %i.icon-align-justify.icon-white
+                  %span.text Articles
+              %li
+                %a{"data-toggle" => "tab", :href => "#videos"}
+                  %span.number 6983
+                  %i.icon-play.icon-white
+                  %span.text Videos
+              %li
+                %a{"data-toggle" => "tab", :href => "#images"}
+                  %span.number 3957
+                  %i.icon-picture.icon-white
+                  %span.text Images
+            .tab-content
+              #allcontent.tab-pane.active tab1
+              #articles.tab-pane tab2
+              #videos.tab-pane tab3
+              #images.tab-pane tab4
+            %section.pane
+              %a.btn.viewall View all contributors
+              %h3 Top Contributors
+              %ol
+                - @authors.each do |author|
+                  %li
+                    .avatar
+                    .name= author.name
+                    .counts= "#{author.contributions_count} all time contributions"
+            %section.pane
+              %a.btn.viewall View all tags
+              %h3 Popular Tags
+              %ul.tag-section
+              - @categories.each do |category|
+                %li.tag
+                  .tag-nub
+                  .tag-text= category.name
+        #content
           = yield
