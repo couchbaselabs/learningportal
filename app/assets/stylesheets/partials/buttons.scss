@@ -1,32 +1,65 @@
 .original-source {
-  color:#333333;
-  font-size:19px;
-  font-weight:bold;
+  color: #333333;
+  font-size: 19px;
+  font-weight: bold;
 }
 
 .viewall {
-  border-color:#353535;
-  color:#BFBFBF;
-  font-size:11px;
-  height:16px;
-  float:right;
-  line-height:16px;
-  text-shadow:none;
+  border-color: #353535;
+  color: #BFBFBF;
+  font-size: 11px;
+  height: 16px;
+  float: right;
+  line-height: 16px;
+  text-shadow: none;
   @include background-image(linear-gradient(#666,#4c4c4c));
   &:hover {
-    background:#4c4c4c;
-    color:#BFBFBF;
+    background: #4c4c4c;
+    color: #BFBFBF;
   }
 }
 
 .btn-group {
-  float:left;
-  margin-top:6px;
+  float: left;
+  margin-top: 6px;
   button.btn {
-    width:125px;
-    text-align:left;
+    width: 125px;
+    text-align: left;
   }
   button.dropdown-toggle {
-    width:26px;
+    width: 26px;
   }
 }
+
+.iosstyle {
+  @include background-image(linear-gradient(#FFF,#E7E7E7));
+  @include border-radius(5px);
+  color: #333333;
+  display: inline-block;
+  padding: 4px 10px;
+  border: solid 1px rgba(79, 79, 79, 0.75);
+  position: relative;
+  padding-left: 6px;
+  margin:6px 0 0 8px;
+  cursor:pointer;
+  &:hover {
+    text-decoration:none;
+  }
+  > span {
+    @include background-image(linear-gradient(#FFF,#E7E7E7));
+    @include border-top-radius(6px);
+    @include border-bottom-radius(6px);
+    @include rotate(45deg);
+    border-left: solid 2px rgba(79, 79, 79, 0.75);
+    border-bottom: solid 2px rgba(79, 79, 79, 0.75);
+    height: 21px;
+    width: 23px;
+    display: inline-block;
+    -webkit-mask-image: -webkit-gradient(linear, left bottom, right top, from(black), color-stop(0.5, black), color-stop(0.5, transparent), to(transparent));
+    position: absolute;
+    left: -8px;
+    top: 2px;
+
+    }
+  }
+

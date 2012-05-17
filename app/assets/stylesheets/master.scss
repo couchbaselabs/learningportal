@@ -193,7 +193,8 @@ section.pane {
       margin-bottom: 20px;
       margin-right: 50px;
       &:nth-child(even){
-        margin-right: 0;
+        margin-right: 10px;
+        float:right;
       }
     }
   }

@@ -1,15 +1,9 @@
 %nav.fixed-navigation
-  %span.title
-    %strong SHOWING: POPULAR CONTENT
-    (412 results)
+  = link_to root_path, :class => 'iosstyle' do
+    %span
+    Back to Results
   .right-fixed
-    %span.desc Sort By:
-    .btn-group
-      %button.btn Most Popular
-      %button.btn.dropdown-toggle{"data-toggle" => "dropdown"}
-        %span.caret
-      %ul.dropdown-menu
-        / dropdown menu links
+
 %article.single{:class => @item['type']}
   .article-body
     %header
