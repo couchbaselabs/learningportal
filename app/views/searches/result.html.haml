@@ -6,7 +6,7 @@
     %span.desc
       View Source:
       %a{:href => "#{@item['url']}"}
-        = truncate(@item['url'], :length => 30).gsub("http://", "")
+        = truncate(@item['url'].gsub("http://", ""), :length => 25)
 %article.single{:class => @item['type']}
   .article-body
     %header
