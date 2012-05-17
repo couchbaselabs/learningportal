@@ -1,6 +1,7 @@
 @import "compass";
 @import "bootstrap";
 
+@import "partials/colours";
 @import "partials/tags";
 @import "partials/buttons";
 
@@ -30,15 +31,21 @@
   display: none;
 }
 
+ul {
+  list-style-type: none;
+}
+
 .container-fluid {
   padding: 0;
 }
 
 #sidebar {
-  background-color:#666666;
+  background-color:$sectionBg;
   float: left;
   height: 800px;
   width: 480px;
+  position: fixed;
+  overflow-y: scroll;
   nav {
     padding: 0 20px;
     float: left;
@@ -47,7 +54,7 @@
     h1 {
       font-family: Helvetica;
       font-size:18px;
-      color: #FFF;
+      color: $white;
       height: 60px;
       line-height: 60px;
       float: left;
@@ -58,12 +65,11 @@
       li {
         margin-right: 20px;
         float: left;
-        list-style-type: none;
         &:last-child {
           margin-right: 0;
         }
         a {
-          color: #FFF;
+          color: $white;
           font-size: 15px;
           height: 60px;
           line-height: 60px;
@@ -90,7 +96,6 @@
     float: left;
     padding: 0;
     margin: 0;
-    list-style-type: none;
     width: 480px;
     li {
       width: 25%;
@@ -102,7 +107,7 @@
         height: 53px;
         padding-top: 15px;
         border-width: 2px 1px 1px 1px;
-        border-color: #000000 #454545 #000000 #000000;
+        border-color: $black #454545 $black $black;
         border-style: solid;
         padding-left: 20px;
         &:hover {
@@ -143,7 +148,7 @@
         a {
           border-bottom:1px solid #4c4c4c;
           .number, .text {
-            color: #FFF;
+            color: $white;
           }
           i {
             opacity: 1;
@@ -157,8 +162,8 @@
     .tab-pane {
       min-height: 60px;
       width: 440px;
-      color: #FFF;
-      border-bottom: 1px solid #000;
+      color: $white;
+      border-bottom: 1px solid $black;
       background-color: #4C4C4C;
       padding: 20px;
     }
@@ -177,7 +182,7 @@ section.pane {
   h3 {
     font-size: 19px;
     font-weight: normal;
-    color: #FFF;
+    color: $white;
     margin-bottom: 16px;
   }
   ol {
@@ -185,7 +190,7 @@ section.pane {
     li {
       float: left;
       list-style-position: inside;
-      color: #000;
+      color: $black;
       font-size: 13px;
       font-weight: bold;
       vertical-align: top;
@@ -197,12 +202,6 @@ section.pane {
         float:right;
       }
     }
-  }
-  .avatar {
-    width: 24px;
-    height: 24px;
-    background-color: #CCCCCC;
-    float: left;
   }
   .name {
     line-height: 10px;
@@ -230,7 +229,7 @@ nav.fixed-navigation {
   right: 0;
   top: 0;
   z-index: 9999;
-  color: #FFF;
+  color: $white;
   font-size: 13px;
   background-color: #A7A7A7;
   border-bottom: 1px solid #999;
@@ -255,11 +254,12 @@ nav.fixed-navigation {
 .article-navigation {
   margin-top: 42px;
   position: absolute;
+  left:480px;
 }
 article {
-  background-color: #BFBFBF;
+  background-color: $navListBg;
   border-bottom: 1px solid #999;
-  border-top: 1px solid #CCC;
+  border-top: 1px solid $lightTopBorderHighlight;
   width: auto;
   display: block;
   color: #4C4C4C;
@@ -296,6 +296,7 @@ article {
 article.single {
   margin-top: 42px;
   position: absolute;
+  left: 480px;
   h1 {
     font-size: 36px;
     color: #333;
@@ -304,9 +305,6 @@ article.single {
   .article-body {
     padding: 60px;
     background-color: #E1E1E1;
-  }
-  div {
-    font-size: 19px;
   }
   p {
     font-size: 19px;
@@ -327,3 +325,71 @@ article.single {
 article.video {}
 article.text {}
 article.audio {}
+
+article.single .contributors ul { //override
+  border-top: 1px solid #B7B7B7;
+  margin-top: 10px;
+  li{
+    margin-bottom:0;
+  }
+}
+
+.contributors {
+  margin-top: 50px;
+  h4 {
+    color: $lightTitle;
+    font-size: 19px;
+    font-weight: normal;
+    margin-bottom:10px;
+  }
+}
+
+.contributor {
+  border-color: $lightTopBorderHighlight transparent $lightBottomBorderHighlight transparent;
+  border-style: solid;
+  border-width: 1px;
+  margin: 0;
+  padding: 5px 0;
+  &:last-child {
+    border-bottom-color:$lightTopBorderHighlight;
+  }
+}
+
+.avatar {
+  background-color: $avatarPlaceholder;
+  float: left;
+  height: 24px;
+  margin-right: 10px;
+  width: 24px;
+}
+
+.media {
+  margin: 0;
+}
+
+.media, .bd {
+  color: $black;
+  font-size: 13px;
+  font-weight: bold;
+  height: 24px;
+  line-height: 24px;
+  overflow: hidden;
+  _overflow: visible;
+  zoom: 1;
+}
+
+.media .img {
+  float: left;
+  margin-right: 10px;
+}
+
+.media .img img {
+  display: block;
+  height: 24px;
+  width: 24px;
+}
+
+.media .imgExt {
+  float: right;
+  margin-left: 10px;
+}
