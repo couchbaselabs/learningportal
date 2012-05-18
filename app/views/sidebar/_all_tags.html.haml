@@ -1,7 +1,5 @@
 %section.pane
-  %h3 All Tags
-  %ul.tag-section
-  - @categories.each do |category|
-    %li.tag
-      .tag-nub
-      .tag-text= category.name
+  %h3 Find a Tag
+  - ("A".."Z").each do |letter|
+    = link_to letter, root_path, :class => 'letter-link'
+  = link_to "Other", root_path, :class => 'letter-link other'
