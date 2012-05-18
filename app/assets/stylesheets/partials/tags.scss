@@ -7,17 +7,17 @@ li.tag {
   float: left;
   &.darker {
     .tag-nub {
-      border-color: transparent $tagDark transparent transparent;
+      border-color: transparent $tag transparent transparent;
     }
     .tag-text {
       color: #333333;
-      background-color: $tagDark;
+      background-color: $tag;
     }
   }
 }
 
 .tag-nub {
-  border-color: transparent $tagLight transparent transparent;
+  border-color: transparent $tag transparent transparent;
   border-style: solid;
   border-width: 9.5px 8.5px 9.5px 0;
   float: left;
@@ -25,7 +25,7 @@ li.tag {
 }
 
 .tag-text {
-  background-color: $tagLight;
+  background-color: $tag;
   border-radius: 0 2px 2px 0;
   color: #666666;
   float: left;

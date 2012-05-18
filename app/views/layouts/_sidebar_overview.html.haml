@@ -10,8 +10,8 @@
 %section.pane
   = link_to "View all tags", tag_sidebar_path, :remote => true, :class => 'btn viewall'
   %h3 Popular Tags
-  %ul.tag-section
-  - @categories.each do |category|
-    %li.tag
-      .tag-nub
-      .tag-text= category.name
+  %ul
+    - @categories.each do |category|
+      %li.tag
+        .tag-nub
+        .tag-text= category.name

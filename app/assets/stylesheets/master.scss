@@ -40,6 +40,7 @@
 
 ul {
   list-style-type: none;
+  margin: 0;
 }
 
 .container-fluid {
@@ -189,11 +190,12 @@ ul {
 }
 
 section.pane {
-  float: left;
-  width: 440px;
-  padding: 13px 20px;
-  border-top: 1px solid #858585;
+  background-color: $sectionBg;
   border-bottom: 1px solid #4C4C4C;
+  border-top: 1px solid #858585;
+  float: left;
+  padding: 13px 20px;
+  width: 440px;
   &:last-child{
     border-bottom: 0;
   }
@@ -435,4 +437,41 @@ article.single .contributors ul { //override
 
 .letter-link.other {
   width: 58px;
+}
+
+.pane.tag-nav {
+  border-bottom: 0;
+}
+
+.pane.tag-results {
+  border-top: 0;
+  margin-top: 7px;
+}
+
+.separator {
+  background-color: $separatorBg;
+  border-color: $separatorBorderTop transparent $separatorBorderBottom transparent;
+  border-width: 1px 0 2px 0;
+  border-style: solid;
+  color: $separatorColor;
+  float: left;
+  font-size: 11px;
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px;
+  margin: 5px 0 0 0;
+  padding: 0 20px;
+  width: 440px;
+}
+
+.resultcount {
+  font-weight: normal;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
 }

@@ -1,5 +1,19 @@
-%section.pane
+%section.pane.tag-nav
   %h3 Find a Tag
   - ("A".."Z").each do |letter|
-    = link_to letter, root_path, :class => 'letter-link'
-  = link_to "Other", root_path, :class => 'letter-link other'
+    = link_to letter, root_path, :class => 'letter-link', :remote => true
+  = link_to "Other", root_path, :class => 'letter-link other', :remote => true
+.separator
+  %span.fl
+    SHOWING: TAGS,
+    %span.description
+    = surround "'", "'" do
+      Popular
+  %span.fr.resultcount
+    = pluralize(@categories.size, 'Result')
+%section.pane.tag-results
+  %ul
+    - @categories.each do |category|
+      %li.tag
+        .tag-nub
+        .tag-text= category.name
