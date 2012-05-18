@@ -4,6 +4,7 @@
 @import "partials/colours";
 @import "partials/tags";
 @import "partials/buttons";
+@import "partials/forms";
 
 //--------------------------------
 // Rumble Style Guide
@@ -408,12 +409,4 @@ article.single .contributors ul { //override
 .media .imgExt {
   float: right;
   margin-left: 10px;
-}
-
-.centered-form {
-  margin: 0 auto;
-  padding: 0 20px;
-  position: relative;
-  top: 140px;
-  width: 215px;
 }
