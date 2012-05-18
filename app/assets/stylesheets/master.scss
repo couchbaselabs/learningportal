@@ -31,6 +31,12 @@
   display: none;
 }
 
+.simple {
+  background-color: $bodyBg;
+  height: 100%;
+  vertical-align: baseline;
+}
+
 ul {
   list-style-type: none;
 }
@@ -402,4 +408,11 @@ article.single .contributors ul { //override
 .media .imgExt {
   float: right;
   margin-left: 10px;
+}
+
+.centered-form {
+  margin: 0 auto;
+  width: 300px;
+  position: relative;
+  top: 140px;
 }
