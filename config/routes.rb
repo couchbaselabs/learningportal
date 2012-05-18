@@ -1,5 +1,7 @@
 LearningPortal::Application.routes.draw do
 
+  get "sidebar/all_tags"
+
   devise_for :users, :controllers => {
     :registrations  =>  "registrations",
     :sessions       =>  "sessions",
@@ -12,4 +14,5 @@ LearningPortal::Application.routes.draw do
     end
   end
   root :to => 'searches#build'
+  match '/tag_sidebar' => 'sidebar#all_tags', :as => :tag_sidebar
 end

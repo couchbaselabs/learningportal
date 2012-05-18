@@ -16,6 +16,3 @@
 // Loads all Bootstrap javascripts
 //= require bootstrap
 
-$(function () {
-  $('.tabbed-nav a:first').tab('show');
-})

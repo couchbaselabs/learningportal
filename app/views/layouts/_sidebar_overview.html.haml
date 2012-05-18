@@ -1,0 +1,17 @@
+%section.pane
+  = link_to "View all contributors", root_path, :remote => true, :class => 'btn viewall'
+  %h3 Top Contributors
+  %ol
+    - @authors.each do |author|
+      %li
+        .avatar
+        .name= author.name
+        .counts= "#{author.contributions_count} contributions"
+%section.pane
+  = link_to "View all tags", tag_sidebar_path, :remote => true, :class => 'btn viewall'
+  %h3 Popular Tags
+  %ul.tag-section
+  - @categories.each do |category|
+    %li.tag
+      .tag-nub
+      .tag-text= category.name

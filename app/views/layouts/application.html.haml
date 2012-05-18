@@ -48,26 +48,10 @@
                   %i.icon-picture.icon-white
                   %span.text Images
             .tab-content
-              #allcontent.tab-pane.active tab1
+              #allcontent.tab-pane tab1
               #articles.tab-pane tab2
               #videos.tab-pane tab3
               #images.tab-pane tab4
-            %section.pane
-              %a.btn.viewall View all contributors
-              %h3 Top Contributors
-              %ol
-                - @authors.each do |author|
-                  %li
-                    .avatar
-                    .name= author.name
-                    .counts= "#{author.contributions_count} contributions"
-            %section.pane
-              %a.btn.viewall View all tags
-              %h3 Popular Tags
-              %ul.tag-section
-              - @categories.each do |category|
-                %li.tag
-                  .tag-nub
-                  .tag-text= category.name
+            = render "layouts/sidebar_overview"
         #content
           = yield

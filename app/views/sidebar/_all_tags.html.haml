@@ -1,0 +1,7 @@
+%section.pane
+  %h3 All Tags
+  %ul.tag-section
+  - @categories.each do |category|
+    %li.tag
+      .tag-nub
+      .tag-text= category.name
