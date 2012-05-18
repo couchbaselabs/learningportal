@@ -1,7 +1,7 @@
 class SidebarController < ApplicationController
 
   def all_tags
-    @categories = Category.popular.take(10)
+    @categories = Category.popular.take(20)
 
     respond_to do |format|
       format.js { render :layout => false }
