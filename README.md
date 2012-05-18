@@ -50,6 +50,7 @@ Download and install this updated `libcouchbase` homebrew recipe.
 
     open /Applications/Couchbase\ Server.app/
 
+    rake db:seed               # seed content from wikipedia
     foreman start              # start rails app server and elasticsearch
 
     open http://localhost:8091 # couchbase admin
