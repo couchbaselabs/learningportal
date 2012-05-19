@@ -1,5 +1,5 @@
 %section.pane
-  = link_to "View all contributors", root_path, :remote => true, :class => 'btn viewall'
+  = link_to "View all contributors", contributor_sidebar_path, :remote => true, :class => 'btn viewall'
   %h3 Top Contributors
   %ol
     - @authors.each do |author|

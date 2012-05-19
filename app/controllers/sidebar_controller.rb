@@ -8,4 +8,12 @@ class SidebarController < ApplicationController
     end
   end
 
+  def all_contributors
+    @authors = Author.popular.take(15)
+
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
+  end
+
 end

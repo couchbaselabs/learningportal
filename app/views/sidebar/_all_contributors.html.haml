@@ -1,0 +1,20 @@
+%section.pane.tag-nav
+  %h3 Find a Tag
+  - ("A".."Z").each do |letter|
+    = link_to letter, root_path, :class => 'letter-link', :remote => true
+  = link_to "Other", root_path, :class => 'letter-link other', :remote => true
+.separator
+  %span.fl
+    SHOWING: CONTRIBUTORS,
+    %span.description
+    = surround "'", "'" do
+      All
+  %span.fr.resultcount
+    = pluralize(@authors.size, 'Result')
+%section.pane
+  %ol
+    - @authors.each do |author|
+      %li.no-count
+        .avatar
+        .name= author.name
+        .counts= "#{author.contributions_count} contributions"

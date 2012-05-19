@@ -1,0 +1,2 @@
+$('#sidebar-inner .pane').remove();
+$('#sidebar-inner').append('<%= j(render :partial => 'all_contributors', :locals => { :authors => @authors }) %>');
