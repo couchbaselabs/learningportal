@@ -1,5 +1,9 @@
+.section-header
+  = link_to root_path, :class => 'iosstyle fl ios-back' do
+    %span
+    Back
+  Find a Contributor
 %section.pane.tag-nav
-  %h3 Find a Contributor
   - ("A".."Z").each do |letter|
     = link_to letter, root_path, :class => 'letter-link', :remote => true
   = link_to "Other", root_path, :class => 'letter-link other', :remote => true
@@ -9,9 +13,10 @@
     %span.description
     = surround "'", "'" do
       All
-  %span.fr.resultcount
-    = pluralize(@authors.size, 'Result')
-%section.pane
+  %span.resultcount
+    = surround "(", ")" do
+      = pluralize(@authors.size, 'Result')
+%section.pane.contributor-results
   %ol
     - @authors.each do |author|
       %li.no-count

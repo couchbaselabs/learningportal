@@ -188,16 +188,29 @@ ul {
   }
 }
 
+.section-header {
+  background-color: $sectionHeaderBg;
+  border-bottom: 1px solid $sectionHeaderBorders;
+  border-top: 1px solid $sectionHeaderBorders;
+  color: #BBBBBB;
+  float: left;
+  font-size: 17px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  width: 480px;
+  position: relative;
+  &:first-child {
+    border-top: 0;
+  }
+}
+
 section.pane {
   background-color: $sectionBg;
-  border-bottom: 1px solid #4C4C4C;
   border-top: 1px solid #858585;
   float: left;
   padding: 13px 20px;
   width: 440px;
-  &:last-child{
-    border-bottom: 0;
-  }
   h3 {
     font-size: 19px;
     font-weight: normal;
@@ -442,29 +455,26 @@ article.single .contributors ul { //override
   border-bottom: 0;
 }
 
-.pane.tag-results {
+.pane.tag-results, .pane.contributor-results {
   border-top: 0;
-  margin-top: 7px;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .separator {
-  background-color: $separatorBg;
-  border-color: $separatorBorderTop transparent $separatorBorderBottom transparent;
-  border-width: 1px 0 2px 0;
-  border-style: solid;
   color: $separatorColor;
   float: left;
   font-size: 11px;
   font-weight: bold;
-  height: 30px;
   line-height: 30px;
   margin: 5px 0 0 0;
-  padding: 0 20px;
+  padding: 10px 20px;
   width: 440px;
 }
 
 .resultcount {
   font-weight: normal;
+  margin-left: 5px;
 }
 
 .content-tags {

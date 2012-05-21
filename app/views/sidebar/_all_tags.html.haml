@@ -1,5 +1,9 @@
+.section-header
+  = link_to root_path, :class => 'iosstyle fl ios-back' do
+    %span
+    Back
+  Find a Tag
 %section.pane.tag-nav
-  %h3 Find a Tag
   - ("A".."Z").each do |letter|
     = link_to letter, root_path, :class => 'letter-link', :remote => true
   = link_to "Other", root_path, :class => 'letter-link other', :remote => true
@@ -9,8 +13,9 @@
     %span.description
     = surround "'", "'" do
       Popular
-  %span.fr.resultcount
-    = pluralize(@categories.size, 'Result')
+  %span.resultcount
+    = surround "(", ")" do
+      = pluralize(@categories.size, 'Result')
 %section.pane.tag-results
   %ul
     - @categories.each do |category|
