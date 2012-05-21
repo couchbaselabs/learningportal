@@ -1,2 +1,10 @@
-%div
-  Tags
+.tags.clearfix
+  %h4 
+    = pluralize(@item['categories'].size, 'Tags').gsub(/^\d+\s/, "")
+    = surround '(', ')' do
+      = @item['categories'].size
+  %ul
+  - @item['categories'].each do |tag|
+    %li.tag
+      .tag-nub
+      .tag-text= tag
