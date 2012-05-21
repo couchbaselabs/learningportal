@@ -48,10 +48,10 @@
                   %i.icon-picture.icon-white
                   %span.text Images
             .tab-content
-              #allcontent.tab-pane tab1
-              #articles.tab-pane tab2
-              #videos.tab-pane tab3
-              #images.tab-pane tab4
+              #allcontent.tab-pane= render "sidebar/sidebar_search"
+              #articles.tab-pane= render "sidebar/sidebar_search"
+              #videos.tab-pane= render "sidebar/sidebar_search"
+              #images.tab-pane= render "sidebar/sidebar_search"
             = render "layouts/sidebar_overview"
         #content
           = yield

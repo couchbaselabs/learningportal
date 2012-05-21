@@ -11,19 +11,64 @@
 
 .cta {
   background-color: #CCCCCC;
-  @include border-radius(5px);
   height: 38px;
   line-height: 38px;
   right: 20px;
   top: 20px;
   padding: 0 15px;
   position: absolute;
+  @include border-radius(5px);
 }
 
 .forgot-pass {
   height: 37px;
   line-height: 37px;
   margin-left: 15px;
+}
+
+.search-filter {
+  background-color: #BFBFBF;
+  border: 1px solid $black;
+  float: left;
+  font-size: 15px;
+  color: #4C4C4C;
+  height: 12px;
+  line-height: 12px;
+  padding: 15px 6px 15px 10px;
+  width: 72px;
+  @include border-radius(3px 0 0 3px);
+  span {
+    vertical-align: top;
+  }
+}
+
+.search-form {
+  margin: 0;
+  position: relative;
+}
+
+.search-field {
+  border-color: $black;
+  border-style: solid;
+  border-width: 1px 1px 1px 0;
+  color: #999999;
+  font-size: 15px;
+  height: 34px;
+  margin-bottom: 0;
+  padding: 4px 30px 4px 14px;
+  width: 305px;
+  @include border-radius(0 3px 3px 0);
+}
+
+.search-icon {
+  background-image: url("http://twitter.github.com/bootstrap/assets/img/glyphicons-halflings.png");
+  background-position: -48px 0;
+  height: 14px;
+  right: 14px;
+  position: absolute;
+  top: 15px;
+  z-index: 300;
+  width: 14px;
 }
 
 input {
