@@ -1,0 +1,13 @@
+.cta
+  Already a member?
+  = link_to "Sign in", new_session_path(resource_name)
+.centered-form
+  %h2 Sign up
+  = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+    = f.error_notification
+    .inputs
+      = f.input :email, :label => "Email address", :required => true, :autofocus => true
+      = f.input :password, :required => true
+      = f.input :password_confirmation, :required => true
+    .actions
+      = f.button :submit, "Sign up now", :class => "btn-primary btn-large"

@@ -1,0 +1,13 @@
+.cta
+  Not a member?
+  = link_to "Sign up now", new_registration_path(resource_name)
+.centered-form
+  %h2 Sign in
+  = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+    .inputs
+      = f.input :email, :label => "Email address", :required => false, :autofocus => true
+      = f.input :password, :required => false
+      = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
+    .actions
+      = f.button :submit, "Sign in", :class => "btn-primary btn-large fl"
+      = link_to "Forgot your password?", new_password_path(resource_name), :class => "forgot-pass"

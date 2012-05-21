@@ -3,5 +3,29 @@
   padding: 0 20px;
   position: relative;
   top: 140px;
-  width: 215px;
+  width: 260px;
+  h2 {
+    margin-bottom: 20px;
+  }
+}
+
+.cta {
+  background-color: #CCCCCC;
+  @include border-radius(5px);
+  height: 38px;
+  line-height: 38px;
+  right: 20px;
+  top: 20px;
+  padding: 0 15px;
+  position: absolute;
+}
+
+.forgot-pass {
+  height: 37px;
+  line-height: 37px;
+  margin-left: 15px;
+}
+
+input {
+  width: 260px;
 }
