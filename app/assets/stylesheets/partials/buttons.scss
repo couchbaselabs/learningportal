@@ -54,11 +54,18 @@
   .ios-back {
     position: absolute;
     left: 5px;
+    line-height: 16px;
+    height: 16px;
     font-size:11px;
     color:#BFBFBF;
     border:1px solid $iosButtonDarkBorder;
     background: $iosButtonDarkBg;
+    margin-top: 7px;
     > span {
+      left: -7px;
+      top: 2px;
+      height: 19px;
+      width: 20px;
       background: $iosButtonDarkBg;
       border: 1px solid $iosButtonDarkBorder;
     }
