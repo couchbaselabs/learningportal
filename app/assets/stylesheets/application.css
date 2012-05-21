@@ -11,3 +11,7 @@
  *= require_self
  *= require master
 */
+
+.tag .delete {
+  background-color: lightcoral;
+}

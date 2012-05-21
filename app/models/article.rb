@@ -13,6 +13,7 @@ class Article
 
   def update_attributes(attributes)
     attributes.each do |name, value|
+      next if (name == "new_category" || "delete_category") && !value.present?
       # next unless @@keys.include?(name.to_sym)
       send("#{name}=", value)
     end
@@ -23,7 +24,12 @@ class Article
     attrs[key]
   end
 
-  def new_category; ""; end
+  def new_category; nil; end
+  def delete_category; nil; end
+
+  def delete_category=(category)
+    self.categories.delete(category) if self.categories.include?(category)
+  end
 
   def new_category=(category)
     self.categories << category

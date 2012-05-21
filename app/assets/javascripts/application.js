@@ -16,3 +16,15 @@
 // Loads all Bootstrap javascripts
 //= require bootstrap
 
+$(function(){
+  $('article .tags .tag').each(function(){
+    $(this).click(function(){
+      var elem = $(this)
+      var tag  = elem.find('.tag-text')
+      remove_category = $('#article_delete_category')
+      remove_category.val(tag.text())
+      tag.addClass('delete')
+      $('article form').submit()
+    })
+  })
+})
