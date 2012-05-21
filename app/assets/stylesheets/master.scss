@@ -356,7 +356,7 @@ article.single .contributors ul { //override
   }
 }
 
-.contributors {
+.contributors, .content-tags {
   margin-top: 50px;
   h4 {
     color: $lightTitle;
@@ -465,6 +465,14 @@ article.single .contributors ul { //override
 
 .resultcount {
   font-weight: normal;
+}
+
+.content-tags {
+  ul {
+    border-top: 1px solid #B7B7B7;
+    margin: 0px 0 20px 0;
+    padding-top: 10px;
+  }
 }
 
 .no-count {

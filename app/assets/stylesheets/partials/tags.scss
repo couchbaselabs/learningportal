@@ -35,3 +35,14 @@ li.tag {
   margin-right: 5px;
   padding: 0 5px;
 }
+
+.meta-tag {
+  margin-left: 10px;
+}
+
+article.single .content-tags ul {
+  margin-top: 0;
+}
+article.single li.tag {
+  margin-bottom: 0;
+}
