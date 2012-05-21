@@ -1,6 +1,33 @@
 class Article
 
+  include ActiveModel::Validations
+  include ActiveModel::Conversion
+  extend ActiveModel::Callbacks
+  extend ActiveModel::Naming
+
+  def persisted?
+    @id
+  end
+
   attr_accessor :id, :categories, :attrs
+
+  def update_attributes(attributes)
+    attributes.each do |name, value|
+      # next unless @@keys.include?(name.to_sym)
+      send("#{name}=", value)
+    end
+    update
+  end
+
+  def [](key)
+    attrs[key]
+  end
+
+  def new_category; ""; end
+
+  def new_category=(category)
+    self.categories << category
+  end
 
   def self.find(id)
     id = id.to_s if id.kind_of?(Fixnum)

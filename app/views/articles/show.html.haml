@@ -1,0 +1,25 @@
+%nav.fixed-navigation
+  = link_to root_path, :class => 'iosstyle' do
+    %span
+    Back to Results
+  .right-fixed
+    %span.desc
+      View Source:
+      %a{:href => "#{@article['url']}"}
+        = truncate(@article['url'].gsub("http://", ""), :length => 25)
+%article.single{:class => @article['type']}
+  .article-body
+    %header
+      %h1= @article['title']
+      .meta
+        .meta-text.fl
+          Contributed by
+          = @article['contributors'].first['name']
+          and
+          = succeed ',' do
+            = pluralize(@article['contributors'].size, 'other')
+          76 views
+        .meta-tag.fl
+          .tag-nub
+          .tag-text= pluralize(@article['categories'].size, 'tag')
+      = render @article['type']

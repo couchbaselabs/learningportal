@@ -27,6 +27,8 @@ public
     @authors = Author.popular.take(8)
     @categories = Category.popular.take(10)
 
+    @article = Article.find(params[:id])
+
     wiki = WikiCloth::Parser.new({
       :data => @item['content']
     })

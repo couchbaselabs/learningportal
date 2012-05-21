@@ -8,6 +8,8 @@ LearningPortal::Application.routes.draw do
     :passwords      =>  "passwords"
   }
 
+  resources :articles
+
   resource :search do
     collection do
       get :result
