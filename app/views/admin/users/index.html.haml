@@ -1,5 +1,12 @@
-%h3= "Users (#{User.count})"
-%table.table.table-condensed
+%h2.pull-left.floated-admin-title= "Contributors (#{User.count})"
+%div.pull-right
+  .btn-group
+    %button.btn Show All
+    %button.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+      %span.caret
+    %ul.dropdown-menu
+      / dropdown menu links
+%table.table.table-bordered.admin-table
   %thead
     %tr
       %th Name
@@ -7,13 +14,26 @@
       %th Videos
       %th Images
       %th Last Logged In
-      %th View Count
+      %th Items Accessed
   %tbody
   - @users.each do |user|
     %tr
-      %td= user.email
+      %td= user.name
       %td= 0
       %td= 0
+      %td= time_ago_in_words(user.last_sign_in_at)
       %td= 0
-      %td= user.last_sign_in_at
-      %td= 0
+.pagination
+  %ul
+    %li
+      %a{:href => "#"} &larr;
+    %li.active
+      %a{:href => "#"} 1
+    %li
+      %a{:href => "#"} 2
+    %li
+      %a{:href => "#"} 3
+    %li
+      %a{:href => "#"} 4
+    %li
+      %a{:href => "#"} &rarr;

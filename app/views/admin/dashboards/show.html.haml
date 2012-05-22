@@ -1,10 +1,33 @@
-%h1 Snapshots (n/a)
-%table.table.table-bordered
+%h2.pull-left.floated-admin-title Snapshots (n/a)
+.btn.btn-small.btn-primary.pull-right.dashboard-button Login as a Random User
+.btn.btn-small.btn-primary.pull-right.dashboard-button Trigger User Interaction
+.btn.btn-small.btn-primary.pull-right.dashboard-button New Snapshot
+%table.table.table-bordered.admin-table
   %thead
     %tr
-      %th …
-      %th …
+      %th Period
+      %th Article Views
+      %th Video Views
+      %th Image Views
+      %th Total Views
   %tbody
+    - 4.times do
+      %tr
+        %td 12/01/12, 6pm - 13/01/12, 6pm
+        %td 121
+        %td 322
+        %td 131
+        %td 574
+%h2 Overall Statistics
+%table.table.table-bordered.admin-table
+  %thead
     %tr
-      %td …
-      %td …
+      %th Content Type
+      %th Number of Items
+      %th Views
+  %tbody
+    - 4.times do
+      %tr
+        %td Articles
+        %td 18,451
+        %td 12,143
