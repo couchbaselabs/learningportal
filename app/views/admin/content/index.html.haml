@@ -1,18 +1,40 @@
-%h3
-  = "Content (0)"
-%table.table.table-condensed
+%h2.pull-left.floated-admin-title Content (n/a)
+%div.pull-right
+  .btn-group
+    %button.btn Show All
+    %button.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+      %span.caret
+    %ul.dropdown-menu
+      / dropdown menu links
+%table.table.table-bordered.admin-table
   %thead
     %tr
       %th Name
       %th Type
-      %th Author
-      %th View Count
-      %th Tag Count
+      %th Contributed By
+      %th Views
+      %th Tags
   %tbody
-  - 5.times do |i|
+  - 8.times do |i|
     %tr
-      %td= "article name"
-      %td= "Article"
-      %td= "name"
-      %td= 0
-      %td= 0
+      %td= "Article Name"
+      %td= "Type"
+      %td= "Some Guy"
+      %td= "2400"
+      %td
+        = "tagname"
+        %span.btn.btn-mini.pull-right Edit Tags
+.pagination
+  %ul
+    %li
+      %a{:href => "#"} &larr;
+    %li.active
+      %a{:href => "#"} 1
+    %li
+      %a{:href => "#"} 2
+    %li
+      %a{:href => "#"} 3
+    %li
+      %a{:href => "#"} 4
+    %li
+      %a{:href => "#"} &rarr;
