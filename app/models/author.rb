@@ -2,7 +2,7 @@ class Author < Couchbase::Model
 
   attr_accessor :name, :contributions_count
   @@keys = [:name, :contributions_count]
-  view :by_contribution_count
+  view :by_contribution_count, :by_contribution_count_and_type
 
   def self.popular
     results = Couch.client.design_docs["author"].by_contribution_count(:descending => true, :group => true).entries
