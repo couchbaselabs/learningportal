@@ -5,7 +5,7 @@ class Author < Couchbase::Model
   view :by_contribution_count
 
   def self.popular
-    results = by_contribution_count(:descending => true, :group => true).entries
+    results = Couch.client.design_docs["author"].by_contribution_count(:descending => true, :group => true).entries
     results.map! { |result| new(:name => result.key, :contributions_count => result.value) }
     results.sort! {|a,b| a.contributions_count <=> b.contributions_count}.reverse!
   end
