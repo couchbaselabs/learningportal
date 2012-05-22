@@ -1,5 +1,4 @@
-%h3
-  = pluralize(User.count, "User")
+%h3= "Users (#{User.count})"
 %table.table.table-condensed
   %thead
     %tr

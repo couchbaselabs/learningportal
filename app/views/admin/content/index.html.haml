@@ -1,2 +1,18 @@
-%p 
-  app/views/admin/content#index
+%h3
+  = "Content (0)"
+%table.table.table-condensed
+  %thead
+    %tr
+      %th Name
+      %th Type
+      %th Author
+      %th View Count
+      %th Tag Count
+  %tbody
+  - 5.times do |i|
+    %tr
+      %td= "article name"
+      %td= "Article"
+      %td= "name"
+      %td= 0
+      %td= 0
