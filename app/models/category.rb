@@ -5,7 +5,7 @@ class Category < Couchbase::Model
   view :by_popularity
 
   def self.popular
-    results = Category.by_popularity(:descending => true, :group => true).entries
+    results = by_popularity(:descending => true, :group => true).entries
     results.map! { |result| new(:name => result.key, :count => result.value) }
     results.sort! {|a,b| a.count <=> b.count}.reverse!
   end
