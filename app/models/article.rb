@@ -58,4 +58,8 @@ class Article < Couchbase::Model
     Couch.client.set(@id, @attrs)
   end
 
+  def count_as_viewed
+    Couch.client.incr("view_count_#{id}", 1, :initial => 1)
+  end
+
 end

@@ -2,6 +2,8 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    @view_count = @article.count_as_viewed
+
     @authors = Author.popular.take(8)
     @categories = Category.popular.take(10)
 

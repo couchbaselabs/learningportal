@@ -18,7 +18,7 @@
           and
           = succeed ',' do
             = pluralize(@article['contributors'].size, 'other')
-          76 views
+          = pluralize(@view_count, 'view')
         .meta-tag.pull-left
           .tag-nub
           .tag-text= pluralize(@article['categories'].size, 'tag')
