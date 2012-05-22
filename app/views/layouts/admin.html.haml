@@ -6,6 +6,18 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          = link_to "Couchbase Learning Portal", admin_dashboard_path, :class => "brand"
+          %ul.nav
+            %li.active
+              = link_to "Dashboard", admin_dashboard_path
+            %li.active
+              = link_to "Content", admin_content_index_path
+            %li.active
+              = link_to "Users", admin_users_path
+
     .container-fluid
       .row-fluid
         = yield

@@ -13,6 +13,8 @@ LearningPortal::Application.routes.draw do
 
   namespace :admin do
     resource :dashboard
+    resources :content
+    resources :users
   end
 
   resource :search do
