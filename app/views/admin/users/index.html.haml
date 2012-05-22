@@ -1,0 +1,20 @@
+%h3
+  = pluralize(User.count, "User")
+%table.table.table-condensed
+  %thead
+    %tr
+      %th Name
+      %th Articles
+      %th Videos
+      %th Images
+      %th Last Logged In
+      %th View Count
+  %tbody
+  - @users.each do |user|
+    %tr
+      %td= user.email
+      %td= 0
+      %td= 0
+      %td= 0
+      %td= user.last_sign_in_at
+      %td= 0
