@@ -9,7 +9,8 @@ class Article < Couchbase::Model
     @id
   end
 
-  attr_accessor :id, :categories, :attrs
+  attr_accessor :id, :title, :type, :url, :author, :content, :categories, :attrs
+  @@keys = [:id, :title, :type, :url, :author, :content, :categories, :attrs]
 
   def update_attributes(attributes)
     attributes.each do |name, value|
@@ -41,13 +42,19 @@ class Article < Couchbase::Model
   end
 
   def initialize(attributes={})
-    @attrs = attributes.with_indifferent_access || {}
-    @id  = @attrs["id"].to_s
-    @categories = @attrs[:categories] || []
+    @errors = ActiveModel::Errors.new(self)
+
+    attributes.each do |name, value|
+      next unless @@keys.include?(name.to_sym)
+      send("#{name}=", value)
+    end
+
+    self.attrs = attributes.with_indifferent_access || {}
+    self.categories = self.attrs[:categories] || []
   end
 
   def update
-    @attrs.merge!(:categories => @categories)
+    @attrs.merge!(:categories => @categories, :title => @title)
     Couch.client.set(@id, @attrs)
   end
 

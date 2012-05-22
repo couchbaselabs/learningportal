@@ -1,4 +1,4 @@
-%h2.pull-left.floated-admin-title Content (n/a)
+%h2.pull-left.floated-admin-title= "Content (#{@articles.size})"
 %div.pull-right
   .btn-group
     %button.btn Show All
@@ -15,15 +15,16 @@
       %th Views
       %th Tags
   %tbody
-  - 8.times do |i|
+  - @articles.each do |article|
     %tr
-      %td= "Article Name"
-      %td= "Type"
-      %td= "Some Guy"
-      %td= "2400"
+      %td= article['title']
+      %td= article['type']
+      %td= article['authors'].first['name']
+      %td= "n/a"
       %td
-        = "tagname"
-        %span.btn.btn-mini.pull-right Edit Tags
+        - article['categories'].each do |category|
+          = "#{category}#{unless category == article['categories'].last then ',' end}"
+        = link_to "Edit", edit_admin_content_path(article.id), :class => "btn btn-mini pull-right"
 .pagination
   %ul
     %li

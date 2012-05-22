@@ -14,7 +14,7 @@ LearningPortal::Application.routes.draw do
   namespace :admin do
     root :to => 'dashboards#show'
     resource :dashboard
-    resources :content
+    resources :articles
     resources :users
   end
 
