@@ -1,5 +1,5 @@
 .tags.clearfix
-  %h4 
+  %h4
     = pluralize(@item['categories'].size, 'Tags').gsub(/^\d+\s/, "")
     = surround '(', ')' do
       = @item['categories'].size
@@ -12,5 +12,3 @@
 = simple_form_for @article do |f|
   = f.input :new_category
   = f.button :submit, "Update Tags"
-
-
