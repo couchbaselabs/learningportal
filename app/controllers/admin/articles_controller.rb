@@ -13,14 +13,15 @@ class Admin::ArticlesController < ApplicationController
 
   def update
     @article = Article.find(params[:id])
+    params[:article][:categories] = params[:article][:categories].split(',')
 
     respond_to do |format|
       if @article.update_attributes(params[:article])
-        format.html { redirect_to(@page, :notice => 'Article was successfully updated.') }
+        format.html { redirect_to(@article, :notice => 'Article was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @page.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @article.errors, :status => :unprocessable_entity }
       end
     end
   end
