@@ -12,14 +12,14 @@
     %header
       %h1.article-title= @article['title']
       .meta.clearfix
-        .meta-text.fl
+        .meta-text.pull-left
           Contributed by
           = @article['contributors'].first['name']
           and
           = succeed ',' do
             = pluralize(@article['contributors'].size, 'other')
           76 views
-        .meta-tag.fl
+        .meta-tag.pull-left
           .tag-nub
           .tag-text= pluralize(@article['categories'].size, 'tag')
       = render @article['type']

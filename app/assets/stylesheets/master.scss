@@ -1,11 +1,3 @@
-@import "compass";
-@import "bootstrap";
-
-@import "partials/colours";
-@import "partials/tags";
-@import "partials/buttons";
-@import "partials/forms";
-
 //--------------------------------
 // Rumble Style Guide
 //--------------------------------
@@ -26,6 +18,78 @@
 // 15. Do not use SCSS nesting except for;
 //      * referencing an element by id ONCE in a source file
 //      * applying styles to pseudo classes of an element
+
+@import "compass";
+
+// Bootstrap Partials
+// --------------------------------------------------
+
+// Core variables and mixins
+//@import "bootstrap/variables"; // Replace with partials/variables
+@import "partials/variables";
+@import "bootstrap/mixins";
+
+// CSS Reset
+@import "bootstrap/reset";
+
+// Grid system and page structure
+@import "bootstrap/scaffolding";
+@import "bootstrap/grid";
+@import "bootstrap/layouts";
+
+// Base CSS
+@import "bootstrap/type";
+//@import "bootstrap/code";
+@import "bootstrap/forms";
+@import "bootstrap/tables";
+
+// Components: common
+@import "bootstrap/sprites";
+@import "bootstrap/dropdowns";
+@import "bootstrap/wells";
+@import "bootstrap/component-animations";
+@import "bootstrap/close";
+
+// Components: Buttons & Alerts
+@import "bootstrap/buttons";
+@import "bootstrap/button-groups";
+@import "bootstrap/alerts"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
+
+// Components: Nav
+@import "bootstrap/navs";
+@import "bootstrap/navbar";
+@import "bootstrap/breadcrumbs";
+@import "bootstrap/pagination";
+@import "bootstrap/pager";
+
+// Components: Popovers
+@import "bootstrap/modals";
+@import "bootstrap/tooltip";
+@import "bootstrap/popovers";
+
+// Components: Misc
+@import "bootstrap/thumbnails";
+//@import "bootstrap/labels-badges";
+//@import "bootstrap/progress-bars";
+//@import "bootstrap/accordion";
+//@import "bootstrap/carousel";
+//@import "bootstrap/hero-unit";
+
+// Utility classes
+@import "bootstrap/utilities";
+
+// Learningportal Specific Partials
+@import "partials/colours";
+@import "partials/tags";
+@import "partials/buttons";
+@import "partials/forms";
+
+
+
+
+body {
+  background-color: #DDDDDD;
+}
 
 // MediaWiki markup cleanup
 .editsection{
@@ -279,12 +343,12 @@ nav.fixed-navigation {
   .right-fixed {
     float: right;
     height: 40px;
-    span.desc {
-      float: left;
-      height: 40px;
-      line-height: 40px;
-      margin-right: 10px;
-    }
+  }
+  .desc {
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    margin-right: 10px;
   }
 }
 
@@ -489,12 +553,4 @@ article.single .contributors ul { //override
 
 .no-count {
   list-style-type: none;
-}
-
-.fl {
-  float: left;
-}
-
-.fr {
-  float: right;
 }
