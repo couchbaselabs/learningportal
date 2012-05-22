@@ -295,10 +295,10 @@ article {
   background-color: $navListBg;
   border-bottom: 1px solid #999;
   border-top: 1px solid $lightTopBorderHighlight;
-  width: auto;
-  display: block;
   color: #4C4C4C;
+  display: block;
   font-size: 13px;
+  width: auto;
   .score {
     color: #E1E1E1;
     font-size: 25px;
@@ -314,13 +314,6 @@ article {
     background-color: #CCCCCC;
     margin-right: 30px;
   }
-  h1 {
-    font-weight: normal;
-    color: #0A72A3;
-    font-size: 25px;
-    line-height: 20px;
-    margin-bottom: 10px;
-  }
   .meta {
     margin-bottom: 35px;
     a {
@@ -328,14 +321,22 @@ article {
     }
   }
 }
+
+h1.article-title {
+  font-size: 25px;
+  line-height: 20px;
+  margin-bottom: 10px;
+  a {
+    color: $articleTitle;
+  }
+}
+
 article.single {
   position: absolute;
   left:0;
   right:0;
   h1 {
     font-size: 36px;
-    color: #333;
-    font-weight: bold;
   }
   .article-body {
     background-color: #E1E1E1;

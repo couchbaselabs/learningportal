@@ -10,8 +10,8 @@
 %article.single{:class => @article['type']}
   .article-body
     %header
-      %h1= @article['title']
-      .meta
+      %h1.article-title= @article['title']
+      .meta.clearfix
         .meta-text.fl
           Contributed by
           = @article['contributors'].first['name']
