@@ -12,6 +12,6 @@
  *= require master
 */
 
-.tag .delete {
-  background-color: lightcoral;
+body {
+  padding-top: 40px;
 }

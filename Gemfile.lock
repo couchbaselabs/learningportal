@@ -66,6 +66,8 @@ GEM
     couchbase (1.2.0.dp)
       yaji (~> 0.2.3)
       yajl-ruby (~> 1.1.0)
+    couchbase-model (0.1.0)
+      couchbase (~> 1.2.0.dp)
     daemons (1.1.8)
     delayed_job (3.0.1)
       activesupport (~> 3.0)
@@ -235,6 +237,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   compass-rails
   couchbase (= 1.2.0.dp)
+  couchbase-model
   delayed_job_active_record
   devise
   factory_girl_rails (~> 1.2)

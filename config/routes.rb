@@ -8,6 +8,16 @@ LearningPortal::Application.routes.draw do
     :passwords      =>  "passwords"
   }
 
+  resources :articles
+
+
+  namespace :admin do
+    root :to => 'dashboards#show'
+    resource :dashboard
+    resources :content
+    resources :users
+  end
+
   resource :search do
     collection do
       get :result

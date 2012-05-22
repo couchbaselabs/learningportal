@@ -18,7 +18,7 @@
           = succeed "%" do
             = item['quality']
         .icon
-        %h1= link_to item['title'], result_search_path(:id => item.id)
+        %h1= link_to item['title'], article_path(:id => item.id)
         .meta
           Contributed by
           = item['contributors'].first['name']
