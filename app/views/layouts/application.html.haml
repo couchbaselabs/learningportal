@@ -10,7 +10,7 @@
       .row-fluid
         #sidebar
           #sidebar-inner
-            %nav
+            %nav.header
               %h1= link_to "LOGO", root_path
               %ul
                 - if !current_user
@@ -30,21 +30,21 @@
             %ul.tabbed-nav
               %li
                 %a{"data-toggle" => "tab", :href => "#allcontent"}
-                  %span.number 29391
+                  %span.number 29,391
                   %span.text All Content
               %li
                 %a{"data-toggle" => "tab", :href => "#articles"}
-                  %span.number 18451
+                  %span.number 18,451
                   %i.icon-align-justify.icon-white
                   %span.text Articles
               %li
                 %a{"data-toggle" => "tab", :href => "#videos"}
-                  %span.number 6983
+                  %span.number 6,983
                   %i.icon-play.icon-white
                   %span.text Videos
               %li
                 %a{"data-toggle" => "tab", :href => "#images"}
-                  %span.number 3957
+                  %span.number 3,957
                   %i.icon-picture.icon-white
                   %span.text Images
             .tab-content
