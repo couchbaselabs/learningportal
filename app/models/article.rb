@@ -1,4 +1,4 @@
-class Article
+class Article < Couchbase::Model
 
   include ActiveModel::Validations
   include ActiveModel::Conversion
@@ -13,7 +13,7 @@ class Article
 
   def update_attributes(attributes)
     attributes.each do |name, value|
-      next if (name == "new_category" || "delete_category") && !value.present?
+      next if (name == "new_category" || name == "delete_category") && !value.present?
       # next unless @@keys.include?(name.to_sym)
       send("#{name}=", value)
     end
