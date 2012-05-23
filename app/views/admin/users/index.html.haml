@@ -18,10 +18,11 @@
   %tbody
   - @users.each do |user|
     %tr
-      %td= user.name
+      %td= user.email
       %td= 0
       %td= 0
-      %td= time_ago_in_words(user.last_sign_in_at)
+      %td= 0
+      %td= "#{time_ago_in_words(user.last_sign_in_at)} ago"
       %td= 0
 .pagination
   %ul
