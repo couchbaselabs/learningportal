@@ -71,6 +71,31 @@
   width: 14px;
 }
 
-input {
-  width: 260px;
+.edit_article { // Overrides for simple_form
+  margin-top: 30px;
+  label {
+    float: left;
+    line-height: 27px;
+    width: 70px;
+  }
+  textarea {
+    width: 760px;
+  }
+  select {
+    width: 330px;
+  }
+  input {
+    width: 320px;
+    &.btn {
+      margin-left: 70px;
+      width: auto;
+    }
+  }
+}
+
+.article-body form {
+  margin-top: 15px;
+}
+.article-body input.btn {
+  margin-left: 10px;
 }
