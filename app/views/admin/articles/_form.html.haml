@@ -1,8 +1,8 @@
 = simple_form_for [:admin, @article] do |f|
   = f.input :title
-  = f.input :type, :collection => ["Audio", "Video", "Text"]
+  = f.input :type, :collection => ["audio", "video", "text"]
   = f.input :url, :disabled => true
-  = f.input :author
+  =# f.input :author
   = f.input :content, :as => :text
-  = f.input :categories, :as => :text, :hint => "Separate tags with commas"
+  =# f.input :categories, :as => :text, :hint => "Separate tags with commas"
   = f.button :submit, :label => "Save Changes"
