@@ -2,12 +2,18 @@ class Author < Couchbase::Model
 
   attr_accessor :name, :contributions_count
   @@keys = [:name, :contributions_count]
-  view :by_contribution_count, :contributions_by_type
+  view :by_contribution_count, :contributions_by_type, :by_first_letter
 
   def self.popular
     results = Couch.client.design_docs["author"].by_contribution_count(:descending => true, :group => true).entries
     results.map! { |result| new(:name => result.key, :contributions_count => result.value) }
     results.sort! {|a,b| a.contributions_count <=> b.contributions_count}.reverse!
+  end
+
+  def self.by_first_letter(letter="")
+    # this is broken and blocked until couchbase 1.2.0.dp2 hits
+    return []
+    results = Couch.client.design_docs["author"].by_first_letter(:group => true, :startkey => [letter, ""], :endkey => [letter, "\u9999"]).entries
   end
 
   def initialize(attributes = {})
