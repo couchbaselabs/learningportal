@@ -2,7 +2,7 @@ class Category < Couchbase::Model
 
   attr_accessor :name, :count
   @@keys = [:name, :count]
-  view :by_popularity
+  view :by_popularity, :by_first_letter
 
   def self.popular
     results = Couch.client.design_docs["category"].by_popularity(:descending => true, :group => true).entries
