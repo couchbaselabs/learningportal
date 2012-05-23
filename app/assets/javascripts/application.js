@@ -17,7 +17,7 @@
 //= require bootstrap
 
 $(function(){
-  $('article .tags .tag').each(function(){
+  $('.content-tags .tag').each(function(){
     $(this).click(function(){
       var elem = $(this)
       var tag  = elem.find('.tag-text')
