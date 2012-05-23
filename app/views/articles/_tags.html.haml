@@ -10,6 +10,6 @@
         .tag-text= tag
 
 = simple_form_for @article do |f|
-  = f.input :new_category
+  = f.input :new_category, :label => false, :wrapper_html => { :class => 'pull-left' }
   = f.input :delete_category, :as => :hidden
-  = f.button :submit, "Update Tags"
+  = f.button :submit, "Add Tag"

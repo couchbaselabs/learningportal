@@ -11,11 +11,15 @@
         .container
           = link_to "Learning Portal Admin", admin_dashboard_path, :class => "brand"
           %ul.nav
+            %li.divider-vertical
             %li.active
               = link_to "Dashboard", admin_dashboard_path
+            %li.divider-vertical
             %li.active
               = link_to "Content", admin_articles_path
+            %li.divider-vertical
             %li.active
               = link_to "Users", admin_users_path
+            %li.divider-vertical
     .container
       = yield

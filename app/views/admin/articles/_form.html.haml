@@ -1,8 +1,9 @@
 = simple_form_for [:admin, @article] do |f|
   = f.input :title
-  = f.input :type, :collection => ["audio", "video", "text"]
+  = f.input :type, :collection => ["audio", "video", "text"], :prompt => "Choose a type"
   = f.input :url, :disabled => true
   =# f.input :author
   = f.input :content, :as => :text
   =# f.input :categories, :as => :text, :hint => "Separate tags with commas"
-  = f.button :submit, :label => "Save Changes"
+  = f.button :submit, "Save Changes", :class => "btn-primary pull-left clearfix"
+= link_to raw("<i class=\"icon-trash icon-white\"></i> Delete Content"), @article, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-danger pull-right edit-delete"
