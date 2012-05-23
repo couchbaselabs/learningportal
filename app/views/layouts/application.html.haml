@@ -20,7 +20,7 @@
                     = link_to "Sign up", new_user_registration_path
                 - if current_user
                   %li
-                    %a Admin
+                    = link_to "Admin", admin_root_path
                   %li
                     = link_to current_user.email, edit_user_registration_path
                   %li
