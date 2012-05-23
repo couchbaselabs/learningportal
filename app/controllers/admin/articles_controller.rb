@@ -25,4 +25,13 @@ class Admin::ArticlesController < ApplicationController
     end
   end
 
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(admin_articles_url) }
+    end
+  end
+
 end

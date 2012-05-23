@@ -6,4 +6,4 @@
   = f.input :content, :as => :text
   =# f.input :categories, :as => :text, :hint => "Separate tags with commas"
   = f.button :submit, "Save Changes", :class => "btn-primary pull-left clearfix"
-= link_to raw("<i class=\"icon-trash icon-white\"></i> Delete Content"), @article, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-danger pull-right edit-delete"
+= link_to raw("<i class=\"icon-trash icon-white\"></i> Delete Content"), [:admin, @article], :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-danger pull-right edit-delete"
