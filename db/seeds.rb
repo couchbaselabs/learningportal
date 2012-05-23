@@ -2,6 +2,10 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 
-Couchbase::Model.ensure_design_document!
+# Couchbase::Model.ensure_design_document!
+Article.ensure_design_document!
+Author.ensure_design_document!
+Category.ensure_design_document!
+
 Couch.client.flush
 Wikipedia.seed!
