@@ -16,4 +16,13 @@ class SidebarController < ApplicationController
     end
   end
 
+  def overview
+    @authors = Author.popular.take(8)
+    @categories = Category.popular.take(10)
+
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
+  end
+
 end

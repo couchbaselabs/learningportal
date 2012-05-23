@@ -1,6 +1,6 @@
 .section-header
   Top Contributors
-  = link_to "View all", contributor_sidebar_path, :remote => true, :class => 'btn btn-primary btn-small fr viewall'
+  = link_to "View all", sidebar_tag_path, :remote => true, :class => 'btn btn-primary btn-small fr viewall'
 %section.pane
   %ol
     - @authors.each do |author|
@@ -10,7 +10,7 @@
         .counts= "#{author.contributions_count} contributions"
 .section-header
   Popular Tags
-  = link_to "View all", tag_sidebar_path, :remote => true, :class => 'btn btn-primary btn-small fr viewall'
+  = link_to "View all", sidebar_tag_path, :remote => true, :class => 'btn btn-primary btn-small fr viewall'
 %section.pane
   %ul
     - @categories.each do |category|

@@ -13,7 +13,6 @@ class Admin::ArticlesController < ApplicationController
 
   def update
     @article = Article.find(params[:id])
-    params[:article][:categories] = params[:article][:categories].split(',')
 
     respond_to do |format|
       if @article.update_attributes(params[:article])
@@ -23,6 +22,15 @@ class Admin::ArticlesController < ApplicationController
         format.html { render :action => "edit" }
         format.xml  { render :xml => @article.errors, :status => :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(admin_articles_url) }
     end
   end
 

@@ -12,6 +12,7 @@ gem 'sanitize'
 gem 'couchbase', '1.2.0.dp'
 gem 'simple_form'
 gem 'couchbase-model'
+gem "simple-navigation"
 
 group :production do
   gem 'pg'
