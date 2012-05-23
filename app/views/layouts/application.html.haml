@@ -30,21 +30,25 @@
             %ul.tabbed-nav
               %li
                 %a{"data-toggle" => "tab", :href => "#allcontent"}
-                  %span.number 29,391
+                  %span.number
+                    = @content_totals[:overall]
                   %span.text All Content
               %li
                 %a{"data-toggle" => "tab", :href => "#articles"}
-                  %span.number 18,451
+                  %span.number
+                    = @content_totals[:text]
                   %i.icon-align-justify.icon-white
                   %span.text Articles
               %li
                 %a{"data-toggle" => "tab", :href => "#videos"}
-                  %span.number 6,983
+                  %span.number
+                    = @content_totals[:video]
                   %i.icon-play.icon-white
                   %span.text Videos
               %li
                 %a{"data-toggle" => "tab", :href => "#images"}
-                  %span.number 3,957
+                  %span.number
+                    = @content_totals[:audio]
                   %i.icon-picture.icon-white
                   %span.text Images
             .tab-content

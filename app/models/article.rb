@@ -5,12 +5,23 @@ class Article < Couchbase::Model
   extend ActiveModel::Callbacks
   extend ActiveModel::Naming
 
+  view :by_type
+
   def persisted?
     @id
   end
 
   attr_accessor :id, :title, :type, :url, :author, :content, :categories, :attrs
   @@keys = [:id, :title, :type, :url, :author, :content, :categories, :attrs]
+
+  def self.totals
+    total = { :overall => 0 }
+    Couch.client.design_docs["article"].by_type(:group => true, :group_level => 1).entries.each do |row|
+      total[row.key[0].to_sym] = row.value
+      total[:overall]   += row.value
+    end
+    total
+  end
 
   def update_attributes(attributes)
     attributes.each do |name, value|
