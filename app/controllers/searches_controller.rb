@@ -14,9 +14,9 @@ protected
 public
 
   def build
-    #@couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
-    #@items = @couchbase.all_docs(:include_docs => true, :limit => 5).entries
-    @items = []
+    @couchbase = Couchbase::Model.bucket
+    @items = @couchbase.all_docs(:include_docs => true, :limit => 5).entries
+    #@items = []
     @authors = Author.popular.take(8)
     @categories = Category.popular.take(10)
     render :build
