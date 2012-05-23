@@ -5,7 +5,7 @@
   .right-fixed
     %span.desc
       View Source:
-      %a{:href => "#{@article['url']}"}
+      %a{ :href => "#{@article['url']}" }
         = truncate(@article['url'].gsub("http://", ""), :length => 25)
 %article.single{:class => @article['type']}
   .article-body
@@ -17,9 +17,9 @@
           = @article['contributors'].first['name']
           and
           = succeed ',' do
-            = pluralize(@article['contributors'].size, 'other')
+            %a{ :href => '#contributors' }= pluralize(@article['contributors'].size, 'other')
           = pluralize(@view_count, 'view')
-        .meta-tag.pull-left
+        %a.meta-tag.pull-left{ :href => '#tags' }
           .tag-nub
           .tag-text= pluralize(@article['categories'].size, 'tag')
       = render @article['type']

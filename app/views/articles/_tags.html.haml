@@ -1,3 +1,4 @@
+%a{ :name => 'tags' }
 .content-tags.clearfix
   %h4
     = pluralize(@article['categories'].size, 'Tags').gsub(/^\d+\s/, "")
