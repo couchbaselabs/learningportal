@@ -54,7 +54,7 @@ class Article < Couchbase::Model
   end
 
   def update
-    @attrs.merge!(:categories => @categories, :title => @title)
+    @attrs.merge!(:categories => @categories, :title => @title, :content => @content)
     Couch.client.set(@id, @attrs)
   end
 
