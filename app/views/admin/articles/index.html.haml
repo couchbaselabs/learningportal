@@ -17,7 +17,7 @@
   %tbody
   - @articles.each do |article|
     %tr
-      %td= article['title']
+      %td= link_to(article['title'], article_path(article.id))
       %td= article['type']
       %td= article['authors'].first['name']
       %td= "n/a"
