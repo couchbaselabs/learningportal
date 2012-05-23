@@ -11,6 +11,15 @@ class ArticlesController < ApplicationController
       :data => @article['content']
     })
     @content = Sanitize.clean(wiki.to_html, :elements => ['p', 'ul', 'li', 'i', 'h2', 'h3'], :remove_contents => ['table', 'div']).gsub(/\[[A-z0-9]+\]/, '')
+
+    if current_user
+      if current_user.preferences
+        current_user.preferences.concat(@article['categories'])
+      else
+        current_user.preferences = @article['categories']
+      end
+      current_user.save
+    end
   end
 
   def update
