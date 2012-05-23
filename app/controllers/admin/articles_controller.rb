@@ -13,7 +13,6 @@ class Admin::ArticlesController < ApplicationController
 
   def update
     @article = Article.find(params[:id])
-    params[:article][:categories] = params[:article][:categories].split(',')
 
     respond_to do |format|
       if @article.update_attributes(params[:article])
