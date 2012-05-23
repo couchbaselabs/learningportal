@@ -1,2 +1,1 @@
-$('#sidebar-inner .pane, #sidebar-inner .section-header, #sidebar-inner .separator').remove();
-$('#sidebar-inner').append('<%= j(render :partial => 'overview', :locals => { :authors => @authors, :categories => @categories }) %>');
+$('#sidebar-content').html('<%= j(render :partial => 'overview', :locals => { :authors => @authors, :categories => @categories }) %>');

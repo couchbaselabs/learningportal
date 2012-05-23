@@ -52,6 +52,7 @@
               #articles.tab-pane= render "sidebar/sidebar_search"
               #videos.tab-pane= render "sidebar/sidebar_search"
               #images.tab-pane= render "sidebar/sidebar_search"
-            = render "sidebar/overview"
+            #sidebar-content.pull-left
+              = render "sidebar/overview"
         #content
           = yield
