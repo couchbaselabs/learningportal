@@ -27,4 +27,8 @@ $(function(){
       $('article form').submit()
     })
   })
+  if($('.alert').length > 0){
+    $('.app .alert').delay(5000).fadeOut();
+    $('.admin .alert').delay(5000).slideUp();
+  }
 })

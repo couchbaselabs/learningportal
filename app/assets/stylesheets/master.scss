@@ -329,7 +329,7 @@ nav.fixed-navigation {
   left: 480px;
   right: 0;
   top: 0;
-  z-index: 9999;
+  z-index: 8000;
   color: $white;
   font-size: 13px;
   background-color: #A7A7A7;
@@ -563,3 +563,18 @@ article.single .contributors ul { //override
 .floated-admin-title {
   margin-bottom: 20px;
 }
+
+.app .alert {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 370px;
+  z-index: 9999;
+  @include box-shadow(2px 2px 4px rgba(0,0,0,0.3))
+}
+
+
+
+
+
+

@@ -25,7 +25,8 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.find(params[:id])
     @article.update_attributes(params[:article])
-    redirect_to @article
+
+    redirect_to(@article, :notice => '<strong>Success!</strong> Article was successfully updated.'.html_safe)
   end
 
 end
