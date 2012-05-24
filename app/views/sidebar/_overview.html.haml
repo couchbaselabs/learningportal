@@ -1,6 +1,6 @@
 .section-header
   Top Contributors
-  = link_to "View all", sidebar_tag_path, :remote => true, :class => 'btn btn-primary btn-small fr viewall'
+  = link_to "View all", sidebar_contributor_path, :remote => true, :class => 'btn btn-primary btn-small fr viewall'
 %section.pane
   %ol
     - @authors.each do |author|

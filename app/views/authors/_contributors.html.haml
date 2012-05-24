@@ -1,0 +1,17 @@
+.separator
+  %span.pull-left
+    SHOWING: CONTRIBUTORS,
+    %span.description
+    = surround "'", "'" do
+      = @letter
+  %span.resultcount
+    = surround "(", ")" do
+      = pluralize(@authors.size, 'Result')
+
+%section.pane
+  %ol
+    - @authors.each do |author|
+      %li.no-count
+        .avatar
+        .name= author.name
+        .counts= "#{pluralize(author.contributions_by_type[:overall], 'contribution')}"

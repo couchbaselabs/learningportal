@@ -5,20 +5,6 @@
   Find a Tag
 %section.pane.tag-nav
   - ("A".."Z").each do |letter|
-    = link_to letter, root_path, :class => 'letter-link', :remote => true
-  = link_to "Other", root_path, :class => 'letter-link other', :remote => true
-.separator
-  %span.pull-left
-    SHOWING: TAGS,
-    %span.description
-    = surround "'", "'" do
-      Popular
-  %span.resultcount
-    = surround "(", ")" do
-      = pluralize(@categories.size, 'Result')
-%section.pane.tag-results
-  %ul
-    - @categories.each do |category|
-      %li.tag
-        .tag-nub
-        .tag-text= category.name
+    = link_to letter, tags_by_first_letter_path(letter), :class => 'letter-link', :remote => true
+  =# link_to "Other", tags_by_first_letter_path("!"), :class => 'letter-link other', :remote => true
+.section.tag-results

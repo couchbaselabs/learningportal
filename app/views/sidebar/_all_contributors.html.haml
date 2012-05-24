@@ -5,21 +5,6 @@
   Find a Contributor
 %section.pane.tag-nav
   - ("A".."Z").each do |letter|
-    = link_to letter, root_path, :class => 'letter-link', :remote => true
-  = link_to "Other", root_path, :class => 'letter-link other', :remote => true
-.separator
-  %span.pull-left
-    SHOWING: CONTRIBUTORS,
-    %span.description
-    = surround "'", "'" do
-      All
-  %span.resultcount
-    = surround "(", ")" do
-      = pluralize(@authors.size, 'Result')
-%section.pane.contributor-results
-  %ol
-    - @authors.each do |author|
-      %li.no-count
-        .avatar
-        .name= author.name
-        .counts= "#{author.contributions_count} contributions"
+    = link_to letter, authors_by_first_letter_path(letter), :class => 'letter-link', :remote => true
+  =# link_to "Other", root_path, :class => 'letter-link other', :remote => true
+.section.contributor-results

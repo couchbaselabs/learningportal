@@ -27,4 +27,6 @@ LearningPortal::Application.routes.draw do
   match '/tag_sidebar' => 'sidebar#all_tags', :as => :sidebar_tag
   match '/contributor_sidebar' => 'sidebar#all_contributors', :as => :sidebar_contributor
   match '/overview' => 'sidebar#overview', :as => :sidebar_overview
+  match '/authors/:letter' => 'authors#by_first_letter', :as => :authors_by_first_letter
+  match '/tags/:letter' => 'tags#by_first_letter', :as => :tags_by_first_letter
 end
