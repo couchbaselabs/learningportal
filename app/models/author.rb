@@ -25,4 +25,8 @@ class Author < Couchbase::Model
     self.contributions_count ||= 0
   end
 
+  def contributions_by_type
+    results = Couch.client.design_docs["author"].contributions_by_type(:group => true, :reduce => true, :startkey => ["EmausBot",""], :endkey => ["EmausBot","XXXX"]).entries
+  end
+
 end
