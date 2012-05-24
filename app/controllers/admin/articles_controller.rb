@@ -16,7 +16,7 @@ class Admin::ArticlesController < ApplicationController
 
     respond_to do |format|
       if @article.update_attributes(params[:article])
-        format.html { redirect_to(admin_articles_path, :notice => 'Article was successfully updated.') }
+        format.html { redirect_to(admin_articles_path, :notice => '<strong>Success!</strong> Article was successfully updated.'.html_safe) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -30,7 +30,7 @@ class Admin::ArticlesController < ApplicationController
     @article.destroy
 
     respond_to do |format|
-      format.html { redirect_to(admin_articles_url) }
+      format.html { redirect_to(admin_articles_url, :notice => '<strong>Success!</strong> Article was successfully deleted.'.html_safe) }
     end
   end
 
