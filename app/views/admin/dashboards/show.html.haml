@@ -26,8 +26,19 @@
       %th Number of Items
       %th Views
   %tbody
-    - 4.times do
-      %tr
-        %td Articles
-        %td 18,451
-        %td 12,143
+    %tr
+      %td Articles
+      %td= @content_totals[:text]
+      %td 12,143
+    %tr
+      %td Videos
+      %td= @content_totals[:video]
+      %td 12,143
+    %tr
+      %td Images
+      %td= @content_totals[:audio]
+      %td 12,143
+    %tr
+      %td Total
+      %td= @content_totals[:overall]
+      %td 12,143
