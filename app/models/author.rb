@@ -18,7 +18,7 @@ class Author < Couchbase::Model
 
   def contributions_by_type
     return @contribs if @contribs.present?
-    @contribs = { :overall => 0, :image => 0, :video => 0, :text => 0 }
+    @contribs = { :overall => 0, :audio => 0, :video => 0, :text => 0 }
     Couch.client.design_docs["author"].contributions_by_type(:group => true, :reduce => true, :startkey => [name, ""], :endkey => [name, "\u9999"]).entries.each do |row|
       @contribs[row.key[1].to_sym] = row.value
       @contribs[:overall] += row.value
