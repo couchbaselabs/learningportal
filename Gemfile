@@ -10,7 +10,7 @@ gem 'devise'
 gem 'wikicloth'
 gem 'sanitize'
 # gem 'couchbase', '1.2.0.dp'
-gem 'couchbase', :git => 'git://github.com/couchbase/couchbase-ruby-client.git'
+gem 'couchbase', :git => 'git://github.com/couchbase/couchbase-ruby-client.git' # bd7b154995e2021dcdaa1e31a287c3661ac9a7ca
 gem 'simple_form'
 gem 'couchbase-model'
 gem "simple-navigation"
