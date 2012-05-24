@@ -7,7 +7,7 @@
       %li
         .avatar
         .name= author.name
-        .counts= "#{author.contributions_count} contributions"
+        .counts= "#{pluralize(author.contributions_by_type[:text], 'article')}, #{pluralize(author.contributions_by_type[:video], 'video')}, #{pluralize(author.contributions_by_type[:audio], 'image')}"
 .section-header
   Popular Tags
   = link_to "View all", sidebar_tag_path, :remote => true, :class => 'btn btn-primary btn-small fr viewall'

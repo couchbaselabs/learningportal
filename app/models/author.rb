@@ -16,6 +16,16 @@ class Author < Couchbase::Model
     results = Couch.client.design_docs["author"].by_first_letter(:group => true, :startkey => [letter, ""], :endkey => [letter, "\u9999"]).entries
   end
 
+  def contributions_by_type
+    return @contribs if @contribs.present?
+    @contribs = { :overall => 0, :image => 0, :video => 0, :text => 0 }
+    Couch.client.design_docs["author"].contributions_by_type(:group => true, :reduce => true, :startkey => [name, ""], :endkey => [name, "\u9999"]).entries.each do |row|
+      @contribs[row.key[1].to_sym] = row.value
+      @contribs[:overall] += row.value
+    end
+    @contribs
+  end
+
   def initialize(attributes = {})
     @errors = ActiveModel::Errors.new(self)
     attributes.each do |key, value|
@@ -23,10 +33,6 @@ class Author < Couchbase::Model
       send("#{key}=", value)
     end
     self.contributions_count ||= 0
-  end
-
-  def contributions_by_type
-    results = Couch.client.design_docs["author"].contributions_by_type(:group => true, :reduce => true, :startkey => ["EmausBot",""], :endkey => ["EmausBot","XXXX"]).entries
   end
 
 end
