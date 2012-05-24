@@ -11,7 +11,7 @@ class Author < Couchbase::Model
   end
 
   def self.by_first_letter(letter="")
-    letter.downcase!
+    letter = letter.downcase
     results = Couch.client.design_docs["author"].by_first_letter(:group => true, :startkey => [letter, ""], :endkey => [letter, "\u9999"]).entries
     results.map { |result| new(:name => result.key[1]) }
   end

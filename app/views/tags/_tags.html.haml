@@ -1,0 +1,16 @@
+.separator
+  %span.pull-left
+    SHOWING: TAGS,
+    %span.description
+    = surround "'", "'" do
+      = @letter
+  %span.resultcount
+    = surround "(", ")" do
+      = pluralize(@categories.size, 'Result')
+
+%section.pane
+  %ul
+    - @categories.each do |category|
+      %li.tag
+        .tag-nub
+        .tag-text= category.name
