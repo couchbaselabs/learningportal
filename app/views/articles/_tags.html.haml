@@ -3,14 +3,14 @@
   %h4
     = pluralize(@article['categories'].size, 'Tags').gsub(/^\d+\s/, "")
     = surround '(', ')' do
-      = @article['categories'].size
+      %span.tagCount= @article['categories'].size
   %ul
     - @article['categories'].each do |tag|
       %li.tag
         .tag-nub
         .tag-text= tag
 
-= simple_form_for @article do |f|
-  = f.input :new_category, :label => false, :wrapper_html => { :class => 'pull-left' }
+= simple_form_for @article, :remote => true do |f|
+  = f.input :new_category, :label => false, :wrapper_html => { :class => 'pull-left' }, :disable_with => 'Saving...'
   = f.input :delete_category, :as => :hidden
   = f.button :submit, "Add Tag"

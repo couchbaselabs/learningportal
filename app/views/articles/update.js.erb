@@ -1,0 +1,10 @@
+var tagCount = $('.content-tags .tagCount').html();
+<% unless @tag.empty? %>
+  $('.content-tags ul').append('<%= j(render :partial => 'shared/single_tag', :locals => { :tag => @tag }) %>');
+  tagCount++;
+  $('.content-tags .tagCount').html(tagCount);
+  $('#article_new_category').val('');
+<% else %>
+  tagCount--;
+  $('.content-tags .tagCount').html(tagCount);
+<% end %>

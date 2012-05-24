@@ -25,8 +25,12 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.find(params[:id])
     @article.update_attributes(params[:article])
+    @tag = params[:article][:new_category]
 
-    redirect_to(@article, :notice => '<strong>Success!</strong> Article was successfully updated.'.html_safe)
+    respond_to do |format|
+      format.html { redirect_to(@article, :notice => '<strong>Success!</strong> Article was successfully updated.'.html_safe) }
+      format.js   { render :layout => false }
+    end
   end
 
 end

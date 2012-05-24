@@ -1,0 +1,4 @@
+<% unless @tag.empty? %>
+  $('.content-tags ul').append('<%= j(render :partial => 'shared/single_tag', :locals => { :tag => @tag }) %>');
+  $('#article_new_category').val('');
+<% end %>

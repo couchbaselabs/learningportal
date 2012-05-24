@@ -24,7 +24,9 @@ LearningPortal::Application.routes.draw do
     end
   end
   root :to => 'searches#build'
+
   match '/tag_sidebar' => 'sidebar#all_tags', :as => :sidebar_tag
   match '/contributor_sidebar' => 'sidebar#all_contributors', :as => :sidebar_contributor
   match '/overview' => 'sidebar#overview', :as => :sidebar_overview
+
 end
