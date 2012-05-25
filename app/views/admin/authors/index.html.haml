@@ -1,0 +1,42 @@
+%h2.pull-left.floated-admin-title= "Contributors (2,554)"
+%div.pull-right
+  .btn-group
+    %button.btn Show All
+    %button.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+      %span.caret
+    %ul.dropdown-menu
+      / dropdown menu links
+%table.table.table-bordered.admin-table
+  %thead
+    %tr
+      %th Name
+      %th Articles Contributed
+      %th Videos Contributed
+      %th Images Contributed
+      %th Total Contributions
+      %th
+  %tbody
+  - 8.times do
+    %tr
+      %td= "Abbot, Isabella"
+      %td= 12
+      %td= 4
+      %td= 9
+      %td= 25
+      %td
+        .btn.btn-mini.pull-left Edit
+        .btn.btn-mini.pull-left Delete
+.pagination
+  %ul
+    %li
+      %a{:href => "#"} &larr;
+    %li.active
+      %a{:href => "#"} 1
+    %li
+      %a{:href => "#"} 2
+    %li
+      %a{:href => "#"} 3
+    %li
+      %a{:href => "#"} 4
+    %li
+      %a{:href => "#"} &rarr;
