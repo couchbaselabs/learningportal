@@ -379,7 +379,7 @@ article {
     margin-right: 30px;
   }
   .meta {
-    margin-bottom: 35px;
+    margin-bottom: 15px;
     margin-left: 90px;
     a {
       color: #00466C;
@@ -572,11 +572,6 @@ article.single .contributors ul { //override
   z-index: 9999;
   @include box-shadow(2px 2px 4px rgba(0,0,0,0.3))
 }
-
-.split {
-  margin-top:40px;
-}
-
 
 
 

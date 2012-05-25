@@ -5,18 +5,23 @@
   =# f.input :author
   = f.input :content, :as => :text
   =# f.input :categories, :as => :text, :hint => "Separate tags with commas"
-  = f.button :submit, "Save Changes", :class => "btn-primary pull-left clearfix"
-= link_to raw("<i class=\"icon-trash icon-white\"></i> Delete Content"), [:admin, @article], :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-danger pull-right edit-delete"
 
-.content-tags
-  %ul
-    - @article['categories'].each do |tag|
-      %li.tag
-        .tag-nub
-        .tag-text= tag
+.content-tags.admin-edit
+  %label.string.optional.control-label.tags.pull-left{:for => "article_new_category"} Tags
+  .form-pane
+    %ul
+      - @article['categories'].each do |tag|
+        %li.tag
+          .tag-nub
+          .tag-text
+            = tag
+            %i.icon-remove
 
-.tagform
-  = simple_form_for [:admin, @article], :remote => true, :wrapper_html => { :class => 'clearfix' } do |f|
-    = f.input :new_category, :label => false, :wrapper_html => { :class => 'pull-left tag-field' }
-    = f.input :delete_category, :as => :hidden
-    = f.button :submit, "Add Tag"
+    .tagform.clearfix
+      = simple_form_for [:admin, @article], :remote => true, :wrapper_html => { :class => 'clearfix' } do |f|
+        = f.input :new_category, :label => false, :placeholder => "Add another tag" ,:wrapper_html => { :class => 'pull-left tag-field' }
+        = f.input :delete_category, :as => :hidden
+        = f.button :submit, "Add Tag"
+    .action-pane
+      %a.btn.btn-primary.submit{:href => "#"} Save Changes
+      = link_to raw("<i class=\"icon-trash icon-white\"></i> Delete Content"), [:admin, @article], :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-danger pull-right"

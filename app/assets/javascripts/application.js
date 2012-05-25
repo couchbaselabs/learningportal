@@ -22,7 +22,7 @@ $(function(){
       var elem = $(this)
       var tag  = elem.find('.tag-text, .tag-nub')
       remove_category = $('#article_delete_category')
-      remove_category.val(tag.text())
+      remove_category.val(tag.clone().find('*').remove().end().text().trim())
       tag.remove();
       $('article form, .tagform form').submit()
     })
@@ -30,5 +30,12 @@ $(function(){
   if($('.alert').length > 0){
     $('.app .alert').delay(5000).fadeOut();
     $('.admin .alert').delay(5000).slideUp();
+  }
+  var submit = $('.action-pane .submit');
+  if(submit.length > 0){
+    submit.click(function(){
+      $('.edit_article').submit();
+      return false;
+    });
   }
 })

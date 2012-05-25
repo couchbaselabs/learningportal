@@ -87,10 +87,36 @@
   input {
     width: 320px;
     &.btn {
-      margin-left: 70px;
       width: auto;
     }
   }
+}
+
+.content-tags.admin-edit {
+  margin-top: 0;
+  width: 770px;
+  ul {
+    border: 0;
+  }
+  .tagform {
+    clear: both;
+  }
+  input.btn {
+    margin: 0;
+  }
+}
+
+label.tags {
+  margin-right: 40px;
+  margin-top: 10px;
+}
+
+.action-pane {
+  margin-top: 20px;
+}
+
+.form-pane {
+  margin-left: 70px;
 }
 
 .article-body form {
