@@ -118,13 +118,13 @@ ul {
 
 #sidebar {
   background-color:$sectionBg;
-  bottom:0;
+  bottom:-15px;
   float: left;
   height: auto;
-  overflow-y:scroll;
+  overflow:scroll;
   position: fixed;
   top:0;
-  width: 480px;
+  width: 495px;
   nav {
     padding: 0 20px;
     float: left;
