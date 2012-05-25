@@ -8,7 +8,7 @@ LearningPortal::Application.routes.draw do
     :passwords      =>  "passwords"
   }
 
-  resources :articles
+  resources :articles, :except => [:index]
 
 
   namespace :admin do
@@ -30,4 +30,5 @@ LearningPortal::Application.routes.draw do
   match '/overview' => 'sidebar#overview', :as => :sidebar_overview
   match '/authors/:letter' => 'authors#by_first_letter', :as => :authors_by_first_letter
   match '/tags/:letter' => 'tags#by_first_letter', :as => :tags_by_first_letter
+  match '/:type' => "articles#index", :constraints => { :type => /articles|images|videos/}, :as => :articles
 end

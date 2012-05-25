@@ -11,8 +11,8 @@ class Article < Couchbase::Model
     @id
   end
 
-  attr_accessor :id, :title, :type, :url, :author, :content, :categories, :attrs, :views, :quality
-  @@keys = [:id, :title, :type, :url, :author, :content, :categories, :attrs, :views, :quality]
+  attr_accessor :id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :quality
+  @@keys = [:id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :quality]
 
   def self.totals
     total = { :overall => 0, :audio => 0, :video => 0, :text => 0 }
@@ -21,6 +21,15 @@ class Article < Couchbase::Model
       total[:overall]   += row.value
     end
     total
+  end
+
+  def self.popular_by_type(type=nil)
+    # Couch.client.design_docs["article"].by_type(:reduce => false).entries.collect { |row| Article.find(row.key[1]) }
+    options = { :reduce => false }
+    if type
+      options.merge!({ :startkey => [type, ""], :endkey => [type, "\u9999"] })
+    end
+    by_type(options).entries
   end
 
   def update_attributes(attributes)
@@ -48,7 +57,7 @@ class Article < Couchbase::Model
   end
 
   def self.find(id)
-    id = id.to_s if id.kind_of?(Fixnum)
+    id = id.to_s if id.respond_to?(:to_s)
     new( Couch.client.get(id).merge("id" => id) )
   end
 

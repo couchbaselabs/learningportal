@@ -29,25 +29,25 @@
             .tagline
               %h2 Discover content with the Learning Portal
             %ul.tabbed-nav
-              %li
-                %a{"data-toggle" => "tab", :href => "#allcontent"}
+              %li{ :class => active?("all")}
+                %a{"data-tonggle" => "tab", :href => root_path }
                   %span.number
                     = @content_totals[:overall]
                   %span.text All Content
-              %li
-                %a{"data-toggle" => "tab", :href => "#articles"}
+              %li{ :class => active?("articles")}
+                %a{"data-tonggle" => "tab", :href => articles_path("articles")}
                   %span.number
                     = @content_totals[:text]
                   %i.icon-align-justify.icon-white
                   %span.text Articles
-              %li
-                %a{"data-toggle" => "tab", :href => "#videos"}
+              %li{ :class => active?("videos")}
+                %a{"data-tonggle" => "tab", :href => articles_path("videos")}
                   %span.number
                     = @content_totals[:video]
                   %i.icon-play.icon-white
                   %span.text Videos
-              %li
-                %a{"data-toggle" => "tab", :href => "#images"}
+              %li{ :class => active?("images")}
+                %a{"data-tonggle" => "tab", :href => articles_path("images")}
                   %span.number
                     = @content_totals[:audio]
                   %i.icon-picture.icon-white
