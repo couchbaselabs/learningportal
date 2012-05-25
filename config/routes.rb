@@ -32,4 +32,5 @@ LearningPortal::Application.routes.draw do
   match '/tags/:letter' => 'tags#by_first_letter', :as => :tags_by_first_letter
   match '/:type' => "articles#index", :constraints => { :type => /articles|images|videos/}, :as => :articles
   match 'admin/login_as/:user_id' => "admin/users#login_as", :as => :login_as
+  match 'admin/login_as_random' => "admin/users#login_as_random", :as => :login_as_random
 end
