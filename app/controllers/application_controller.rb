@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_admin!
   before_filter :authenticate_user!
   before_filter :content_totals
+  before_filter :users
 
   private
 
@@ -16,4 +17,9 @@ class ApplicationController < ActionController::Base
   def content_totals
     @content_totals = Article.totals
   end
+
+  def users
+    @users = User.all
+  end
+
 end

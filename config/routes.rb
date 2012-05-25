@@ -31,4 +31,5 @@ LearningPortal::Application.routes.draw do
   match '/authors/:letter' => 'authors#by_first_letter', :as => :authors_by_first_letter
   match '/tags/:letter' => 'tags#by_first_letter', :as => :tags_by_first_letter
   match '/:type' => "articles#index", :constraints => { :type => /articles|images|videos/}, :as => :articles
+  match 'admin/login_as/:user_id' => "admin/users#login_as", :as => :login_as
 end

@@ -38,4 +38,8 @@ $(function(){
       return false;
     });
   }
+  $('.alert .close').click(function(){
+    $(this).parent().remove();
+    return false;
+  });
 })

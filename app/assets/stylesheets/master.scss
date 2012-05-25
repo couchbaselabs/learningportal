@@ -139,8 +139,7 @@ ul {
       line-height: 60px;
       float: left;
     }
-    ul {
-      float: right;
+    > ul {
       margin: 0;
       li {
         margin-right: 20px;
@@ -577,6 +576,4 @@ article.single .contributors ul { //override
   z-index: 9999;
   @include box-shadow(2px 2px 4px rgba(0,0,0,0.3))
 }
-
-
 
