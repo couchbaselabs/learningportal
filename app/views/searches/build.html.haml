@@ -13,7 +13,7 @@
 %section.article-navigation
   - @items.each do |item|
     %article{:class => item['type']}
-      .article-body
+      .article-body.clearfix
         %span.score
           = succeed "%" do
             = item['quality']
