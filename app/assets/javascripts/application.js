@@ -17,14 +17,14 @@
 //= require bootstrap
 
 $(function(){
-  $('.content-tags .tag').each(function(){
+  $('.admin-edit .tag').each(function(){
     $(this).click(function(){
       var elem = $(this)
       var tag  = elem.find('.tag-text, .tag-nub')
       remove_category = $('#article_delete_category')
       remove_category.val(tag.clone().find('*').remove().end().text().trim())
       tag.remove();
-      $('article form, .tagform form').submit()
+      $('.tagform form').submit()
     })
   })
   if($('.alert').length > 0){
