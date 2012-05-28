@@ -5,7 +5,7 @@ class Article < Couchbase::Model
   extend ActiveModel::Callbacks
   extend ActiveModel::Naming
 
-  view :by_type, :by_category
+  view :by_type, :by_category, :by_author
 
   def persisted?
     @id
@@ -21,6 +21,13 @@ class Article < Couchbase::Model
       total[:overall]   += row.value
     end
     total
+  end
+
+  def self.author(a)
+    # Couch.client.design_docs["article"].by_type(:reduce => false).entries.collect { |row| Article.find(row.key[1]) }
+    options = { :reduce => false }
+    options.merge!({ :startkey => [a, ""], :endkey => [a, "\u9999"] })
+    by_author(options).entries
   end
 
   def self.category(c)

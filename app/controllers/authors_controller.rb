@@ -7,9 +7,11 @@ class AuthorsController < ApplicationController
   end
 
   def show
+    @items = Article.author(params[:id])
+
     @authors = Author.popular.take(8)
     @categories = Category.popular.take(10)
-    @items = Article.popular_by_type('text').take(10)
+    @author = params[:id]
   end
 
 end

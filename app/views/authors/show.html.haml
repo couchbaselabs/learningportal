@@ -2,7 +2,7 @@
   .article-body
     .icon
     .details.pull-left
-      %h1.contributor-name Henry Abelove
+      %h1.contributor-name= @author
       .meta
         Contributed
         = succeed "," do
@@ -21,8 +21,8 @@
   %span.title
     %strong
       SHOWING:
-      = "HENRY ABELOVE'S CONTENT"
-    (4 results)
+      = "#{@author}'s CONTENT"
+      = "(#{@items.size} results)"
   .right-fixed.pull-right
     %span.desc Sort By:
     .btn-group.pull-right

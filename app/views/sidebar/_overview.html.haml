@@ -7,7 +7,7 @@
       %li
         %a{ :href => '/authors/show' }
           %span.avatar
-          %span.name= author.name
+          %span.name= link_to(author.name, author_path(:id => author.name))
           %span.counts= "#{pluralize(author.contributions_by_type[:text], 'article')}, #{pluralize(author.contributions_by_type[:video], 'video')}, #{pluralize(author.contributions_by_type[:audio], 'image')}"
 .section-header
   Popular Tags
