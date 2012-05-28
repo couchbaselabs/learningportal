@@ -9,7 +9,7 @@ LearningPortal::Application.routes.draw do
   }
 
   resources :articles, :except => [:index]
-  resources :authors, :only => [:show]
+  resources :authors
 
   namespace :admin do
     root :to => 'dashboards#show'
@@ -29,7 +29,7 @@ LearningPortal::Application.routes.draw do
   match '/tag_sidebar' => 'sidebar#all_tags', :as => :sidebar_tag
   match '/contributor_sidebar' => 'sidebar#all_contributors', :as => :sidebar_contributor
   match '/overview' => 'sidebar#overview', :as => :sidebar_overview
-  match '/authors/:letter' => 'authors#by_first_letter', :as => :authors_by_first_letter
+  match '/contributors/:letter' => 'authors#by_first_letter', :as => :authors_by_first_letter
   match '/tags/:letter' => 'tags#by_first_letter', :as => :tags_by_first_letter
   match '/:type' => "articles#index", :constraints => { :type => /articles|images|videos/}, :as => :articles
   match 'admin/login_as/:user_id' => "admin/users#login_as", :as => :login_as
