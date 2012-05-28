@@ -5,7 +5,7 @@ class Article < Couchbase::Model
   extend ActiveModel::Callbacks
   extend ActiveModel::Naming
 
-  view :by_type
+  view :by_type, :by_category
 
   def persisted?
     @id
@@ -21,6 +21,13 @@ class Article < Couchbase::Model
       total[:overall]   += row.value
     end
     total
+  end
+
+  def self.category(c)
+    # Couch.client.design_docs["article"].by_type(:reduce => false).entries.collect { |row| Article.find(row.key[1]) }
+    options = { :reduce => false }
+    options.merge!({ :startkey => [c, ""], :endkey => [c, "\u9999"] })
+    by_category(options).entries
   end
 
   def self.popular_by_type(type=nil)

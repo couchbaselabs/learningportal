@@ -6,4 +6,11 @@ class TagsController < ApplicationController
     render "by_first_letter.js"
   end
 
+  def show
+    @authors = Author.popular.take(8)
+    @categories = Category.popular.take(10)
+    @items = Article.category(params[:id])
+    @category = params[:id]
+  end
+
 end

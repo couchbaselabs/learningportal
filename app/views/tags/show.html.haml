@@ -1,0 +1,40 @@
+.contributor-view
+  .article-body
+    .icon
+    .details.pull-left
+      %h1.contributor-name= @category
+
+%nav.fixed-navigation.single-contributor
+  %span.title
+    %strong
+      SHOWING:
+      = "Content tagged with: #{@category}"
+      = "(#{@items.size} results)"
+  .right-fixed.pull-right
+    %span.desc Sort By:
+    .btn-group.pull-right
+      %button.btn User Preferences
+      %button.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+        %span.caret
+      %ul.dropdown-menu
+        / dropdown menu links
+%section.article-navigation.single-contributor
+  - @items.each do |item|
+    %article{:class => item['type']}
+      .article-body
+        %span.score
+          = succeed "%" do
+            = item['quality']
+        .icon
+        %h1.article-title= link_to item['title'], article_path(:id => item.id)
+        .meta
+          Contributed by
+          = item.contributors.first["name"]
+          on
+          = Time.parse(item.contributors.first['timestamp']).strftime('%B %d, %Y at %H:%M')
+        %ul.tag-section
+          - item['categories'].each do |category|
+            %li.tag
+              .tag-nub
+              .tag-text= link_to(category, tag_path(:id => category))
+          .clearfix

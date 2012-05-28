@@ -8,7 +8,7 @@
     - @article['categories'].each do |tag|
       %li.tag
         .tag-nub
-        .tag-text= tag
+        .tag-text= link_to(tag, tags_path(:id => tag)
 = simple_form_for @article, :remote => true do |f|
   = f.input :new_category, :label => false, :wrapper_html => { :class => 'pull-left' }, :disable_with => 'Saving...'
   = f.input :delete_category, :as => :hidden

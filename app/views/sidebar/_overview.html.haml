@@ -17,4 +17,4 @@
     - @categories.each do |category|
       %li.tag
         .tag-nub
-        .tag-text= category.name
+        .tag-text= link_to(category.name, tag_path(:id => category.name))
