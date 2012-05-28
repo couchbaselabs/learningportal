@@ -44,7 +44,7 @@
 @import "bootstrap/tables";
 
 // Components: common
-@import "bootstrap/sprites";
+@import "partials/sprites";
 @import "bootstrap/dropdowns";
 @import "bootstrap/wells";
 @import "bootstrap/component-animations";
@@ -619,5 +619,22 @@ article.single .contributors ul { //override
   color: $contributorBarTitle;
 }
 
-
+.small-type {
+  height: 13px;
+  width: 14px;
+  background-color: red;
+  position:relative;
+  top: 42px;
+  left: 5px;
+  @include border-radius(3px);
+  &.text {
+    background-color: $textIconColour;
+  }
+  &.video {
+    background-color: $videoIconColour;
+  }
+  &.audio {
+    background-color: $audioIconColour;
+  }
+}
 
