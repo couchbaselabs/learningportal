@@ -9,7 +9,7 @@ LearningPortal::Application.routes.draw do
   }
 
   resources :articles, :except => [:index]
-
+  resources :authors, :only => [:show]
 
   namespace :admin do
     root :to => 'dashboards#show'

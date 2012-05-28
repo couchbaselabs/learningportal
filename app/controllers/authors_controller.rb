@@ -6,4 +6,10 @@ class AuthorsController < ApplicationController
     render "by_first_letter.js"
   end
 
+  def show
+    @authors = Author.popular.take(8)
+    @categories = Category.popular.take(10)
+    @items = Article.popular_by_type('text').take(10)
+  end
+
 end

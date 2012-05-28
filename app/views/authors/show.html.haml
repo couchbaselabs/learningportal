@@ -1,16 +1,37 @@
-%nav.fixed-navigation
+.contributor-view
+  .article-body
+    .icon
+    .details.pull-left
+      %h1.contributor-name Henry Abelove
+      .meta
+        Contributed
+        = succeed "," do
+          2 articles
+          / = pluralize('article', 2)
+        = succeed "," do
+          1 video
+          / = pluralize('video', 1)
+        = succeed "," do
+          1 image
+          / = pluralize('image', 1)
+        %br
+        Last contributed on
+        = "12/05/12"
+%nav.fixed-navigation.single-contributor
   %span.title
-    %strong SHOWING: POPULAR CONTENT
-    (412 results)
+    %strong
+      SHOWING:
+      = "HENRY ABELOVE'S CONTENT"
+    (4 results)
   .right-fixed.pull-right
     %span.desc Sort By:
     .btn-group.pull-right
-      %button.btn Most Popular
+      %button.btn User Preferences
       %button.btn.dropdown-toggle{"data-toggle" => "dropdown"}
         %span.caret
       %ul.dropdown-menu
         / dropdown menu links
-%section.article-navigation
+%section.article-navigation.single-contributor
   - @items.each do |item|
     %article{:class => item['type']}
       .article-body

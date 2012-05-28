@@ -69,11 +69,11 @@
                   %i.icon-picture.icon-white
                   %span.text Images
             .tab-content
-              #allcontent.tab-pane= render "sidebar/sidebar_search"
-              #articles.tab-pane= render "sidebar/sidebar_search"
-              #videos.tab-pane= render "sidebar/sidebar_search"
-              #images.tab-pane= render "sidebar/sidebar_search"
+              /#allcontent.tab-pane= render "sidebar/sidebar_search"
+              /#articles.tab-pane= render "sidebar/sidebar_search"
+              /#videos.tab-pane= render "sidebar/sidebar_search"
+              /#images.tab-pane= render "sidebar/sidebar_search"
             #sidebar-content.pull-left
               = render "sidebar/overview"
-        #content
+        #content{ :class => (request.path == '/authors/show') ? "single-contributor" : "" }
           = yield
