@@ -5,7 +5,7 @@ class Article < Couchbase::Model
   extend ActiveModel::Callbacks
   extend ActiveModel::Naming
 
-  view :by_type, :by_category, :by_author
+  view :by_type, :by_category, :by_author, :view_stats
 
   def persisted?
     @id
@@ -21,6 +21,10 @@ class Article < Couchbase::Model
       total[:overall]   += row.value
     end
     total
+  end
+
+  def self.view_stats
+    Couch.client.design_docs["article"].view_stats(:reduce => true).entries.first.value.symbolize_keys
   end
 
   def self.author(a)
