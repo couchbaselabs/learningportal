@@ -17,15 +17,13 @@
 //= require bootstrap
 
 $(function(){
-  $('.admin-edit .tag').each(function(){
-    $(this).click(function(){
-      var elem = $(this)
-      var tag  = elem.find('.tag-text, .tag-nub')
-      remove_category = $('#article_delete_category')
-      remove_category.val(tag.clone().find('*').remove().end().text().trim())
-      tag.remove();
-      $('.tagform form').submit()
-    })
+  $('.admin-edit .tag').live('click', function(){
+    var elem = $(this)
+    var tag  = elem.find('.tag-text, .tag-nub')
+    remove_category = $('#article_delete_category')
+    remove_category.val(tag.clone().find('*').remove().end().text().trim())
+    tag.remove();
+    $('.tagform form').submit()
   })
   if($('.alert').length > 0){
     $('.app .alert').delay(5000).fadeOut();
