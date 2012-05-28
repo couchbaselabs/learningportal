@@ -20,6 +20,10 @@
                     %span.caret
                   %ul.dropdown-menu
                     %li
+                      %center
+                        %strong= current_user.email
+                    %li.divider
+                    %li
                       %strong Switch User
                     - @users.each do |user|
                       - unless user == current_user
