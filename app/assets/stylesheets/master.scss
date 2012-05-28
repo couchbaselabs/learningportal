@@ -124,7 +124,9 @@ ul {
   overflow:scroll;
   position: fixed;
   top:0;
-  width: 495px;
+  width: 480px;
+  z-index: 10000;
+  @include box-shadow(5px 0px 15px rgba(0, 0, 0, 0.4));
   nav {
     padding: 0 20px;
     float: left;
