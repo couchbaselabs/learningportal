@@ -1,6 +1,8 @@
 .cta
   Not a member?
   = link_to "Sign up now", new_registration_path(resource_name)
+  or
+  = link_to "Login as a Random User", login_as_random_path
 .centered-form
   %h2 Sign in
   = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
