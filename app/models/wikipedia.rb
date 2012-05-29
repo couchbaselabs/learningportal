@@ -3,7 +3,7 @@ class Wikipedia
   ARTICLE_TYPES = ["text", "video", "audio"]
   BASE_URL      = "http://en.wikipedia.org/w/api.php"
   BATCH         = 10
-  BATCHES       = 10
+  BATCHES       = 1000
 
   # return an array of random wikipedia article references
   def self.random
@@ -43,7 +43,9 @@ class Wikipedia
     # 2. cache ID so no duplicate requests
     # 3. schedule delayed job for download of each article
     (1..BATCHES).each do |batch|
-      Delayed::Job.enqueue( WikipediaDownloadJob.new( self.random ) )
+      article_ids = self.random
+      puts "Batch #{batch}: #{article_ids}"
+      Delayed::Job.enqueue( WikipediaDownloadJob.new( article_ids ) )
     end
   end
 
