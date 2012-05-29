@@ -61,7 +61,7 @@ class Article < Couchbase::Model
   end
 
   def self.popular
-    by_popularity(:descending => true, :reduce => false, :include_docs => true).entries
+    by_popularity(:descending => true, :reduce => false, :include_docs => true, :limit => 10).entries
   end
 
   def update_attributes(attributes)

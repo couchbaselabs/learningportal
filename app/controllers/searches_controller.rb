@@ -14,7 +14,7 @@ protected
 public
 
   def build
-    @items = @items = Article.popular.take(10)
+    @items = @items = Article.popular
     #@items = []
     # @authors = Author.popular.take(8)
     # @categories = Category.popular.take(10)
