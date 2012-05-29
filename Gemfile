@@ -15,6 +15,7 @@ gem 'simple_form'
 gem 'couchbase-model'
 gem "simple-navigation"
 gem 'will_paginate'
+gem 'will_paginate-bootstrap'
 
 group :production do
   gem 'pg'

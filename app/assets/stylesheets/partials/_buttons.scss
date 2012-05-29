@@ -97,3 +97,10 @@
   margin-left: 20px;
 }
 
+.prev.disabled a {
+  background-color: #FFF;
+  &:hover {
+    background-color: #FFF;
+  }
+}
+

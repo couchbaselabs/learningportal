@@ -229,6 +229,8 @@ GEM
       builder
       expression_parser
     will_paginate (3.0.3)
+    will_paginate-bootstrap (0.2.1)
+      will_paginate (>= 3.0.3)
     yaji (0.3.0)
 
 PLATFORMS
@@ -274,3 +276,4 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   wikicloth
   will_paginate
+  will_paginate-bootstrap

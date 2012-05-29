@@ -24,4 +24,4 @@
       %td= 0
       %td= "#{time_ago_in_words(user.last_sign_in_at || user.created_at)} ago"
       %td= 0
-=will_paginate @users
+= will_paginate @users, :renderer => BootstrapPagination::Rails
