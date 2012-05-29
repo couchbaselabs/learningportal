@@ -51,17 +51,18 @@ class Article < Couchbase::Model
     by_category(options).entries
   end
 
-  def self.popular_by_type(type=nil)
+  def self.popular_by_type(opts={})
     # Couch.client.design_docs["article"].by_type(:reduce => false).entries.collect { |row| Article.find(row.key[1]) }
-    options = { :reduce => false, :descending => true, :include_docs => true }
+    options = { :reduce => false, :descending => true, :include_docs => true }.merge(opts)
     if type
-      options.merge!({ :startkey => [type, Article.view_stats[:max]], :endkey => [type, 0] })
+      options.merge!({ :startkey => [options[:type], Article.view_stats[:max]], :endkey => [options[:type], 0] })
     end
     by_popularity_and_type(options).entries
   end
 
-  def self.popular
-    by_popularity(:descending => true, :reduce => false, :include_docs => true).entries
+  def self.popular(opts={})
+    options = { :descending => true, :reduce => false, :include_docs => true, :limit => 10 }.merge(opts)
+    by_popularity(options).entries
   end
 
   def update_attributes(attributes)
