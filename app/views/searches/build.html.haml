@@ -28,8 +28,8 @@
           on
           = Time.parse(item['contributors'].first['timestamp']).strftime('%B %d, %Y at %H:%M')
         %ul.tag-section
-          - item['categories'].each do |category|
+          - item['categories'].each do |tag|
             %li.tag
               .tag-nub
-              .tag-text= category
+              .tag-text= link_to(tag, tag_path(:id => tag))
           .clearfix

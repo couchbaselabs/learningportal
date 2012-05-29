@@ -5,13 +5,13 @@
   %ol
     - @authors.each do |author|
       %li
-        %a{ :href => '/authors/show' }
+        = link_to author_path(:id => author.name) do
           %span.avatar
-          %span.name= link_to(author.name, author_path(:id => author.name))
+          %span.name= author.name
           %span.counts= "#{pluralize(author.contributions_by_type[:text], 'article')}, #{pluralize(author.contributions_by_type[:video], 'video')}, #{pluralize(author.contributions_by_type[:audio], 'image')}"
 .section-header
   Popular Tags
-  = link_to "View all", sidebar_tag_path, :remote => true, :class => 'btn btn-primary btn-small fr viewall'
+  = link_to "View all", sidebar_tag_path, :remote => true, :class => 'btn btn-primary btn-small pull-right viewall'
 %section.pane
   %ul
     - @categories.each do |category|

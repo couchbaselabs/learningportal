@@ -10,7 +10,7 @@
 
 %section.pane
   %ul
-    - @categories.each do |category|
+    - @categories.each do |tag|
       %li.tag
         .tag-nub
-        .tag-text= category.name
+        .tag-text= link_to(tag.name, tag_path(:id => tag.name))

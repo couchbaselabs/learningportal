@@ -34,6 +34,12 @@ li.tag {
   margin-bottom: 5px;
   margin-right: 5px;
   padding: 0 5px;
+  a {
+    color: $tagText;
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
 
 .meta-tag {

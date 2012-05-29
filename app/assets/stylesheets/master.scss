@@ -363,6 +363,8 @@ nav.fixed-navigation {
 
 .article-navigation {
   position: absolute;
+  left: 0;
+  right: 0;
 }
 article {
   background-color: $navListBg;

@@ -12,6 +12,7 @@
   %ol
     - @authors.each do |author|
       %li.no-count
-        .avatar
-        .name= link_to(author.name, author_path(:id => author.name))
-        .counts= "#{pluralize(author.contributions_by_type[:overall], 'contribution')}"
+        = link_to author_path(:id => author.name) do
+          %span.avatar
+          %span.name= author.name
+          %span.counts= "#{pluralize(author.contributions_by_type[:overall], 'contribution')}"

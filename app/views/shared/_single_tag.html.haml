@@ -1,6 +1,8 @@
 %li.tag
   .tag-nub
   .tag-text
-    = tag
     - if params[:controller].include?('admin')
+      = tag
       %i.icon-remove
+    - else
+      = link_to(tag, tag_path(:id => tag))
