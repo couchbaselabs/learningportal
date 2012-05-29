@@ -4,8 +4,8 @@ class SearchesController < ApplicationController
     @items = Article.popular.take(10)
     #@authors = Author.popular.take(8)
     #@categories = Category.popular.take(10)
-	@authors = []
-	@categories = []
+	  @authors = []
+	  @categories = []
     render :build
   end
 
