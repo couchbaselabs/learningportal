@@ -5,7 +5,7 @@ class Article < Couchbase::Model
   extend ActiveModel::Callbacks
   extend ActiveModel::Naming
 
-  view :by_type, :by_category, :by_author, :view_stats, :view_stats_by_type
+  view :by_type, :by_category, :by_author, :view_stats, :view_stats_by_type, :by_popularity_and_type, :by_popularity
 
   def persisted?
     @id
@@ -53,11 +53,15 @@ class Article < Couchbase::Model
 
   def self.popular_by_type(type=nil)
     # Couch.client.design_docs["article"].by_type(:reduce => false).entries.collect { |row| Article.find(row.key[1]) }
-    options = { :reduce => false }
+    options = { :reduce => false, :descending => true, :include_docs => true }
     if type
-      options.merge!({ :startkey => [type, ""], :endkey => [type, "\u9999"] })
+      options.merge!({ :startkey => [type, Article.view_stats[:max]], :endkey => [type, 0] })
     end
-    by_type(options).entries
+    by_popularity_and_type(options).entries
+  end
+
+  def self.popular
+    by_popularity(:descending => true, :reduce => false, :include_docs => true).entries
   end
 
   def update_attributes(attributes)

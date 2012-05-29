@@ -14,8 +14,7 @@ protected
 public
 
   def build
-    @couchbase = Couchbase::Model.bucket
-    @items = @couchbase.all_docs(:include_docs => true, :limit => 5).entries
+    @items = @items = Article.popular.take(10)
     #@items = []
     @authors = Author.popular.take(8)
     @categories = Category.popular.take(10)
