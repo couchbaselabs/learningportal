@@ -16,16 +16,20 @@ public
   def build
     @items = @items = Article.popular.take(10)
     #@items = []
-    @authors = Author.popular.take(8)
-    @categories = Category.popular.take(10)
+    # @authors = Author.popular.take(8)
+    # @categories = Category.popular.take(10)
+    @authors = []
+    @categories = []
     render :build
   end
 
   def result
     @couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
     @item = @couchbase.get(params[:id])
-    @authors = Author.popular.take(8)
-    @categories = Category.popular.take(10)
+    # @authors = Author.popular.take(8)
+    # @categories = Category.popular.take(10)
+    @authors = []
+    @categories = []
 
     @article = Article.find(params[:id])
 

@@ -9,7 +9,8 @@ class SidebarController < ApplicationController
   end
 
   def all_contributors
-    @authors = Author.popular.take(15)
+    # @authors = Author.popular.take(15)
+    @authors = []
 
     respond_to do |format|
       format.js { render :layout => false }
@@ -19,6 +20,9 @@ class SidebarController < ApplicationController
   def overview
     @authors = Author.popular.take(8)
     @categories = Category.popular.take(10)
+    @authors = []
+    @categories = []
+
 
     respond_to do |format|
       format.js { render :layout => false }

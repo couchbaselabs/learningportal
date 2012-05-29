@@ -11,8 +11,10 @@ class ArticlesController < ApplicationController
     end
 
     @items = Article.popular_by_type(type).take(10)
-    @authors = Author.popular.take(8)
-    @categories = Category.popular.take(10)
+    # @authors = Author.popular.take(8)
+    # @categories = Category.popular.take(10)
+    @authors = []
+    @categories = []
   end
 
   def show

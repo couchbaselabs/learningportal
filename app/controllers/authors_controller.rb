@@ -9,8 +9,11 @@ class AuthorsController < ApplicationController
   def show
     @items = Article.author(params[:id])
 
-    @authors = Author.popular.take(8)
-    @categories = Category.popular.take(10)
+    # @authors = Author.popular.take(8)
+    # @categories = Category.popular.take(10)
+    @authors = []
+    @categories = []
+
     @author = params[:id]
   end
 
