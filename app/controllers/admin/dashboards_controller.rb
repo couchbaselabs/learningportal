@@ -5,6 +5,9 @@ class Admin::DashboardsController < ApplicationController
   def show
     @content_view_totals = Article.view_stats_type
     @content_view_totals[:overall] = Article.view_stats_type.sum{|t| t.last}
+
+    @snapshots = Snapshot.all
+
   end
 
 end
