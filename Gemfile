@@ -14,6 +14,7 @@ gem 'couchbase', :git => 'git://github.com/couchbase/couchbase-ruby-client.git' 
 gem 'simple_form'
 gem 'couchbase-model'
 gem "simple-navigation"
+gem 'will_paginate'
 
 group :production do
   gem 'pg'

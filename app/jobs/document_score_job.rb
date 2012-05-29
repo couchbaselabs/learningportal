@@ -1,16 +1,14 @@
 class DocumentScoreJob
 
-  # TODO: Probably want to also pass in max view count when scheduling all of these jobs.
   # TODO: Want to handle documents that are not design documents etc.
   def initialize(document_id)
     @document_id = document_id
   end
 
   def perform
-
     # 1. what is the maximum amount of views of a piece of content
     #    => 100
-    max_views = 100
+    max_views = Article.view_stats[:max]
 
     # 2. what is the amount of views for this document?
     #    => 1
@@ -33,8 +31,6 @@ class DocumentScoreJob
 
     # 4. update the document
     document.update_attributes(:views => views, :quality => score)
-
-
   end
 
 end

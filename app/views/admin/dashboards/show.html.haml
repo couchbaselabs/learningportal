@@ -1,7 +1,7 @@
-%h2.pull-left.floated-admin-title Snapshots (n/a)
+%h2.pull-left.floated-admin-title= "Snapshots (#{@snapshots.size})"
 = link_to "Login as a Random User", login_as_random_path, :class => 'btn btn-small btn-primary pull-right dashboard-button'
-.btn.btn-small.btn-primary.pull-right.dashboard-button Trigger User Interaction
-.btn.btn-small.btn-primary.pull-right.dashboard-button New Snapshot
+=# link_to "Trigger User Interaction", "#" :class =>".btn.btn-small.btn-primary.pull-right.dashboard-button"
+= link_to "New Snapshot", admin_snapshots_path, :class => 'btn btn-small btn-primary pull-right dashboard-button', :method => :post
 %table.table.table-bordered.admin-table
   %thead
     %tr
@@ -11,13 +11,13 @@
       %th Image Views
       %th Total Views
   %tbody
-    - 4.times do
+    - @snapshots.each do |snapshot|
       %tr
-        %td 12/01/12, 6pm - 13/01/12, 6pm
-        %td 121
-        %td 322
-        %td 131
-        %td 574
+        %td= "#{time_ago_in_words(snapshot.created_at)} ago"
+        %td= snapshot.text_view_count
+        %td= snapshot.video_view_count
+        %td= snapshot.image_view_count
+        %td= snapshot.total_view_count
 %h2 Overall Statistics
 %table.table.table-bordered.admin-table
   %thead
@@ -29,16 +29,16 @@
     %tr
       %td Articles
       %td= @content_totals[:text]
-      %td 12,143
+      %td= @content_view_totals[:text]
     %tr
       %td Videos
       %td= @content_totals[:video]
-      %td 12,143
+      %td= @content_view_totals[:video]
     %tr
       %td Images
       %td= @content_totals[:audio]
-      %td 12,143
+      %td= @content_view_totals[:audio]
     %tr
       %td Total
       %td= @content_totals[:overall]
-      %td 12,143
+      %td= @content_view_totals[:overall]

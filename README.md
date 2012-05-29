@@ -56,6 +56,11 @@ Download and install this updated `libcouchbase` homebrew recipe.
     open http://localhost:8091 # couchbase admin
     open http://localhost:5000 # app
 
+## Tasks
+
+    # run this to schedule delayed_jobs to update scores for all documents
+    rake learningportal:recalculate_scores
+
 ## Libraries
 
 * http://karmi.github.com/tire/
