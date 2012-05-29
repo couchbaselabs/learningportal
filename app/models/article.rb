@@ -5,7 +5,7 @@ class Article < Couchbase::Model
   extend ActiveModel::Callbacks
   extend ActiveModel::Naming
 
-  view :by_type, :by_category, :by_author, :view_stats
+  view :by_type, :by_category, :by_author, :view_stats, :view_stats_by_type
 
   def persisted?
     @id
@@ -21,6 +21,16 @@ class Article < Couchbase::Model
       total[:overall]   += row.value
     end
     total
+  end
+
+  def self.view_stats_type
+    results = Couch.client.design_docs["article"].view_stats_by_type(:group => true, :reduce => true).entries
+    result_hash = {}
+    results.each do |r|
+      next if r.key == nil
+      result_hash[r.key] = r.value
+    end
+    result_hash.symbolize_keys
   end
 
   def self.view_stats

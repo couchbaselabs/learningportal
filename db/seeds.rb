@@ -7,5 +7,5 @@ Article.ensure_design_document!
 Author.ensure_design_document!
 Category.ensure_design_document!
 
-Couch.client.flush
-Wikipedia.seed!
+# Couch.client.flush
+# Wikipedia.seed!
