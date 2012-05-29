@@ -3,8 +3,15 @@ class Admin::ArticlesController < ApplicationController
   layout "admin"
 
   def index
-    @couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
-    @articles = @couchbase.all_docs(:include_docs => true, :limit => 5).entries
+    @total    = Article.view_stats[:count]
+    @per_page = 10
+    @page     = (params[:page] || 1).to_i
+    @skip     = (@page - 1) * @per_page
+
+    @articles = Article.by_author(:limit => @per_page, :skip => @skip, :include_docs => true).entries
+    @articles = WillPaginate::Collection.create(@page, @per_page, @total) do |pager|
+      pager.replace(@articles.to_a)
+    end
   end
 
   def edit
