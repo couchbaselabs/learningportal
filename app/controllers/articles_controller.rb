@@ -12,7 +12,7 @@ class ArticlesController < ApplicationController
       "audio"
     end
 
-    @items = Article.popular_by_type(type).take(10)
+    @items = Article.popular_by_type(type)
   end
 
   def show

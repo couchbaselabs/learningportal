@@ -53,7 +53,7 @@ class Article < Couchbase::Model
 
   def self.popular_by_type(type=nil)
     # Couch.client.design_docs["article"].by_type(:reduce => false).entries.collect { |row| Article.find(row.key[1]) }
-    options = { :reduce => false, :descending => true, :include_docs => true }
+    options = { :reduce => false, :descending => true, :include_docs => true, :limit => 10}
     if type
       options.merge!({ :startkey => [type, Article.view_stats[:max]], :endkey => [type, 0] })
     end
