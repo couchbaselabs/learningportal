@@ -3,12 +3,7 @@ class SearchesController < ApplicationController
   before_filter :fetch_authors_and_categories, :only => [:build, :result]
 
   def build
-    @items = @items = Article.popular
-    #@items = []
-    # @authors = Author.popular.take(8)
-    # @categories = Category.popular.take(10)
-    @authors = []
-    @categories = []
+    @items = Article.popular
     render :build
   end
 
@@ -39,7 +34,7 @@ class SearchesController < ApplicationController
   #   @search.results.each do |result|
   #     @documents << result
   #   end
-  # 
+  #
   #   @couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
   #   @document = @couchbase.get('00411460f7c92d21')
   #   @authors = popular_authors
@@ -48,6 +43,5 @@ class SearchesController < ApplicationController
   #   #  @document = conn.get("00411460f7c92d21")
   #   #end
   # end
-
 
 end
