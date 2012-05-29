@@ -3,11 +3,11 @@
   = link_to "View all", sidebar_contributor_path, :remote => true, :class => 'btn btn-primary btn-small fr viewall'
 %section.pane
   %ol
-    - @authors.each do |author|
+    - @authors.each_with_index do |author, i|
       %li
         = link_to author_path(:id => author.name) do
           %span.avatar
-          %span.name= author.name
+          %span.name= "#{i+1}. #{author.name}"
           %span.counts= "#{pluralize(author.contributions_by_type[:text], 'article')}, #{pluralize(author.contributions_by_type[:video], 'video')}, #{pluralize(author.contributions_by_type[:audio], 'image')}"
 .section-header
   Popular Tags

@@ -284,10 +284,10 @@ section.pane {
     margin-bottom: 16px;
   }
   ol {
+    list-style-type: none;
     margin: 0;
     li {
       float: left;
-      list-style-position: inside;
       color: $black;
       font-size: 13px;
       font-weight: bold;
@@ -576,10 +576,6 @@ article.single .contributors ul { //override
     margin: 0px 0 20px 0;
     padding-top: 10px;
   }
-}
-
-.no-count {
-  list-style-type: none;
 }
 
 .admin-table {
