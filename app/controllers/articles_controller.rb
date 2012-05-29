@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
 
+  before_filter :fetch_authors_and_categories, :only => [:index, :show]
+
   def index
     type = case params[:type]
     when "articles"
@@ -11,18 +13,11 @@ class ArticlesController < ApplicationController
     end
 
     @items = Article.popular_by_type(type).take(10)
-    # @authors = Author.popular.take(8)
-    # @categories = Category.popular.take(10)
-    @authors = []
-    @categories = []
   end
 
   def show
     @article = Article.find(params[:id])
     @view_count = @article.count_as_viewed
-
-    @authors = Author.popular.take(8)
-    @categories = Category.popular.take(10)
 
     wiki = WikiCloth::Parser.new({
       :data => @article['content']

@@ -7,6 +7,13 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def fetch_authors_and_categories
+    # @authors = Author.popular.take(8)
+    # @categories = Category.popular.take(10)
+    @authors = []
+    @categories = []
+  end
+
   def authenticate_admin!
     return true if Rails.env.development?
     authenticate_or_request_with_http_basic do |username, password|

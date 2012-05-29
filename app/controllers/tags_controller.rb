@@ -1,5 +1,7 @@
 class TagsController < ApplicationController
 
+  before_filter :fetch_authors_and_categories, :only => [:show]
+
   def by_first_letter
     @letter = params[:letter].upcase
     @categories = Category.by_first_letter(@letter)
@@ -7,8 +9,6 @@ class TagsController < ApplicationController
   end
 
   def show
-    @authors = Author.popular.take(8)
-    @categories = Category.popular.take(10)
     @items = Article.category(params[:id])
     @category = params[:id]
   end

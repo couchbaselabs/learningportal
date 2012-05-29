@@ -1,5 +1,7 @@
 class SidebarController < ApplicationController
 
+  before_filter :fetch_authors_and_categories, :only => [:overview]
+
   def all_tags
     @categories = Category.popular.take(20)
 
@@ -18,12 +20,6 @@ class SidebarController < ApplicationController
   end
 
   def overview
-    @authors = Author.popular.take(8)
-    @categories = Category.popular.take(10)
-    @authors = []
-    @categories = []
-
-
     respond_to do |format|
       format.js { render :layout => false }
     end
