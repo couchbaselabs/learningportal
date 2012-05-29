@@ -16,6 +16,7 @@ gem 'couchbase-model'
 gem "simple-navigation"
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
+gem 'newrelic_rpm'
 
 group :production do
   gem 'pg'
