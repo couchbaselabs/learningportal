@@ -228,6 +228,7 @@ GEM
     wikicloth (0.8.0)
       builder
       expression_parser
+    will_paginate (3.0.3)
     yaji (0.3.0)
 
 PLATFORMS
@@ -272,3 +273,4 @@ DEPENDENCIES
   typhoeus
   uglifier (>= 1.0.3)
   wikicloth
+  will_paginate
