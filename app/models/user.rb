@@ -9,6 +9,6 @@ class User < ActiveRecord::Base
 
   serialize :preferences
 
-  self.per_page = 1
+  self.per_page = 10
 
 end
