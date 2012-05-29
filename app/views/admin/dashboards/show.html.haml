@@ -1,4 +1,4 @@
-%h2.pull-left.floated-admin-title Snapshots (n/a)
+%h2.pull-left.floated-admin-title= "Snapshots (#{@snapshots.size})"
 = link_to "Login as a Random User", login_as_random_path, :class => 'btn btn-small btn-primary pull-right dashboard-button'
 =# link_to "Trigger User Interaction", "#" :class =>".btn.btn-small.btn-primary.pull-right.dashboard-button"
 = link_to "New Snapshot", admin_snapshots_path, :class => 'btn btn-small btn-primary pull-right dashboard-button', :method => :post
