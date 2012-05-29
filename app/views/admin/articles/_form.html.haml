@@ -10,12 +10,7 @@
   %label.string.optional.control-label.tags.pull-left{:for => "article_new_category"} Tags
   .form-pane
     %ul
-      - @article['categories'].each do |tag|
-        %li.tag
-          .tag-nub
-          .tag-text
-            = tag
-            %i.icon-remove
+      = render :partial => "shared/tags", :locals => { :article => @article }
 
     .tagform.clearfix
       = simple_form_for [:admin, @article], :remote => true, :wrapper_html => { :class => 'clearfix' } do |f|

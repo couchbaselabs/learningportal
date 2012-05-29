@@ -4,10 +4,7 @@
     = surround '(', ')' do
       = @item['categories'].size
   %ul
-  - @item['categories'].each do |tag|
-    %li.tag
-      .tag-nub
-      .tag-text= tag
+    = render :partial => "shared/tags", :locals => { :article => item }
 
 = simple_form_for @article do |f|
   = f.input :new_category

@@ -14,7 +14,8 @@
   = link_to "View all", sidebar_tag_path, :remote => true, :class => 'btn btn-primary btn-small pull-right viewall'
 %section.pane
   %ul
-    - @categories.each do |category|
+    - @categories.each do |tag|
       %li.tag
-        .tag-nub
-        .tag-text= link_to(category.name, tag_path(:id => category.name))
+        = link_to tag_path(:id => tag.name) do
+          .tag-nub
+          .tag-text= tag.name

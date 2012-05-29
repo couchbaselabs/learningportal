@@ -91,6 +91,16 @@ body {
   background-color: #DDDDDD;
 }
 
+a {
+  color: $link;
+  &:hover {
+    color: $linkHover;
+  }
+  &:active {
+    color: $linkActive;
+  }
+}
+
 // MediaWiki markup cleanup
 .editsection{
   display: none;
@@ -192,7 +202,17 @@ ul {
         border-style: solid;
         padding-left: 20px;
         &:hover {
+          background-color: #4C4C4C;
           text-decoration: none;
+        }
+        &:active {
+          background-color: #4C4C4C;
+          span {
+            color: $white;
+          }
+          i {
+            opacity: 1;
+          }
         }
       }
       i {
@@ -304,6 +324,10 @@ section.pane {
         &:hover {
           text-decoration: none;
         }
+        &:hover .name {
+          color: $black;
+          text-decoration: underline;
+        }
       }
     }
   }
@@ -409,10 +433,14 @@ article {
 
 h1.article-title {
   font-size: 25px;
-  line-height: 40px;
-  margin: -10px 0 0 90px;
+  line-height: 35px;
+  margin: -7px 0 0 90px;
   a {
     color: $articleTitle;
+    &:hover {
+      text-decoration: none;
+      border-bottom: 2px solid $black;
+    }
   }
 }
 
@@ -534,9 +562,12 @@ article.single .contributors ul { //override
   text-align: center;
   width: 18px;
   &:hover {
-    background-color:$lightButtonHover;
+    background-color: $lightButtonHover;
     color: $white;
     text-decoration: none;
+  }
+  &:active {
+    background-color: $lightButtonActive;
   }
 }
 

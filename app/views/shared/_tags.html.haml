@@ -1,0 +1,11 @@
+- article['categories'].each do |tag|
+  %li.tag
+    - if params[:controller].include?('admin')
+      .tag-nub
+      .tag-text
+        = tag
+        %i.icon-remove
+    - else
+      = link_to tag_path(:id => tag) do
+        %span.tag-nub
+        %span.tag-text= tag

@@ -5,6 +5,18 @@
 li.tag {
   display: block;
   float: left;
+  a {
+    &:hover .tag-nub {
+      border-color: transparent $tagHover transparent transparent;
+    }
+    &:hover .tag-text {
+      background-color: $tagHover;
+      color: $tagTextHover;
+    }
+    &:active .tag-text {
+      color: $tagTextActive;
+    }
+  }
   &.darker {
     .tag-nub {
       border-color: transparent $tag transparent transparent;
@@ -26,7 +38,6 @@ li.tag {
 
 .tag-text {
   background-color: $tag;
-  border-radius: 0 2px 2px 0;
   color: #666666;
   float: left;
   font-size: 11px;
@@ -34,11 +45,9 @@ li.tag {
   margin-bottom: 5px;
   margin-right: 5px;
   padding: 0 5px;
+  @include border-radius(0 2px 2px 0);
   a {
     color: $tagText;
-    &:hover {
-      text-decoration: none;
-    }
   }
 }
 

@@ -17,8 +17,9 @@
 
 .iosstyle {
   @include background-image(linear-gradient(#FFF,#E7E7E7));
+  background-image:-webkit-gradient(linear,color-stop(0, rgb(225,225,225)),color-stop(1, rgb(187,187,187)));
   @include border-radius(5px);
-  color: #333333;
+  color: $iosButtonTextColour;
   display: inline-block;
   font-size: 13px;
   height: 18px;
@@ -32,8 +33,13 @@
   margin:6px 0 0 8px;
   cursor:pointer;
   z-index: 1;
-  &:hover {
+  &:hover, &:active span {
     text-decoration:none;
+    color: $iosButtonTextHoverColour;
+  }
+  &:active, &:active span {
+    color: $iosButtonTextHoverColour;
+    @include background-image(linear-gradient(#FFF,rgb(187,187,187)));
   }
   > span {
     @include background-image(linear-gradient(#FFF,#E7E7E7));
@@ -59,10 +65,17 @@
   line-height: 16px;
   height: 16px;
   font-size:11px;
-  color:#BFBFBF;
+  color: $iosButtonDarkTextColour;
   border:1px solid $iosButtonDarkBorder;
   background: $iosButtonDarkBg;
   margin-top: 7px;
+  &:hover {
+    color: $iosButtonDarkTextHoverColour;
+  }
+  &:active,
+  &:active span {
+    background: $iosButtonDarkBgActive;
+  }
   > span {
     left: -7px;
     top: 2px;
