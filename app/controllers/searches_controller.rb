@@ -11,9 +11,15 @@ class SearchesController < ApplicationController
       pager.replace(@items.to_a)
     end
 
-    @authors = Author.popular.take(8)
-    @categories = Category.popular.take(10)
-    render :build
+    # @authors = Author.popular.take(8)
+    # @categories = Category.popular.take(10)
+    @authors = []
+    @categories = []
+
+    respond_to do |format|
+      format.html { render :build }
+      format.js   { render :layout => false  }
+    end
   end
 
   # def result
