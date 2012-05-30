@@ -22,9 +22,6 @@ class ArticlesController < ApplicationController
     @items = WillPaginate::Collection.create(@page, @per_page, @total) do |pager|
       pager.replace(@items.to_a)
     end
-
-    @authors = Author.popular.take(8)
-    @categories = Category.popular.take(10)
   end
 
   def show
