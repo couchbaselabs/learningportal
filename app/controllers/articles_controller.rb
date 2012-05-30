@@ -12,7 +12,19 @@ class ArticlesController < ApplicationController
       "audio"
     end
 
-    @items = Article.popular_by_type(type)
+    # @items = Article.popular_by_type(type).take(10)
+    @total    = Article.view_stats[:count]
+    @per_page = 10
+    @page     = (params[:page] || 1).to_i
+    @skip     = (@page - 1) * @per_page
+
+    @items = Article.popular(:limit => @per_page, :skip => @skip, :type => type).entries
+    @items = WillPaginate::Collection.create(@page, @per_page, @total) do |pager|
+      pager.replace(@items.to_a)
+    end
+
+    @authors = Author.popular.take(8)
+    @categories = Category.popular.take(10)
   end
 
   def show
