@@ -684,7 +684,11 @@ article.single .contributors ul { //override
 .loading {
   color:$lightTitle;
   font-size:24px;
+  font-style:oblique;
   padding:150px;
   text-align:center;
-  font-style:oblique;
+  span {
+    margin-left: 5px;
+    vertical-align:middle;
+  }
 }
