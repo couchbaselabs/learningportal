@@ -26,4 +26,4 @@
           = "#{category}#{unless category == article['categories'].last then ',' end}"
         = link_to "Edit", edit_admin_article_path(article.id), :class => "btn btn-mini pull-right"
 
-= will_paginate @page_results
+= will_paginate @page_results, :renderer => BootstrapPagination::Rails
