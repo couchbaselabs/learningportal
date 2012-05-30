@@ -18,7 +18,7 @@ class ArticlesController < ApplicationController
     @page     = (params[:page] || 1).to_i
     @skip     = (@page - 1) * @per_page
 
-    @items = Article.popular(:limit => @per_page, :skip => @skip, :type => type).entries
+    @items = Article.popular_by_type(:limit => @per_page, :skip => @skip, :type => type).entries
     @items = WillPaginate::Collection.create(@page, @per_page, @total) do |pager|
       pager.replace(@items.to_a)
     end
