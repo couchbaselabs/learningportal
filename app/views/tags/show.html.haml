@@ -20,6 +20,8 @@
           = succeed "%" do
             = item['quality']
         .icon
+          .small-type{ :class => item['type'] }
+            %i.icon-lp{ :class => "icon-lp-#{item['type']}" }
         %h1.article-title= link_to item['title'], article_path(:id => item.id)
         .meta
           Contributed by
