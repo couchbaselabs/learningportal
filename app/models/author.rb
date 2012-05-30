@@ -5,7 +5,6 @@ class Author < Couchbase::Model
   view :by_contribution_count, :contributions_by_type, :by_first_letter
 
   def self.popular(opts={})
-
     options = { :descending => true, :group => true }.merge(opts)
     results = Couch.client.design_docs["author"].by_contribution_count(options).entries
     results.map! { |result| new(:name => result.key, :contributions_count => result.value) }
@@ -16,6 +15,8 @@ class Author < Couchbase::Model
     letter = letter.downcase
     results = Couch.client.design_docs["author"].by_first_letter(:group => true, :startkey => [letter, ""], :endkey => [letter, "\u9999"]).entries
     results.map { |result| new(:name => result.key[1]) }
+    # sAuthor = Struct.new(:name, :contributions_by_type) unless sAuthor
+    # results.map { |result| sAuthor.new(result.key[1], {:overall => 0}) }
   end
 
   def contributions_by_type
