@@ -4,10 +4,11 @@ class Category < Couchbase::Model
   @@keys = [:name, :count]
   view :by_popularity, :by_first_letter
 
-  def self.popular
-    results = Couch.client.design_docs["category"].by_popularity(:descending => true, :group => true).entries
+  def self.popular(opts={})
+    options = { :descending => true, :group => true }.merge(opts)
+    results = Couch.client.design_docs["category"].by_popularity(options).entries
     results.map! { |result| new(:name => result.key, :count => result.value) }
-    results.sort! {|a,b| a.count <=> b.count}.reverse!
+    # results.sort! {|a,b| a.count <=> b.count}.reverse!
   end
 
   def self.by_first_letter(letter="")
