@@ -22,6 +22,11 @@ class ArticlesController < ApplicationController
     @items = WillPaginate::Collection.create(@page, @per_page, @total) do |pager|
       pager.replace(@items.to_a)
     end
+
+    respond_to do |format|
+      format.html { render }
+      format.js   { render :layout => false  }
+    end
   end
 
   def show

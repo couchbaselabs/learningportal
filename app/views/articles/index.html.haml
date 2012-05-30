@@ -1,30 +1,16 @@
-%nav.fixed-navigation
-  %span.title
-    %strong
-      SHOWING: POPULAR CONTENT
-      = "(#{@content_totals[:overall]} results)"
-  .right-fixed.pull-right
-    %span.desc Sort By:
-    .btn-group.pull-right
-      %button.btn Most Popular
-      %button.btn.dropdown-toggle{"data-toggle" => "dropdown"}
-        %span.caret
-      %ul.dropdown-menu
-        / dropdown menu links
 %section.article-navigation
-  - @items.each do |item|
-    %article{:class => item['type']}
-      .article-body
-        %span.score
-          = succeed "%" do
-            = item['quality']
-        .icon
-        %h1.article-title= link_to item['title'], article_path(:id => item.id)
-        .meta
-          Contributed by
-          = item.contributors.first["name"]
-          on
-          = Time.parse(item.contributors.first['timestamp']).strftime('%B %d, %Y at %H:%M')
-        %ul.tag-section
-          = render :partial => "shared/tags", :locals => { :article => item }
-          .clearfix
+  %nav.fixed-navigation
+    %span.title
+      %strong
+        SHOWING: POPULAR CONTENT
+        = "(#{@content_totals[:overall]} results)"
+    .right-fixed.pull-right
+      %span.desc Sort By:
+      .btn-group.pull-right
+        %button.btn Most Popular
+        %button.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+          %span.caret
+        %ul.dropdown-menu
+          / dropdown menu links
+  = render :partial => "shared/articles"
+= render :partial => "shared/scroll"

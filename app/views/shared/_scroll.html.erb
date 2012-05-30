@@ -15,7 +15,7 @@
     if (nearBottomOfPage()) {
       loading=true;
       page++;
-      $.getScript("http://localhost:5000/?page=" + page, function() { loading = false });
+      $.getScript(window.location.href + "?page=" + page, function() { loading = false });
     }
   });
 }());
