@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
       end
       total = self.preferences['total']
       self.preferences['total'] = total + 1
-      update_preferences
+      update_preferences!
     end
   end
 
