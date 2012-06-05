@@ -35,6 +35,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def preference(type=nil)
+    return 0 unless self.preferences
+    return self.preferences['total'] || 0 if type == "total"
+    self.preferences['types'][type] || 0
+  end
 
   def default_preferences
     {
