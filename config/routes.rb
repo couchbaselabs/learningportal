@@ -11,6 +11,8 @@ LearningPortal::Application.routes.draw do
   resources :articles, :except => [:index]
   resources :authors
   resources :tags
+  match '/tag' => 'tags#show', :as => :tag
+  match '/author' => 'authors#show', :as => :author
 
   namespace :admin do
     root :to => 'dashboards#show'

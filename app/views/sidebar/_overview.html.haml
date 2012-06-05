@@ -5,7 +5,7 @@
   %ol
     - @authors.each_with_index do |author, i|
       %li
-        = link_to author_path(:id => author.name) do
+        = link_to author_path(:author => author.name) do
           %span.avatar
           %span.name= "#{i+1}. #{author.name}"
           %span.counts= "#{pluralize(author.contributions_by_type[:text], 'article')}, #{pluralize(author.contributions_by_type[:video], 'video')}, #{pluralize(author.contributions_by_type[:audio], 'image')}"
@@ -16,6 +16,6 @@
   %ul
     - @categories.each do |tag|
       %li.tag
-        = link_to tag_path(:id => tag.name) do
+        = link_to tag_path(:tag => tag.name) do
           .tag-nub
           .tag-text= tag.name
