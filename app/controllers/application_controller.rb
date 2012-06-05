@@ -8,8 +8,10 @@ class ApplicationController < ActionController::Base
   private
 
   def fetch_authors_and_categories
-    @authors = Author.popular
-    @categories = Category.popular
+    @authors = Author.popular(:limit => 8)
+    @categories = Category.popular(:limit => 10)
+    @authors ||= []
+    @categories ||= []
   end
 
   def authenticate_admin!

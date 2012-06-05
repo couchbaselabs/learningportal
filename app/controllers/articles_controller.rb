@@ -40,11 +40,9 @@ class ArticlesController < ApplicationController
 
     if current_user
       if current_user.preferences
-        current_user.preferences.concat(@article['categories'])
-      else
-        current_user.preferences = @article['categories']
+        current_user.increment!(@article['type'])
       end
-      current_user.save
+      # current_user.save
     end
   end
 

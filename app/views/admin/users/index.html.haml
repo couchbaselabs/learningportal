@@ -19,9 +19,9 @@
   - @users.each do |user|
     %tr
       %td= user.email
-      %td= 0
-      %td= 0
-      %td= 0
+      %td= user.preferences["types"]["text"]
+      %td= user.preferences["types"]["video"]
+      %td= user.preferences["types"]["image"]
       %td= "#{time_ago_in_words(user.last_sign_in_at || user.created_at)} ago"
-      %td= 0
+      %td= user.preferences["total"]
 = will_paginate @users, :renderer => BootstrapPagination::Rails
