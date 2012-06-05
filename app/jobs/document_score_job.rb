@@ -14,7 +14,7 @@ class DocumentScoreJob
     #    => 1
     views = 0
     begin
-      views = Couch.client.get("view_count_#{@document_id}")
+      views = Couch.client(:bucket => "views").get("view_count_#{@document_id}")
     rescue Couchbase::Error::NotFound
       # do nothing! we are already 0
     end

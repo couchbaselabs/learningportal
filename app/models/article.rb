@@ -119,7 +119,7 @@ class Article < Couchbase::Model
   end
 
   def count_as_viewed
-    Couch.client.incr("view_count_#{id}", 1, :initial => 1)
+    Couch.client(:bucket => "views").incr("view_count_#{id}", 1, :initial => 1)
   end
 
 end

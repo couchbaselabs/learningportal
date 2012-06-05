@@ -6,8 +6,10 @@ module Couch
       ENV['COUCHBASE_URL'] || "http://127.0.0.1:8091/pools/default"
     end
 
-    def client
-      @client ||= Couchbase.new(domain)
+    def client(options = {})
+      bucket = options.delete(:bucket) || "default"
+      @clients ||= {}
+      @clients[bucket] ||= Couchbase.new(domain, :bucket => bucket)
     end
 
   end
