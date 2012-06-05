@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
     }
   end
 
-  def update_preferences
+  def update_preferences!
     Couch.client(:bucket => "profiles").set(id.to_s, @preferences)
   end
 
