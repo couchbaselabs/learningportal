@@ -4,11 +4,14 @@ class Category < Couchbase::Model
   @@keys = [:name, :count]
   view :by_popularity, :by_first_letter
 
-  def self.popular(opts={})
-    options = { :descending => true, :group => true, :limit => 20}.merge(opts)
-    results = Couch.client.design_docs["category"].by_popularity(options).entries
-    results.map! { |result| new(:name => result.key, :count => result.value) }
-    # results.sort! {|a,b| a.count <=> b.count}.reverse!
+  def self.popular(limit=10)
+    begin
+      tags = Couch.client.get("top_tags")
+      tags.map! { |tag| new (tag) }
+    rescue Couchbase::Error::NotFound
+      Delayed::Job.enqueue(TopTagsJob.new(limit))
+      []
+    end
   end
 
   def self.by_first_letter(letter="")
@@ -24,6 +27,13 @@ class Category < Couchbase::Model
       send("#{key}=", value)
     end
     self.count ||= 0
+  end
+
+  def to_json
+    {
+      name: name,
+      count: count
+    }
   end
 
 end

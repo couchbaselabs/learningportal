@@ -34,7 +34,7 @@ class Article < Couchbase::Model
   end
 
   def self.view_stats
-    Couch.client.design_docs["article"].view_stats(:reduce => true).entries.first.value.symbolize_keys
+    Couch.client.design_docs["article"].view_stats(:reduce => true).entries.first.value.symbolize_keys rescue {:sum => 0, :count => 0, :sumsqr => 0, :min => 0, :max => 0}
   end
 
   def self.author(a)

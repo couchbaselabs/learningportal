@@ -1,22 +1,23 @@
 class Author < Couchbase::Model
 
   attr_accessor :name, :contributions_count
-  @@keys = [:name, :contributions_count]
+  @@keys = [:name, :contributions_count, :contributions_by_type]
   view :by_contribution_count, :contributions_by_type, :by_first_letter
 
-  def self.popular(opts={})
-    options = { :descending => true, :group => true }.merge(opts)
-    results = Couch.client.design_docs["author"].by_contribution_count(options).entries
-    results.map! { |result| new(:name => result.key, :contributions_count => result.value) }
-    results.sort! {|a,b| a.contributions_count <=> b.contributions_count}.reverse!
+  def self.popular(limit=8)
+    begin
+      contribs = Couch.client.get("top_contributors")
+      contribs.map! { |contrib| new (contrib) }
+    rescue Couchbase::Error::NotFound
+      Delayed::Job.enqueue(TopContributorsJob.new(limit))
+      []
+    end
   end
 
   def self.by_first_letter(letter="")
     letter = letter.downcase
     results = Couch.client.design_docs["author"].by_first_letter(:group => true, :startkey => [letter, ""], :endkey => [letter, "\u9999"]).entries
     results.map { |result| new(:name => result.key[1]) }
-    # sAuthor = Struct.new(:name, :contributions_by_type) unless sAuthor
-    # results.map { |result| sAuthor.new(result.key[1], {:overall => 0}) }
   end
 
   def contributions_by_type
@@ -36,6 +37,18 @@ class Author < Couchbase::Model
       send("#{key}=", value)
     end
     self.contributions_count ||= 0
+  end
+
+  def contributions_by_type=(value={ :overall => 0, :audio => 0, :video => 0, :text => 0 })
+    @contribs = value.symbolize_keys unless value.nil?
+  end
+
+  def to_json
+    {
+      name: name,
+      contributions_count: contributions_count,
+      contributions_by_type: contributions_by_type
+    }
   end
 
 end
