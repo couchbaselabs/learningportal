@@ -7,7 +7,7 @@ VERSION = "couchbase-server-community_x86_64_2.0.0-dev-preview-4.deb"
 Vagrant::Config.run do |config|
 
   # Use 64bit Ubuntu Lucid 10.04
-  config.vm.box = "lucid64"
+  config.vm.box = "lucid64.couchbase-2.0.0.dp4.722"
   # config.vm.box_url = "http://files.vagrantup.com/lucid64.box"
   config.vm.box_url = "http://libcouchbase.s3.amazonaws.com/lucid64.couchbase-2.0.0.dp4.722.box"
 
