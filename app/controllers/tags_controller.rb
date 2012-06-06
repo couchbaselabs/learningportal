@@ -9,8 +9,8 @@ class TagsController < ApplicationController
   end
 
   def show
-    @items = Article.category(params[:id])
-    @category = params[:id]
+    @items = Article.category(params[:tag])
+    @category = params[:tag]
   end
 
 end

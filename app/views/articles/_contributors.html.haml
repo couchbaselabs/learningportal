@@ -6,6 +6,6 @@
       = @article['contributors'].size
   - @article['contributors'].each do |contributor|
     .media.contributor
-      %a.img{:href => author_path(:id => contributor['name'])}
+      %a.img{:href => author_path(:author => contributor['name'])}
         %img{:alt => "", :src => ""}/
-      .bd= link_to(contributor['name'], author_path(:id => contributor['name']))
+      .bd= link_to(contributor['name'], author_path(:author => contributor['name']))

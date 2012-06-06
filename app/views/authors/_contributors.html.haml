@@ -12,7 +12,7 @@
   %ol
     - @authors.each do |author|
       %li.no-count
-        = link_to author_path(:id => author.name) do
+        = link_to author_path(:author => author.name) do
           %span.avatar
           %span.name= author.name
           %span.counts=# "#{pluralize(0, 'contribution')}"

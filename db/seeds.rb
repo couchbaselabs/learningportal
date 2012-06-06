@@ -8,4 +8,4 @@ Author.ensure_design_document!
 Category.ensure_design_document!
 
 # Couch.client.flush
-# Wikipedia.seed!
+Wikipedia.seed!
