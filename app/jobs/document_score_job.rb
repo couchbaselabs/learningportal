@@ -21,7 +21,7 @@ class DocumentScoreJob
     end
     document = Article.find(@document_id)
 
-    # 3. quality score is as an integer percentage of the max views (rounded up) between 0..100
+    # 3. popularity score is as an integer percentage of the max views (rounded up) between 0..100
     #    => 1
     score = 0
     if views >= max_views
@@ -31,7 +31,7 @@ class DocumentScoreJob
     end
 
     # 4. update the document
-    document.update_attributes(:views => views, :quality => score)
+    document.update_attributes(:views => views, :popularity => score)
   end
 
 end
