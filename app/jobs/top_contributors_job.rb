@@ -15,7 +15,7 @@ class TopContributorsJob
 
     @top_contribs.sort! {|a,b| a.contributions_count <=> b.contributions_count}
     @top_contribs.reverse!
-    @top_contribs.slice!(0, @limit)
+    @top_contribs = @top_contribs.take(@limit)
     @top_contribs.map! { |contrib| contrib.to_json }
 
     Author.bucket.set("top_contributors", @top_contribs)
