@@ -17,6 +17,7 @@ gem "simple-navigation"
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'newrelic_rpm'
+gem 'asset_sync'
 
 group :production do
   gem 'pg'

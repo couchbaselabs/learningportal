@@ -44,6 +44,7 @@ LearningPortal::Application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
+  config.action_controller.asset_host = "//d61bmfmktp3a8.cloudfront.net"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( admin.css )
@@ -65,5 +66,5 @@ LearningPortal::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  config.action_mailer.default_url_options = { :host => 'learningportal.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'learningportal-staging.herokuapp.com' }
 end
