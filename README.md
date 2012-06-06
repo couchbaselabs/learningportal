@@ -70,6 +70,10 @@ Download and install this updated `libcouchbase` homebrew recipe.
 * https://github.com/dbalatero/typhoeus
 * http://www.elasticsearch.org/guide/reference/setup/installation.html
 
+## Couchbase VM
 
+    rvm gemset use global
+    vagrant box add lucid64 http://files.vagrantup.com/lucid64.box
+    vagrant up
 
 
