@@ -72,8 +72,11 @@ Download and install this updated `libcouchbase` homebrew recipe.
 
 ## Couchbase VM
 
+### Setup
+
+    # https://www.virtualbox.org/wiki/Downloads
+    wget http://download.virtualbox.org/virtualbox/4.1.16/VirtualBox-4.1.16-78094-OSX.dmg
     rvm gemset use global
-    vagrant box add lucid64 http://files.vagrantup.com/lucid64.box
+    gem install vagrant --no-ri --no-rdoc
+    cd learningportal
     vagrant up
-
-
