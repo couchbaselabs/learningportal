@@ -5,4 +5,10 @@ namespace :learningportal do
       Delayed::Job.enqueue( DocumentScoreJob.new( doc.id ) )
     end
   end
+
+  task :top_tags_authors => :environment do
+    Delayed::Job.enqueue(TopContributorsJob.new(8))
+    Delayed::Job.enqueue(TopTagsJob.new(8))
+  end
+
 end
