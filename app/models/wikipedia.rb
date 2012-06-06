@@ -1,6 +1,6 @@
 class Wikipedia
 
-  ARTICLE_TYPES = ["text", "video", "audio"]
+  ARTICLE_TYPES = ["text", "video", "image"]
   BASE_URL      = "http://en.wikipedia.org/w/api.php"
   BATCH         = 10
   BATCHES       = 10
@@ -74,7 +74,7 @@ class Wikipedia
       :type => ARTICLE_TYPES[random_type],
       :is_text => (random_type == 0),
       :is_video => (random_type == 1),
-      :is_audio => (random_type == 2),
+      :is_image => (random_type == 2),
       :quality => random_quality,
       :categories => categories,
       :timestamp => revision['timestamp'],

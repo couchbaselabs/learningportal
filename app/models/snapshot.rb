@@ -8,8 +8,8 @@ class Snapshot < ActiveRecord::Base
 
     self.text_count = totals[:text]
     self.text_view_count = views[:text]
-    self.image_count = totals[:audio]
-    self.image_view_count = views[:audio]
+    self.image_count = totals[:image]
+    self.image_view_count = views[:image]
     self.video_count = totals[:video]
     self.video_view_count = views[:video]
   end

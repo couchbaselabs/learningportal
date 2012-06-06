@@ -8,7 +8,7 @@
         = link_to author_path(:author => author.name) do
           %span.avatar
           %span.name= "#{i+1}. #{author.name}"
-          %span.counts= "#{pluralize(author.contributions_by_type[:text], 'article')}, #{pluralize(author.contributions_by_type[:video], 'video')}, #{pluralize(author.contributions_by_type[:audio], 'image')}"
+          %span.counts= "#{pluralize(author.contributions_by_type[:text], 'article')}, #{pluralize(author.contributions_by_type[:video], 'video')}, #{pluralize(author.contributions_by_type[:image], 'image')}"
 .section-header
   Popular Tags
   = link_to "View all", sidebar_tag_path, :remote => true, :class => 'btn btn-primary btn-small pull-right viewall'

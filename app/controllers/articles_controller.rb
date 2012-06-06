@@ -3,14 +3,7 @@ class ArticlesController < ApplicationController
   before_filter :fetch_authors_and_categories, :only => [:index, :show]
 
   def index
-    type = case params[:type]
-    when "articles"
-      "text"
-    when "videos"
-      "video"
-    when "images"
-      "audio"
-    end
+    type = params[:type]
 
     # @items = Article.popular_by_type(type).take(10)
     @total    = Article.view_stats[:count]

@@ -1,6 +1,6 @@
 = simple_form_for [:admin, @article] do |f|
   = f.input :title
-  = f.input :type, :collection => ["audio", "video", "text"], :prompt => "Choose a type"
+  = f.input :type, :collection => ["image", "video", "text"], :prompt => "Choose a type"
   = f.input :url, :disabled => true
   =# f.input :author
   = f.input :content, :as => :text
