@@ -79,4 +79,7 @@ Download and install this updated `libcouchbase` homebrew recipe.
     rvm gemset use global
     gem install vagrant --no-ri --no-rdoc
     cd learningportal
+
+    # edit COUCHBASE_HOST in .env to an appropriate IP to enable hostonly networking
+    export $(cat .env)
     vagrant up

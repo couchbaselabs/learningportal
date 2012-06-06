@@ -1,5 +1,5 @@
 common: &common
-  hostname: localhost
+  hostname: <%= ENV['COUCHBASE_HOST'] %>
   port: 8091
   username:
   password:
