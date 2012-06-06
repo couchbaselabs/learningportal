@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
       "user_id" => self.id,
       "types" => {
         "video" => 0,
-        "audio" => 0,
+        "image" => 0,
         "text"  => 0
       },
       "total" => 0,

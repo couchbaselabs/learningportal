@@ -15,7 +15,7 @@ class Article < Couchbase::Model
   @@keys = [:id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :quality]
 
   def self.totals
-    total = { :overall => 0, :audio => 0, :video => 0, :text => 0 }
+    total = { :overall => 0, :image => 0, :video => 0, :text => 0 }
     Couch.client.design_docs["article"].by_type(:group => true, :group_level => 1).entries.each do |row|
       total[row.key[0].to_sym] = row.value
       total[:overall]   += row.value
