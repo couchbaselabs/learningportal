@@ -7,7 +7,7 @@ class TopTagsJob
   def perform
     @top_tags = []
 
-    @categories = Couch.client.design_docs["category"].by_popularity({ :descending => true, :group => true }).entries
+    @categories = Category.bucket.design_docs["category"].by_popularity({ :descending => true, :group => true }).entries
     @categories.each do |row|
       @top_tags << Category.new(:name => row.key, :count => row.value).to_json
     end
@@ -15,7 +15,7 @@ class TopTagsJob
     @top_tags.sort! {|a,b| a[:count] <=> b[:count] }
     @top_tags.reverse!
 
-    Couch.client.set("top_tags", @top_tags.take(@limit))
+    Category.bucket.set("top_tags", @top_tags.take(@limit))
   end
 
 end

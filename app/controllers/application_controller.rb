@@ -10,8 +10,6 @@ class ApplicationController < ActionController::Base
   def fetch_authors_and_categories
     @authors = Author.popular
     @categories = Category.popular
-    #@authors ||= []
-    #@categories ||= []
   end
 
   def authenticate_admin!

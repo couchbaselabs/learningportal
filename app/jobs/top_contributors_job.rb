@@ -7,15 +7,18 @@ class TopContributorsJob
   def perform
     @top_contribs = []
 
-    @contributors = Couch.client.design_docs["author"].by_contribution_count({ :descending => true, :group => true }).entries
+    @contributors = Author.bucket.design_docs["author"].by_contribution_count({ :descending => true, :group => true }).entries
     @contributors.each do |row|
-      @top_contribs << Author.new(:name => row.key, :contributions_count => row.value).to_json
+      author = Author.new(:name => row.key, :contributions_count => row.value)
+      @top_contribs << author
     end
 
-    @top_contribs.sort! {|a,b| a[:contributions_count] <=> b[:contributions_count]}
+    @top_contribs.sort! {|a,b| a.contributions_count <=> b.contributions_count}
     @top_contribs.reverse!
+    @top_contribs.slice!(0, @limit)
+    @top_contribs.map! { |contrib| contrib.to_json }
 
-    Couch.client.set("top_contributors", @top_contribs.take(@limit))
+    Author.bucket.set("top_contributors", @top_contribs)
   end
 
 end
