@@ -55,7 +55,7 @@ class Wikipedia
     categories = json["categories"].map {|c| c['title'].split(':').last }
 
     random_type = rand(3)
-    random_quality = rand(100) + 1;
+    random_popularity = rand(100) + 1;
 
     revision = json["revisions"].first
 
@@ -75,7 +75,7 @@ class Wikipedia
       :is_text => (random_type == 0),
       :is_video => (random_type == 1),
       :is_image => (random_type == 2),
-      :quality => random_quality,
+      :popularity => random_popularity,
       :categories => categories,
       :timestamp => revision['timestamp'],
       :content => revision['*'],

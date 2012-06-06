@@ -18,7 +18,7 @@
       .article-body
         %span.score
           = succeed "%" do
-            = item['quality']
+            = item['popularity']
         .icon
           .small-type{ :class => item['type'] }
             %i.icon-lp{ :class => "icon-lp-#{item['type']}" }

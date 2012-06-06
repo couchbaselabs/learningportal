@@ -11,8 +11,8 @@ class Article < Couchbase::Model
     @id
   end
 
-  attr_accessor :id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :quality
-  @@keys = [:id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :quality]
+  attr_accessor :id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity
+  @@keys = [:id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity]
 
   def self.totals
     total = { :overall => 0, :image => 0, :video => 0, :text => 0 }
@@ -105,12 +105,12 @@ class Article < Couchbase::Model
 
     self.attrs = attributes.with_indifferent_access || {}
     self.views = self.attrs[:views] || 0
-    self.quality = self.attrs[:quality] || 0
+    self.popularity = self.attrs[:popularity] || 0
     self.categories = self.attrs[:categories] || []
   end
 
   def update
-    @attrs.merge!(:categories => @categories, :title => @title, :content => @content, :views => @views, :quality => @quality)
+    @attrs.merge!(:categories => @categories, :title => @title, :content => @content, :views => @views, :popularity => @popularity)
     Couch.client.set(@id, @attrs)
   end
 
