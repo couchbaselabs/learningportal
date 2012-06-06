@@ -12,6 +12,14 @@ test:
   <<: *common
 
 # set these environment variables on your production server
+staging:
+  hostname: <%= ENV['COUCHBASE_HOST'] %>
+  port: <%= ENV['COUCHBASE_PORT'] %>
+  username: <%= ENV['COUCHBASE_USERNAME'] %>
+  password: <%= ENV['COUCHBASE_PASSWORD'] %>
+  pool: <%= ENV['COUCHBASE_POOL'] %>
+  bucket: <%= ENV['COUCHBASE_BUCKET'] %>
+
 production:
   hostname: <%= ENV['COUCHBASE_HOST'] %>
   port: <%= ENV['COUCHBASE_PORT'] %>
