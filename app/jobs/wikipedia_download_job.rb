@@ -6,10 +6,11 @@ class WikipediaDownloadJob
 
   def perform
     articles = Wikipedia.fetch( @article_ids )
-    couchbase = Couchbase.connect(ENV["COUCHBASE_URL"])
+    stats = Article.view_stats
+
     articles.each do |article|
-      id, document = Wikipedia.parse( article )
-      couchbase.set(id.to_s, document)
+      id, document = Wikipedia.parse( article, stats[:avg] )
+      Couch.client.set(id.to_s, document)
     end
   end
 
