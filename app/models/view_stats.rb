@@ -6,8 +6,9 @@ class ViewStats < Couchbase::Model
 
   view :by_popularity
 
-  def self.popular_content(opts={ :limit => 1000 })
-    options = opts.merge!({ :descending => true, :reduce => false })
+  def self.popular_content(options={})
+    defaults = { :descending => true, :reduce => false, :limit => 1000 }
+    options = defaults.merge!(options)
     Couch.client(:bucket => BUCKET).design_docs["view_stats"].by_popularity(options).entries
   end
 
