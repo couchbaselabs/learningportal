@@ -20,4 +20,16 @@ namespace :learningportal do
     Delayed::Job.enqueue(TopTagsJob.new(8))
   end
 
+  desc "Update couchbase views"
+  task :couch_migrate => :environment do
+    Article.ensure_design_document!
+    Author.ensure_design_document!
+    Category.ensure_design_document!
+    ViewStats.ensure_design_document!
+  end
+
+  desc "Seed 100 documents"
+  task :seed => :environment do
+    Wikipedia.seed!
+  end
 end
