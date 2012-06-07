@@ -34,7 +34,11 @@ class Article < Couchbase::Model
   end
 
   def self.view_stats
-    Couch.client.design_docs["article"].view_stats(:reduce => true).entries.first.value.symbolize_keys rescue {:sum => 0, :count => 0, :sumsqr => 0, :min => 0, :max => 0}
+    defaults = {:sum => 0, :count => 0, :sumsqr => 0, :min => 0, :max => 0}
+    results = Couch.client.design_docs["article"].view_stats(:reduce => true).entries.first.value.symbolize_keys
+    results = defaults.merge!(results)
+    results[:avg] = (results[:sum].to_f/results[:count].to_f)
+    results
   end
 
   def self.author(a)
