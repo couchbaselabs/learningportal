@@ -7,6 +7,13 @@ namespace :learningportal do
     end
   end
 
+  desc "Recalculate active content"
+  task :recalculate_active => :environment do
+    ViewStats.popular_content.each do |row|
+      Delayed::Job.enqueue( DocumentScoreJob.new( row.key ) )
+    end
+  end
+
   desc "Update top tags and authors"
   task :top_tags_authors => :environment do
     Delayed::Job.enqueue(TopContributorsJob.new(8))
