@@ -10,7 +10,7 @@ namespace :learningportal do
   desc "Recalculate active content"
   task :recalculate_active => :environment do
     ViewStats.popular_content.each do |row|
-      Delayed::Job.enqueue( DocumentScoreJob.new( row.key ) )
+      Delayed::Job.enqueue( DocumentScoreJob.new( row.id ) )
     end
   end
 
