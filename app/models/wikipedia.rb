@@ -76,6 +76,7 @@ class Wikipedia
       :is_video => (random_type == 1),
       :is_image => (random_type == 2),
       :popularity => random_popularity,
+      :views => 0,
       :categories => categories,
       :timestamp => revision['timestamp'],
       :content => revision['*'],
