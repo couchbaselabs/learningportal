@@ -50,12 +50,12 @@ class Wikipedia
   end
 
 
-  def self.parse(json)
+  def self.parse(json, popularity=nil)
     id = json["pageid"]
     categories = json["categories"].map {|c| c['title'].split(':').last }
 
     random_type = rand(3)
-    random_popularity = rand(100) + 1;
+    popularity = rand(100) + 1 unless popularity
 
     revision = json["revisions"].first
 
@@ -75,7 +75,7 @@ class Wikipedia
       :is_text => (random_type == 0),
       :is_video => (random_type == 1),
       :is_image => (random_type == 2),
-      :popularity => random_popularity,
+      :popularity => popularity,
       :views => 0,
       :categories => categories,
       :timestamp => revision['timestamp'],
