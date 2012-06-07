@@ -6,7 +6,7 @@ class Author < Couchbase::Model
 
   def self.popular(limit=8)
     begin
-      contribs = Couch.client(:bucket => 'system').get("top_contributors")
+      contribs = Couch.client(:bucket => 'system').get("contributors")["contributors"]
       return contribs.map! { |contrib| new (contrib) }
     rescue Couchbase::Error::NotFound
       Delayed::Job.enqueue(TopContributorsJob.new(limit))

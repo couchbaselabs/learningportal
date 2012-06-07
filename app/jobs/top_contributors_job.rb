@@ -18,7 +18,7 @@ class TopContributorsJob
     @top_contribs = @top_contribs.take(@limit)
     @top_contribs.map! { |contrib| contrib.to_json }
 
-    Couch.client(:bucket => "system").set("top_contributors", @top_contribs)
+    Couch.client(:bucket => "system").set("contributors", {:contributors => @top_contribs})
   end
 
 end
