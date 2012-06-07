@@ -122,13 +122,13 @@ class Article < Couchbase::Model
     c = Couch.client(:bucket => "views")
     views = 0
     begin
-      result = c.get("view_count_#{id}")
+      result = c.get("#{id}")
       views = result['count'] || 0
       views += 1
     rescue Couchbase::Error::NotFound => e
       views = 1
     end
-    c.set("view_count_#{id}", {:count => views})
+    c.set("#{id}", {:count => views})
     views
   end
 
