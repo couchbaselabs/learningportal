@@ -42,7 +42,11 @@ class Article < Couchbase::Model
 
     end
     results = defaults.merge!(results)
-    results[:avg] = (results[:sum].to_f/results[:count].to_f)
+    if results[:count] == 0
+      results[:avg] = 0
+    else
+      results[:avg] = (results[:sum].to_f/results[:count].to_f)
+    end
     results
   end
 
