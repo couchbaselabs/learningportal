@@ -75,5 +75,5 @@
               /#images.tab-pane= render "sidebar/sidebar_search"
             #sidebar-content.pull-left
               = render "sidebar/overview"
-        #content{ :class => (request.path.include?('/authors/')) ? "single-contributor" : "" }
+        #content{ :class => (request.path.include?('/author')) ? "single-contributor" : "" }
           = yield
