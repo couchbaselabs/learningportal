@@ -6,10 +6,16 @@ class WikipediaDownloadJob
 
   def perform
     articles = Wikipedia.fetch( @article_ids )
-    stats = Article.view_stats
+    avg = 0
+    begin
+      stats = Article.view_stats
+      avg = stats[:avg]
+    rescue Couchbase::Error::NotFound
+
+    end
 
     articles.each do |article|
-      id, document = Wikipedia.parse( article, stats[:avg] )
+      id, document = Wikipedia.parse( article, avg )
       Couch.client.set(id.to_s, document)
     end
   end
