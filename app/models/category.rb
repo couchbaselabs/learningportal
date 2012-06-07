@@ -6,7 +6,7 @@ class Category < Couchbase::Model
 
   def self.popular(limit=10)
     begin
-      tags = Couch.client.get("top_tags")
+      tags = Couch.client(:bucket => 'system').get("top_tags")
       return tags.map! { |tag| new (tag) }
     rescue Couchbase::Error::NotFound
       Delayed::Job.enqueue(TopTagsJob.new(limit))

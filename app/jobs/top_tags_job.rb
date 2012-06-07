@@ -15,7 +15,7 @@ class TopTagsJob
     @top_tags.sort! {|a,b| a[:count] <=> b[:count] }
     @top_tags.reverse!
 
-    Category.bucket.set("top_tags", @top_tags.take(@limit))
+    Couch.client(:bucket => "system").set("top_tags", @top_tags.take(@limit))
   end
 
 end
