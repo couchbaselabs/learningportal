@@ -3,7 +3,7 @@ class Wikipedia
   ARTICLE_TYPES = ["text", "video", "image"]
   BASE_URL      = "http://en.wikipedia.org/w/api.php"
   BATCH         = 10
-  BATCHES       = 10
+  BATCHES       = 100
 
   # return an array of random wikipedia article references
   def self.random
