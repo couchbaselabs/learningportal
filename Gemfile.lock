@@ -1,8 +1,9 @@
 GIT
   remote: git://github.com/avsej/couchbase-ruby-client.git
-  revision: d48f7108f3c87852caae702c45ad68c0faf17e79
+  revision: b2c35e49fb3f63677f0bfa9623f40a24af5bdd80
+  ref: b2c35e49fb3f63677f0bfa9623f40a24af5bdd80
   specs:
-    couchbase (1.2.0.dp3)
+    couchbase (1.2.0.dp4)
       multi_json (~> 1.0)
       yaji (~> 0.3.2)
 
