@@ -32,7 +32,7 @@ class ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id])
     @view_count = @article.count_as_viewed
-
+    @view_count = @article['views'] + @view_count
     wiki = WikiCloth::Parser.new({
       :data => @article['content']
     })
