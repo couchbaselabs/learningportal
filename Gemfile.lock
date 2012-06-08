@@ -1,13 +1,4 @@
 GIT
-  remote: git://github.com/avsej/couchbase-ruby-client.git
-  revision: b2c35e49fb3f63677f0bfa9623f40a24af5bdd80
-  ref: b2c35e49fb3f63677f0bfa9623f40a24af5bdd80
-  specs:
-    couchbase (1.2.0.dp4)
-      multi_json (~> 1.0)
-      yaji (~> 0.3.2)
-
-GIT
   remote: git://github.com/avsej/ruby-couchbase-model.git
   revision: cd623371295195a13ad48dd49958776cee3d9c9a
   specs:
@@ -80,6 +71,9 @@ GEM
       sass (~> 3.1)
     compass-rails (1.0.1)
       compass (~> 0.12.0)
+    couchbase (1.2.0.dp3)
+      multi_json (~> 1.0)
+      yaji (~> 0.3.2)
     daemons (1.1.8)
     delayed_job (3.0.1)
       activesupport (~> 3.0)
@@ -266,7 +260,7 @@ DEPENDENCIES
   ci_reporter
   coffee-rails (~> 3.2.1)
   compass-rails
-  couchbase!
+  couchbase (= 1.2.0.dp3)
   couchbase-model!
   delayed_job_active_record
   devise
