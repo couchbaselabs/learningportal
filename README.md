@@ -12,7 +12,7 @@ A Couchbase / Elastic Search proof of concept app.
 
 Download and install this updated `libcouchbase` homebrew recipe.
 
-    wget https://raw.github.com/gist/2694093/e59a2430c9c912e4b8c413f8c19454bb529ba986/libcouchbase.rb -O /usr/local/Library/Formula/libcouchbase.rb
+    wget https://raw.github.com/gist/2895629/12434b53ad1944ea2e5786e2ac0bb7081a5992f9/libcouchbase.rb -O /usr/local/Library/Formula/libcouchbase.rb
 
     brew update
     brew install libevent
