@@ -43,6 +43,10 @@ class Author < Couchbase::Model
     @contribs = value.symbolize_keys unless value.nil?
   end
 
+  def to_s
+    name
+  end
+
   def to_json
     {
       name: name,

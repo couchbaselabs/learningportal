@@ -10,7 +10,7 @@ class AuthorsController < ApplicationController
 
   def show
     @items = Article.author(params[:author])
-    @author = params[:author]
+    @author = Author.new(:name => params[:author])
   end
 
 end

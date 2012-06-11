@@ -6,14 +6,10 @@
       .meta
         Contributed
         = succeed "," do
-          2 articles
-          / = pluralize('article', 2)
+          = pluralize(@author.contributions_by_type[:article], "article")
         = succeed "," do
-          1 video
-          / = pluralize('video', 1)
-        = succeed "," do
-          1 image
-          / = pluralize('image', 1)
+          = pluralize(@author.contributions_by_type[:video], "video")
+        = pluralize(@author.contributions_by_type[:image], "image")
         %br
         Last contributed on
         = "12/05/12"
