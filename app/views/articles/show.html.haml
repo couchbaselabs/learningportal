@@ -14,12 +14,12 @@
       .meta.clearfix
         .meta-text.pull-left
           Contributed by
-          = @article['contributors'].first['name']
-          - if @article['contributors'].count > 1
-            and
-            = succeed ',' do
+          = succeed ',' do
+            = @article['contributors'].first['name']
+            - if @article['contributors'].count > 1
+              and
               %a{ :href => '#contributors' }= pluralize(@article['contributors'].count, 'other')
-            = pluralize(@view_count, 'view')
+          = pluralize(@view_count, 'view')
         %a.meta-tag.pull-left{ :href => '#tags' }
           .tag-nub
           .tag-text= pluralize(@article['categories'].size, 'tag')
