@@ -57,9 +57,9 @@ class Article < Couchbase::Model
     by_author(options).entries
   end
 
-  def self.category(c)
+  def self.category(c, opts={})
     # Couch.client.design_docs["article"].by_type(:reduce => false).entries.collect { |row| Article.find(row.key[1]) }
-    options = { :reduce => false }
+    options = { :reduce => false }.merge!(opts)
     options.merge!({ :startkey => [c, ""], :endkey => [c, "\u9999"] })
     by_category(options).entries
   end
