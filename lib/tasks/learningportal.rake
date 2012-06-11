@@ -1,9 +1,19 @@
 namespace :learningportal do
   desc "Schedule background score indexing for all documents"
   task :recalculate_scores => :environment do
-    documents = Article.by_author.entries
-    documents.each do |doc|
-      Delayed::Job.enqueue( DocumentScoreJob.new( doc.id ) )
+    # perform queuing of document score recalculation
+    # in a batch size of 1000 to avoid using too much memoery
+
+    total_docs = Article.view_stats[:count]
+    batch_size = 1000
+    num_batches = (total_docs / batch_size.to_f).ceil # include all docs in final batch if less than batch_size
+
+    num_batches.times do |skip|
+      skip = skip * batch_size
+      documents = Couch.client(:bucket => "default").design_docs["article"].by_author(:skip => skip, :limit => batch_size).entries.collect(&:id)
+      documents.each do |doc|
+        Delayed::Job.enqueue( DocumentScoreJob.new( doc ) )
+      end
     end
   end
 
