@@ -5,7 +5,7 @@ class Article < Couchbase::Model
   extend ActiveModel::Callbacks
   extend ActiveModel::Naming
 
-  view :by_type, :by_category, :by_author, :view_stats, :view_stats_by_type, :by_popularity_and_type, :by_popularity, :by_category_stats
+  view :by_type, :by_category, :by_author, :view_stats, :by_popularity_and_type, :by_popularity, :by_category_stats
 
   def persisted?
     @id
@@ -21,16 +21,6 @@ class Article < Couchbase::Model
       total[:overall]   += row.value
     end
     total
-  end
-
-  def self.view_stats_type
-    results = Couch.client.design_docs["article"].view_stats_by_type(:group => true, :reduce => true).entries
-    result_hash = {}
-    results.each do |r|
-      next if r.key == nil
-      result_hash[r.key] = r.value
-    end
-    result_hash.symbolize_keys
   end
 
   def self.view_stats
@@ -151,7 +141,7 @@ class Article < Couchbase::Model
     rescue Couchbase::Error::NotFound => e
       views = 1
     end
-    c.set("#{id}", {:count => views})
+    c.set("#{id}", {:count => views, :type => type})
     views
   end
 
