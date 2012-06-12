@@ -15,7 +15,10 @@
     if (nearBottomOfPage()) {
       loading=true;
       page++;
-      $.getScript(window.location.href + "?page=" + page, function() { loading = false });
+      var location = window.location.href + ((window.location.href.indexOf("?") != -1) ? "&" : "?")
+      $.getScript(location + "page=" + page)
+        .success(function() { loading = false })
+        .fail(function() { loading = true; $(".loading").hide(); })
     }
   });
 }());

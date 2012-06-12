@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
 
   before_filter :fetch_authors_and_categories, :only => [:index, :show]
+  after_filter  :limit_endless_scroll, :only => [:index]
 
   def index
     type = case params[:type]
@@ -19,13 +20,13 @@ class ArticlesController < ApplicationController
     @skip     = (@page - 1) * @per_page
 
     @items = Article.popular_by_type(:limit => @per_page, :skip => @skip, :type => type).entries
-    @items = WillPaginate::Collection.create(@page, @per_page, @total) do |pager|
-      pager.replace(@items.to_a)
-    end
+    # @items = WillPaginate::Collection.create(@page, @per_page, @total) do |pager|
+      # pager.replace(@items.to_a)
+    # end
 
     respond_to do |format|
       format.html { render }
-      format.js   { render :layout => false  }
+      format.js   { render :partial => "shared/endless_scroll.js" }
     end
   end
 

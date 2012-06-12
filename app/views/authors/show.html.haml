@@ -6,7 +6,7 @@
       .meta
         Contributed
         = succeed "," do
-          = pluralize(@author.contributions_by_type[:article], "article")
+          = pluralize(@author.contributions_by_type[:text], "article")
         = succeed "," do
           = pluralize(@author.contributions_by_type[:video], "video")
         = pluralize(@author.contributions_by_type[:image], "image")
@@ -18,7 +18,7 @@
     %strong
       SHOWING:
       = "#{@author}'s CONTENT"
-      = "(#{@items.size} results)"
+      = "(#{@total} results)"
   .right-fixed.pull-right
     %span.desc Sort By:
     .btn-group.pull-right
@@ -27,19 +27,6 @@
         %span.caret
       %ul.dropdown-menu
         / dropdown menu links
-%section.article-navigation.single-contributor
-  - @items.each do |item|
-    %article{:class => item['type']}
-      .article-body
-        .icon
-          .small-type{ :class => item['type'] }
-            %i.icon-lp{ :class => "icon-lp-#{item['type']}" }
-        %h1.article-title= link_to item['title'], article_path(:id => item.id)
-        .meta
-          Contributed by
-          = item.contributors.first["name"]
-          on
-          = Time.parse(item.contributors.first['timestamp']).strftime('%B %d, %Y at %H:%M')
-        %ul.tag-section
-          = render :partial => "shared/tags", :locals => { :article => item }
-          .clearfix
+= render :partial => "shared/articles"
+= render :partial => "shared/loading_content"
+= render :partial => "shared/scroll"

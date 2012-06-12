@@ -12,6 +12,6 @@
   %ul
     - @categories.each do |tag|
       %li.tag
-        = link_to tag_path(:id => tag.name) do
+        = link_to tag_path(:tag => tag.name) do
           .tag-nub
           .tag-text= tag.name

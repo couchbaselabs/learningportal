@@ -13,7 +13,5 @@
         %ul.dropdown-menu
           / dropdown menu links
   = render :partial => "shared/articles"
-  .loading
-    %img{ :src => asset_path("loader.gif") }
-    %span Loading more content...
+= render :partial => "shared/loading_content"
 = render :partial => "shared/scroll"

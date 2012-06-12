@@ -1,6 +1,7 @@
 class SearchesController < ApplicationController
 
   before_filter :fetch_authors_and_categories, :only => [:build, :result]
+  after_filter  :limit_endless_scroll, :only => [:build]
 
   def build
     @total    = Article.view_stats[:count]
@@ -9,13 +10,13 @@ class SearchesController < ApplicationController
     @skip     = (@page - 1) * @per_page
 
     @items = Article.popular(:limit => @per_page, :skip => @skip, :include_docs => true).entries
-    @items = WillPaginate::Collection.create(@page, @per_page, @total) do |pager|
-      pager.replace(@items.to_a)
-    end
+    # @items = WillPaginate::Collection.create(@page, @per_page, @total) do |pager|
+      # pager.replace(@items.to_a)
+    # end
 
     respond_to do |format|
       format.html { render :build }
-      format.js   { render :layout => false  }
+      format.js   { render :partial => "shared/endless_scroll.js" }
     end
   end
 

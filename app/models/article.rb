@@ -5,7 +5,7 @@ class Article < Couchbase::Model
   extend ActiveModel::Callbacks
   extend ActiveModel::Naming
 
-  view :by_type, :by_category, :by_author, :view_stats, :view_stats_by_type, :by_popularity_and_type, :by_popularity
+  view :by_type, :by_category, :by_author, :view_stats, :view_stats_by_type, :by_popularity_and_type, :by_popularity, :by_category_stats
 
   def persisted?
     @id
@@ -50,11 +50,16 @@ class Article < Couchbase::Model
     results
   end
 
-  def self.author(a)
+  def self.author(a, opts={})
     # Couch.client.design_docs["article"].by_type(:reduce => false).entries.collect { |row| Article.find(row.key[1]) }
-    options = { :reduce => false }
+    options = { :reduce => false }.merge!(opts)
     options.merge!({ :startkey => [a, ""], :endkey => [a, "\u9999"] })
     by_author(options).entries
+  end
+
+  def self.author_count(a, opts={})
+    options = { :startkey => [a, ""], :endkey => [a, "\u9999"], :reduce => true }
+    Couch.client.design_docs["article"].by_author(options).entries.first.value rescue 0
   end
 
   def self.category(c, opts={})
@@ -62,6 +67,11 @@ class Article < Couchbase::Model
     options = { :reduce => false }.merge!(opts)
     options.merge!({ :startkey => [c, ""], :endkey => [c, "\u9999"] })
     by_category(options).entries
+  end
+
+  def self.category_count(c)
+    options = { :startkey => [c, ""], :endkey => [c, "\u9999"], :reduce => true }
+    Couch.client.design_docs["article"].by_category(options).entries.first.value rescue 0
   end
 
   def self.popular_by_type(opts={})

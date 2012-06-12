@@ -27,4 +27,11 @@ class ApplicationController < ActionController::Base
     @users = User.all
   end
 
+  def limit_endless_scroll
+    if @items.nil? || @items.count == 0 && request.format == Mime::JS
+      response.body = ""
+      response.status = 416
+    end
+  end
+
 end
