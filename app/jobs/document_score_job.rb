@@ -29,10 +29,10 @@ class DocumentScoreJob
     popularity = popularity + views
 
     # 5. update the document with the new all time total and popularity
-    document.update_attributes(:views => views, :popularity => popularity)
+    document.update_attributes(:views => total, :popularity => popularity)
 
     # 6. reset the counter
-    Couch.client(:bucket => "views").set("#{@document_id}", {:count => 0})
+    Couch.client(:bucket => "views").set("#{@document_id}", {:count => 0, :type => document.type})
   end
 
 end

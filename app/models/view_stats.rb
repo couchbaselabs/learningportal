@@ -12,9 +12,12 @@ class ViewStats < Couchbase::Model
     Couch.client(:bucket => BUCKET).design_docs["view_stats"].by_popularity(options).entries
   end
 
-  def self.views_by_type
-    results = Couch.client(:bucket => BUCKET).design_docs["view_stats"].views_by_type(:group => true, :reduce => true).entries
-    result_hash = {}
+  # gathers view total counts by type from content documents in views bucket
+  def self.views_by_type(opts={})
+    options = { :group => true, :reduce => true }.merge!(opts)
+    results = Couch.client(:bucket => BUCKET).design_docs["view_stats"].views_by_type(options).entries
+
+    result_hash = { :text => 0, :video => 0, :image => 0 }
     results.each do |r|
       next if r.key == nil
       result_hash[r.key] = r.value

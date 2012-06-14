@@ -10,7 +10,7 @@ namespace :learningportal do
 
     num_batches.times do |skip|
       skip = skip * batch_size
-      documents = Couch.client(:bucket => "default").design_docs["article"].by_author(:skip => skip, :limit => batch_size).entries.collect(&:id)
+      documents = Couch.client(:bucket => "default").design_docs["article"].by_author(:skip => skip, :limit => batch_size, :group => true).entries.collect { |row| row.key[1] }
       documents.each do |doc|
         Delayed::Job.enqueue( DocumentScoreJob.new( doc ) )
       end
