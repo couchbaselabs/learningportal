@@ -1,7 +1,4 @@
-class Admin::SnapshotsController < ApplicationController
-
-  layout "admin"
-  skip_before_filter :authenticate_user!
+class Admin::SnapshotsController < AdminController
 
   def create
     @snapshot = Snapshot.create!

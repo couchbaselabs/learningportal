@@ -1,6 +1,4 @@
-class Admin::DashboardsController < ApplicationController
-
-  layout "admin"
+class Admin::DashboardsController < AdminController
 
   def show
     @content_view_totals = ViewStats.views_by_type

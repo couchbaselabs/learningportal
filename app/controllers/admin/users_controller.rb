@@ -1,7 +1,4 @@
-class Admin::UsersController < ApplicationController
-
-  layout "admin"
-  skip_before_filter :authenticate_user!
+class Admin::UsersController < AdminController
 
   def index
     @users = User.order("created_at DESC").page(params[:page])

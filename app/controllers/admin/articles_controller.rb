@@ -1,6 +1,4 @@
-class Admin::ArticlesController < ApplicationController
-
-  layout "admin"
+class Admin::ArticlesController < AdminController
 
   def index
     @total    = Article.view_stats[:count]

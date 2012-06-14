@@ -1,6 +1,4 @@
-class Admin::AuthorsController < ApplicationController
-
-  layout 'admin'
+class Admin::AuthorsController < AdminController
 
   def index
     #@authors = Author.all
