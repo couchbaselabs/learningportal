@@ -13,7 +13,7 @@ class ViewStats < Couchbase::Model
   end
 
   def self.views_by_type
-    results = Couch.client(:bucket => BUCKET).design_docs["view_stats"].views_by_type(:group => true, :reduce => true, :stale => false).entries
+    results = Couch.client(:bucket => BUCKET).design_docs["view_stats"].views_by_type(:group => true, :reduce => true).entries
     result_hash = {}
     results.each do |r|
       next if r.key == nil

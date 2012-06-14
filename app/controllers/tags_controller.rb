@@ -15,7 +15,7 @@ class TagsController < ApplicationController
     @page     = (params[:page] || 1).to_i
     @skip     = (@page - 1) * @per_page
 
-    @items = Article.category(params[:tag], { :limit => @per_page, :skip => @skip, :stale => false }).entries
+    @items = Article.category(params[:tag], { :limit => @per_page, :skip => @skip}).entries
     # @items = WillPaginate::Collection.create(@page, @per_page, @total) do |pager|
       # pager.replace(@items.to_a)
     # end
