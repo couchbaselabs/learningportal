@@ -6,7 +6,7 @@ class Admin::ArticlesController < AdminController
     @page     = (params[:page] || 1).to_i
     @skip     = (@page - 1) * @per_page
 
-    @articles = Article.by_author(:limit => @per_page, :skip => @skip, :include_docs => true).entries
+    @articles = Article.popular(:limit => @per_page, :skip => @skip, :include_docs => true).entries
     @articles = WillPaginate::Collection.create(@page, @per_page, @total) do |pager|
       pager.replace(@articles.to_a)
     end
