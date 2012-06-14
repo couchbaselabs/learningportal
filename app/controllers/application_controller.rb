@@ -24,7 +24,8 @@ class ApplicationController < ActionController::Base
   end
 
   def users
-    @users = User.all
+    @users = []
+    #@users = User.all
   end
 
   def limit_endless_scroll
