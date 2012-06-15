@@ -2,7 +2,8 @@ class Admin::SnapshotsController < AdminController
 
   def create
     @snapshot = Snapshot.create!
-    redirect_to admin_dashboard_path
+    Delayed::Job.enqueue(SnapshotJob.new(@snapshot.id))
+    redirect_to admin_dashboard_path, :notice => "Snapshot queued for processing"
   end
 
 end

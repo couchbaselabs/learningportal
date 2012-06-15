@@ -69,6 +69,7 @@ Download and install this updated `libcouchbase` homebrew recipe.
 * https://github.com/collectiveidea/delayed_job
 * https://github.com/dbalatero/typhoeus
 * http://www.elasticsearch.org/guide/reference/setup/installation.html
+* https://gist.github.com/2933202
 
 ## Couchbase VM
 
@@ -138,5 +139,6 @@ so you need to ctrl+c **twice** quickly after the following output is complete.
     Processing triggers for ureadahead ...
     ureadahead will be reprofiled on next reboot
     fin.
+
 
 

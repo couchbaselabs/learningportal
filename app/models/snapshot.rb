@@ -1,6 +1,10 @@
 class Snapshot < ActiveRecord::Base
 
-  before_validation :assign_totals
+  #before_validation :assign_totals
+
+  def perform!
+    assign_totals
+  end
 
   def assign_totals
     views  = get_view_counts
