@@ -5,7 +5,18 @@ class AuthorsController < ApplicationController
 
   def by_first_letter
     @letter = params[:letter].upcase
-    @authors = Author.by_first_letter(@letter)
+    @authors = Author.by_first_letter(@letter, :limit => 100)
+
+    @total      = Author.by_first_letter_count(@letter)
+    @per_page   = 25
+    @page       = (params[:page] || 1).to_i
+    @skip       = (@page - 1) * @per_page
+
+    @authors = Author.by_first_letter(@letter, { :limit => @per_page, :skip => @skip})
+    @authors = WillPaginate::Collection.create(@page, @per_page, @total) do |pager|
+      pager.replace(@authors.to_a)
+    end
+
     render "by_first_letter.js"
   end
 

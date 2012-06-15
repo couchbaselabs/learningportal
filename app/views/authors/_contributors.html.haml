@@ -6,7 +6,7 @@
       = @letter
   %span.resultcount
     = surround "(", ")" do
-      = pluralize(@authors.size, 'Result')
+      = pluralize(@total, 'Result')
 
 %section.pane
   %ol
@@ -16,3 +16,5 @@
           %span.avatar
           %span.name= author.name
           %span.counts=# "#{pluralize(0, 'contribution')}"
+  = will_paginate @authors, :renderer => BootstrapPagination::Rails, :inner_window => 0
+  = render :partial => "paginate"

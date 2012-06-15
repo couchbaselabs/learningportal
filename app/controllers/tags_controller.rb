@@ -5,7 +5,17 @@ class TagsController < ApplicationController
 
   def by_first_letter
     @letter = params[:letter].upcase
-    @categories = Category.by_first_letter(@letter)
+
+    @total      = Category.by_first_letter_count(@letter)
+    @per_page   = 25
+    @page       = (params[:page] || 1).to_i
+    @skip       = (@page - 1) * @per_page
+
+    @categories = Category.by_first_letter(@letter, { :limit => @per_page, :skip => @skip})
+    @categories = WillPaginate::Collection.create(@page, @per_page, @total) do |pager|
+      pager.replace(@categories.to_a)
+    end
+
     render "by_first_letter.js"
   end
 

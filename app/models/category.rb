@@ -14,10 +14,18 @@ class Category < Couchbase::Model
     end
   end
 
-  def self.by_first_letter(letter="")
+  def self.by_first_letter(letter="", opts={})
     letter = letter.downcase
-    results = Couch.client.design_docs["category"].by_first_letter(:group => true, :startkey => [letter, ""], :endkey => [letter, "\u9999"]).entries
+    options = { :group => true, :startkey => [letter, ""], :endkey => [letter, "\u9999"] }.merge!(opts)
+
+    results = Couch.client.design_docs["category"].by_first_letter(options).entries
     results.map { |result| new(:name => result.key[1]) }
+  end
+
+  def self.by_first_letter_count(letter="", opts={})
+    letter = letter.downcase
+    options = { :group => false, :startkey => [letter, ""], :endkey => [letter, "\u9999"] }.merge!(opts)
+    Couch.client.design_docs["category"].by_first_letter(options).entries.first.value
   end
 
   def initialize(attributes = {})
