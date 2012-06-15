@@ -4,6 +4,7 @@ class Snapshot < ActiveRecord::Base
 
   def perform!
     assign_totals
+    save
   end
 
   def assign_totals
@@ -19,7 +20,7 @@ class Snapshot < ActiveRecord::Base
   end
 
   def total_view_count
-    video_view_count + image_view_count + text_view_count
+    video_view_count + image_view_count + text_view_count rescue ""
   end
 
   # private
