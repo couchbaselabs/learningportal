@@ -1,4 +1,4 @@
-namespace :learningportal do
+namespace :lp do
   desc "Schedule background score indexing for all documents"
   task :recalculate_scores => :environment do
     # perform queuing of document score recalculation
@@ -17,6 +17,30 @@ namespace :learningportal do
     end
   end
 
+  desc "Drop all buckets"
+  task :drop => :environment do
+    Couch.delete!(:bucket => 'default')
+    Couch.delete!(:bucket => 'views')
+    Couch.delete!(:bucket => 'profiles')
+    Couch.delete!(:bucket => 'system')
+  end
+
+  desc "Drop all buckets"
+  task :create => :environment do
+    Couch.create!(:bucket => 'default',  :ram => 256)
+    Couch.create!(:bucket => 'views',    :ram => 256)
+    Couch.create!(:bucket => 'profiles', :ram => 256)
+    Couch.create!(:bucket => 'system',   :ram => 128)
+  end
+
+  desc "Reset all data"
+  task :reset => :environment do
+    Rake::Task["drop"].invoke
+    Rake::Task["create"].invoke
+    Rake::Task["migrate"].invoke
+    Rake::Task["seed"].invoke
+  end
+
   desc "Recalculate active content"
   task :recalculate_active => :environment do
     ViewStats.popular_content.each do |row|
@@ -31,7 +55,7 @@ namespace :learningportal do
   end
 
   desc "Update couchbase views"
-  task :couch_migrate => :environment do
+  task :migrate => :environment do
     Article.ensure_design_document!
     Author.ensure_design_document!
     Category.ensure_design_document!
