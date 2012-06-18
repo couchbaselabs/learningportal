@@ -9,6 +9,9 @@
       = pluralize(@total, 'Result')
 
 %section.pane
+  .pull-left.paginator
+    = will_paginate @authors, :renderer => BootstrapPagination::Rails, :inner_window => 0, :outer_window => 0
+    = render :partial => "paginate"
   %ol
     - @authors.each do |author|
       %li.no-count
@@ -16,5 +19,3 @@
           %span.avatar
           %span.name= author.name
           %span.counts=# "#{pluralize(0, 'contribution')}"
-  = will_paginate @authors, :renderer => BootstrapPagination::Rails, :inner_window => 0
-  = render :partial => "paginate"

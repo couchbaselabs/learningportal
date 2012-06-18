@@ -9,11 +9,12 @@
       = pluralize(@total, 'Result')
 
 %section.pane
+  .pull-left.paginator
+    = will_paginate @categories, :renderer => BootstrapPagination::Rails, :inner_window => 0, :outer_window => 0
+    = render :partial => "paginate"
   %ul
     - @categories.each do |tag|
       %li.tag
         = link_to tag_path(:tag => tag.name) do
           .tag-nub
           .tag-text= tag.name
-  = will_paginate @categories, :renderer => BootstrapPagination::Rails, :inner_window => 0
-  = render :partial => "paginate"
