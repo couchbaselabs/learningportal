@@ -1,15 +1,14 @@
 GIT
-  remote: git://github.com/avsej/ruby-couchbase-model.git
-  revision: cd623371295195a13ad48dd49958776cee3d9c9a
-  specs:
-    couchbase-model (0.1.0)
-      couchbase (~> 1.2.0.dp)
-
-GIT
   remote: git://github.com/rumblelabs/rails_exception_handler.git
   revision: 97df13b76c2074300bc3b76356605063b150bf32
   specs:
     rails_exception_handler (1.4.0)
+
+PATH
+  remote: ~/active/ruby-couchbase-model
+  specs:
+    couchbase-model (0.1.0)
+      couchbase (~> 1.2.0.dp)
 
 GEM
   remote: https://rubygems.org/
