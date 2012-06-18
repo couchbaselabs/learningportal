@@ -23,14 +23,38 @@ module Couch
     def delete!(options = {})
       bucket = options.delete(:bucket) || "default"
       puts "Deleting #{bucket} bucket"
-      `#{curl} -XDELETE #{domain}/pools/default/buckets/default`
+      response = Typhoeus::Request.delete("#{domain}/pools/default/buckets/#{bucket}", :username => user, :password => pass)
+      if response.success?
+        puts "-> #{bucket} deleted successfully"
+      elsif response.code == 401
+        puts "-> Not Authorised, ensure ENV variables $COUCHBASE_USER and $COUCHBASE_PASS are set"
+      else
+        puts "-> Problem deleting #{bucket}"
+        puts "-> #{response.inspect}"
+      end
     end
 
     def create!(options = {})
       bucket = options.delete(:bucket) || "default"
       ram    = options.delete(:ram)    || 1024
       puts "Creating #{bucket} bucket"
-      `#{curl} -XPOST -d name=#{bucket} -d authType=sasl -d replicaNumber=1 -d ramQuotaMB=#{ram} #{domain}/pools/default/buckets`
+      
+      # -d name=#{bucket} -d authType=sasl -d replicaNumber=1 -d ramQuotaMB=#{ram} #{domain}/pools/default/buckets
+      response = Typhoeus::Request.post("#{domain}/pools/default/buckets",
+        :username => user, :password => pass, :params => {
+          "name" => bucket,
+          "authType" => "sasl",
+          "replicaNumber" => 1,
+          "ramQuotaMB" => ram
+        })
+      if response.success?
+        puts "-> #{bucket} created successfully"
+      elsif response.code == 401
+        puts "-> Not Authorised, ensure ENV variables $COUCHBASE_USER and $COUCHBASE_PASS are set"
+      else
+        puts "-> Problem creating #{bucket}"
+        puts "-> #{response.inspect}"
+      end
     end
 
     protected
