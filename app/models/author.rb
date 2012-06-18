@@ -8,7 +8,8 @@ class Author < Couchbase::Model
     begin
       contribs = Couch.client(:bucket => 'system').get("contributors")["contributors"]
       return contribs.map! { |contrib| new (contrib) }
-    rescue Couchbase::Error::NotFound
+    rescue Couchbase::Error 
+      # TODO this should rescue Couchbase::Error::NotFound however sometimes another is thrown
       Delayed::Job.enqueue(TopContributorsJob.new(limit))
       return []
     end
