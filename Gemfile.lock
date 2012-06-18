@@ -1,14 +1,15 @@
 GIT
+  remote: git://github.com/davidjrice/ruby-couchbase-model.git
+  revision: 9267188c9c8d0332e169de5976b15461b2872d65
+  specs:
+    couchbase-model (0.1.0)
+      couchbase (~> 1.2.0.dp)
+
+GIT
   remote: git://github.com/rumblelabs/rails_exception_handler.git
   revision: 97df13b76c2074300bc3b76356605063b150bf32
   specs:
     rails_exception_handler (1.4.0)
-
-PATH
-  remote: ~/active/ruby-couchbase-model
-  specs:
-    couchbase-model (0.1.0)
-      couchbase (~> 1.2.0.dp)
 
 GEM
   remote: https://rubygems.org/
@@ -143,7 +144,7 @@ GEM
     net-ssh (2.5.2)
     netrc (0.7.1)
     newrelic_rpm (3.3.2)
-    nokogiri (1.5.2)
+    nokogiri (1.5.4)
     orm_adapter (0.0.7)
     pg (0.13.2)
     polyglot (0.3.3)
