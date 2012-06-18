@@ -25,13 +25,13 @@ The following dependencies are currently in development and may change more freq
 
 The first thing to do is ensure your OSX machine is ready to go.
 
-1. OSX Ruby Development Dependencies
-2. Application Dependencies
+1. [OSX Ruby Development Dependencies](doc/dependencies.base.md)
+2. [Application Dependencies](doc/dependencies.application.md)
 
 Once you've done that, for local development we have two approaches
 
-* Standard Development Environment
-* Development Environment with a Couchbase VM using Vagrant
+* [Standard Development Environment](doc/development.standard.md)
+* [Development Environment with a Couchbase VM using Vagrant](doc/development.vagrant.md)
 
 The benefit of a VM is such that new development releases of couchbase server can be tested (and isolated) from the learningportal app.
 
