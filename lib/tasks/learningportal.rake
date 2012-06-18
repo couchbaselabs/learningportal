@@ -27,18 +27,23 @@ namespace :lp do
 
   desc "Drop all buckets"
   task :create => :environment do
-    Couch.create!(:bucket => 'default',  :ram => 256)
-    Couch.create!(:bucket => 'views',    :ram => 256)
-    Couch.create!(:bucket => 'profiles', :ram => 256)
+    Couch.create!(:bucket => 'default',  :ram => 128)
+    Couch.create!(:bucket => 'views',    :ram => 128)
+    Couch.create!(:bucket => 'profiles', :ram => 128)
     Couch.create!(:bucket => 'system',   :ram => 128)
   end
 
   desc "Reset all data"
   task :reset => :environment do
-    Rake::Task["drop"].invoke
-    Rake::Task["create"].invoke
-    Rake::Task["migrate"].invoke
-    Rake::Task["seed"].invoke
+    Rake::Task["lp:drop"].invoke
+    sleep 5 # couchbase prefers we wait...
+    Rake::Task["lp:create"].invoke
+    sleep 5 # couchbase prefers we wait...
+    Rake::Task["lp:migrate"].invoke
+    Rake::Task["lp:seed"].invoke
+    Rake::Task["lp:top_tags_authors"].invoke
+    Rake::Task["lp:recalculate_scores"].invoke
+    Rake::Task["lp:reindex"].invoke
   end
 
   desc "Recalculate active content"

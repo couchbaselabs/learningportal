@@ -48,8 +48,8 @@ class Wikipedia
       Delayed::Job.enqueue( WikipediaDownloadJob.new( article_ids ) )
     end
 
-    Delayed::Job.enqueue(TopTagsJob.new(TopTagsJob::LIMIT))
-    Delayed::Job.enqueue(TopContributorsJob.new(TopContributorsJob::LIMIT))
+    # Delayed::Job.enqueue(TopTagsJob.new(TopTagsJob::LIMIT))
+    # Delayed::Job.enqueue(TopContributorsJob.new(TopContributorsJob::LIMIT))
   end
 
 
