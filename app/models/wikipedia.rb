@@ -47,6 +47,9 @@ class Wikipedia
       puts "Batch #{batch}: #{article_ids}"
       Delayed::Job.enqueue( WikipediaDownloadJob.new( article_ids ) )
     end
+
+    Delayed::Job.enqueue(TopTagsJob.new(TopTagsJob::LIMIT))
+    Delayed::Job.enqueue(TopContributorsJob.new(TopContributorsJob::LIMIT))
   end
 
 

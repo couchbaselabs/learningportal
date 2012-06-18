@@ -10,7 +10,7 @@ class Category < Couchbase::Model
       return tags.map! { |tag| new (tag) }
     rescue Couchbase::Error
       # TODO this should rescue Couchbase::Error::NotFound however sometimes another is thrown
-      Delayed::Job.enqueue(TopTagsJob.new(limit))
+      Delayed::Job.enqueue(TopTagsJob.new(limit), 1)
       return []
     end
   end
