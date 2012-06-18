@@ -4,17 +4,18 @@ A Couchbase / Elastic Search proof of concept app.
 
 ## Development Environment Installation (OSX)
 
-* libcouchbase **1.1.0.dp2**
-* couchbase server **2.0** [download](http://packages.couchbase.com/releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.zip)
+* libcouchbase **1.1.0.dp5**
+* couchbase server **2.0.dp4.1** (version 730) [download](http://builds.hq.northscale.net/releases/couch/2.0.0-dev-preview-4.1/couchbase-server-community-x64_64_2.0.0dp4r-730-rel.dmg)
 * elastic search **0.19.3**
 
 ### libcouchbase
 
 Download and install this updated `libcouchbase` homebrew recipe.
 
+    brew update
+
     wget https://raw.github.com/gist/2895629/12434b53ad1944ea2e5786e2ac0bb7081a5992f9/libcouchbase.rb -O /usr/local/Library/Formula/libcouchbase.rb
 
-    brew update
     brew install libevent
     brew link libevent
     brew install libcouchbase
@@ -29,7 +30,7 @@ Download and install this updated `libcouchbase` homebrew recipe.
 
 ### couchbase server
 
-* Download [couchbase server 2.0](http://packages.couchbase.com/releases/2.0.0-developer-preview-4/couchbase-server-community_x86_64_2.0.0-dev-preview-4.zip)
+* Download [couchbase server 2.0 dp 4.1](http://builds.hq.northscale.net/releases/couch/2.0.0-dev-preview-4.1/couchbase-server-community-x64_64_2.0.0dp4r-730-rel.dmg)
 * Copy the application to /Applications
 * `open http://localhost:8091` and follow the onscreen instructions
 
