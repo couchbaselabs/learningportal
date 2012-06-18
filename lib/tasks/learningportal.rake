@@ -17,7 +17,7 @@ namespace :lp do
     end
   end
 
-  desc "Drop all buckets"
+  desc "Create all buckets"
   task :drop => :environment do
     Couch.delete!(:bucket => 'default')
     Couch.delete!(:bucket => 'views')
@@ -33,7 +33,7 @@ namespace :lp do
     Couch.create!(:bucket => 'system',   :ram => 128)
   end
 
-  desc "Reset all data"
+  desc "Reset all data (create, drop, migrate, seed)"
   task :reset => :environment do
     Rake::Task["lp:drop"].invoke
     sleep 5 # couchbase prefers we wait...

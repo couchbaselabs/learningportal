@@ -36,10 +36,20 @@ Once you've done that, for local development we have two approaches
 The benefit of a VM is such that new development releases of couchbase server can be tested (and isolated) from the learningportal app.
 
 
-## Tasks
+## Management Tasks
 
-    # run this to schedule delayed_jobs to update scores for all documents
-    rake learningportal:recalculate_scores
+The following is a list of tasks that are useful for managing the application.
+
+    ➜  learningportal git:(master) rake -T | grep lp:
+    rake lp:create              # Create all buckets
+    rake lp:drop                # Drop all buckets
+    rake lp:migrate             # Update couchbase views
+    rake lp:recalculate_active  # Recalculate active content
+    rake lp:recalculate_scores  # Schedule background score indexing for all documents
+    rake lp:reindex             # Regenerate all indexes
+    rake lp:reset               # Reset all data (create, drop, migrate, seed)
+    rake lp:seed                # Seed 100 documents
+    rake lp:top_tags_authors    # Update top tags and authors
 
 ## Libraries
 
