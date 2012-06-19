@@ -1,91 +1,18 @@
 # Elasticsearch
 
-Steps in getting setup and familiar with Couchbase and Elasticsearch.
+After following steps in the `doc/dependencies.application.md` doc, your ElasticSearch server should now be ready to setup and use with:
 
-## Steps
+	rake lp:es:reset
 
-Add **elasticsearch** to **Procfile** to start with foreman (done, use `foreman start` as normal).
+You can find other tasks for interacting with ElasticSearch with:
 
-### Create 'learning_portal' index.
-
-```
-curl -X PUT 'http://127.0.0.1:9200/learning_portal/'
-```
-
-### Define a mapping doc - `app/elasticsearch/lp_mapping.json`
-This mapping avoids storing the doc source.
-
-```
-{
-  "lp_v1": {
-    "_source": {
-      "includes" : ["_*"]
-    }
-  }
-}
-```
-
-Associate the document type with the index.
-
-```
-curl -X PUT 'http://127.0.0.1:9200/learning_portal/lp_v1/_mapping' -d @app/elasticsearch/lp_mapping.json
-```
-
-### Define the River - `app/elasticsearch/river.json`
-
-Makes a river to put new docs _from_ Couchbase to Elasticsearch to be indexed based on what's defined in the **mapping** file _type_.
-
-```
-{
-  "type" : "couchbase",
-  "couchbase" : {
-    "uris": ["http://127.0.0.1:8091/pools"],
-    "bucket": "default",
-    "bucketPassword": "",
-    "autoBackﬁll": true,
-    "registeredTapClient": true,
-    "deregisterTapOnShutdown": false,
-    "vbuckets": []
-  },
-  "index" : {
-    "index" : "learning_portal",
-    "type" : "lp_v1",
-    "bulk_size" : "100",
-    "bulk_timeout" : "10ms",
-    "throttle_size" : 500
-  }
-}
-```
-
-### Start the River
-
-```
-curl -X PUT http://127.0.0.1:9200/_river/lp_river/_meta -d @app/elasticsearch/river.json
-```
-
-### Stop the River
-This also loses state, so it will start over if recreated.
-
-```
-curl -X DELETE http://127.0.0.1:9200/_river/lp_river
-```
-
-### Delete the Index
-
-```
-curl -X DELETE 'http://127.0.0.1:9200/learning_portal/'
-```
+	rake -T | grep lp:es
 
 ## Note
 
-If you drop/recreate the Couchbase bucket, you should also:
+If you drop/recreate the Couchbase bucket, you also need to run `rake lp:es:reset` for ElasticSearch to begin indexing documents again.
 
-* stop the river
-* delete/recreate the search index
-* define/associate the document type in a `mapping.json` file.
-* start the river
-
-## _Tools_
+## _Tools_
 
 * [Tire](https://github.com/karmi/tire) - _Great looking Ruby client_
 * [Rubberband](https://github.com/grantr/rubberband) - _Ruby client library_

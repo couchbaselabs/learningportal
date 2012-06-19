@@ -1,4 +1,51 @@
 namespace :lp do
+
+  namespace :es do
+    desc "Delete and recreate ElasticSearch index and river"
+    task :reset => :environment do
+      Rake::Task["lp:es:stop_river"].invoke
+      Rake::Task["lp:es:delete_index"].invoke
+      Rake::Task["lp:es:create_index"].invoke
+      Rake::Task["lp:es:create_mapping"].invoke
+      Rake::Task["lp:es:start_river"].invoke
+    end
+
+    def es_url
+      "#{ENV['ELASTIC_SEARCH_URL']}"
+    end
+
+    desc "Create ElasticSearch index"
+    task :create_index do
+      Typhoeus::Request.put("#{es_url}/learning_portal")
+      puts "Created ElasticSearch index."
+    end
+
+    desc "Create ElasticSearch index"
+    task :create_mapping do
+      Typhoeus::Request.put("#{es_url}/learning_portal/lp_v1/_mapping", :body => File.read("app/elasticsearch/lp_mapping.json"))
+
+      puts "Mapped ElasticSearch 'lp_v1' to 'learning_portal' index."
+    end
+
+     desc "Start ElasticSearch river"
+    task :start_river do
+      Typhoeus::Request.put("#{es_url}/_river/lp_river/_meta", :body => File.read("app/elasticsearch/river.json"))
+      puts "Started ElasticSearch river from 'app/elasticsearch/river.json'."
+    end
+
+    desc "Stop ElasticSearch river (will start over indexing documents if recreated)"
+    task :stop_river do
+      Typhoeus::Request.delete("#{es_url}/_river/lp_river")
+      puts "Stop ElasticSearch river."
+    end
+
+    desc "Delete ElasticSearch index"
+    task :delete_index do
+      Typhoeus::Request.delete("#{es_url}/learning_portal")
+      puts "Deleted ElasticSearch index."
+    end
+  end
+
   desc "Schedule background score indexing for all documents"
   task :recalculate_scores => :environment do
     # perform queuing of document score recalculation

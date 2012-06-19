@@ -1,0 +1,2 @@
+Typhoeus::Request.put("#{ENV['ELASTIC_SEARCH_URL']}/_river/lp_river/_meta", :body => File.read("app/elasticsearch/river.json"))
+$stdout.puts "Started ElasticSearch river from 'app/elasticsearch/river.json'."
