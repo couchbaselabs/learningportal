@@ -259,21 +259,22 @@ ul {
       }
     }
   }
-  .tab-content {
-    float: left;
-    .tab-pane {
-      width: 440px;
-      color: $white;
-      border-bottom: 1px solid $black;
-      background-color: #4C4C4C;
-      padding: 20px;
-      display: none;
-    }
-    .active {
-      display: block;
-    }
+}
+
+.tab-content-sidebar {
+  float: left;
+  .tab-pane {
+    width: 440px;
+    color: $white;
+    border-bottom: 1px solid $black;
+    background-color: #4C4C4C;
+    padding: 20px;
+  }
+  .active {
+    display: block;
   }
 }
+
 
 .section-header {
   background-color: $sectionHeaderBg;
