@@ -683,7 +683,27 @@ article.single .contributors ul { //override
 }
 
 .paginator {
+  margin-top: -15px;
   width: 440px;
+  a {
+    background-color: $paginationDarkBg;
+    border-color: $paginationDarkBorder;
+    color: $paginationDarkColor;
+    &:hover {
+      background-color: $paginationDarkBgHover;
+    }
+  }
+  .active {
+    a, a:hover {
+      background-color: $paginationDarkBgHover;
+      color: $paginationDarkColor;
+    }
+  }
+  .disabled {
+    a, a:hover {
+      background-color: transparent;
+    }
+  }
 }
 
 .loading {
