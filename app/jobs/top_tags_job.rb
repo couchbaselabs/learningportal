@@ -1,6 +1,8 @@
 class TopTagsJob
 
-  def initialize(limit=8)
+  LIMIT = 8
+
+  def initialize(limit=LIMIT)
     @limit = limit
   end
 
