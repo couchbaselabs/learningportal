@@ -9,6 +9,7 @@ class Category < Couchbase::Model
       tags = Couch.client(:bucket => 'system').get("tags")["tags"]
       return tags.map! { |tag| new (tag) }
     rescue Couchbase::Error
+    rescue Couchbase::Error::NotFound
       # TODO this should rescue Couchbase::Error::NotFound however sometimes another is thrown
       Delayed::Job.enqueue(TopTagsJob.new(limit), 1)
       return []
