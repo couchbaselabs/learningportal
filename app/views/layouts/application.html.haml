@@ -68,7 +68,8 @@
                     = @content_totals[:image]
                   %i.icon-picture.icon-white
                   %span.text Images
-            .tab-content
+            .tab-content-sidebar
+              .tab-pane= render "sidebar/sidebar_search"
               /#allcontent.tab-pane= render "sidebar/sidebar_search"
               /#articles.tab-pane= render "sidebar/sidebar_search"
               /#videos.tab-pane= render "sidebar/sidebar_search"

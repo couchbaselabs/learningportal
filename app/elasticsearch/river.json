@@ -1,0 +1,19 @@
+{
+  "type" : "couchbase",
+  "couchbase" : {
+    "uris": ["http://192.168.2.100:8091/pools"],
+    "bucket": "default",
+    "bucketPassword": "",
+    "autoBackﬁll": true,
+    "registeredTapClient": true,
+    "deregisterTapOnShutdown": false,
+    "vbuckets": []
+  },
+  "index" : {
+    "index" : "learning_portal",
+    "type" : "lp_v1",
+    "bulk_size" : "100",
+    "bulk_timeout" : "10ms",
+    "throttle_size" : 500
+  }
+}

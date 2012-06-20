@@ -1,4 +1,51 @@
-namespace :lp do
+namespace :learningportal do
+
+  namespace :elasticsearch do
+    def es_url
+      "#{ENV['ELASTIC_SEARCH_URL']}"
+    end
+
+    desc "Delete and recreate ElasticSearch index and river"
+    task :reset => :environment do
+      Rake::Task["lp:es:stop_river"].invoke
+      Rake::Task["lp:es:delete_index"].invoke
+      Rake::Task["lp:es:create_index"].invoke
+      Rake::Task["lp:es:create_mapping"].invoke
+      Rake::Task["lp:es:start_river"].invoke
+    end
+
+    desc "Create ElasticSearch index"
+    task :create_index => :environment do
+      Typhoeus::Request.put("#{es_url}/learning_portal")
+      puts "Created ElasticSearch index."
+    end
+
+    desc "Create ElasticSearch mapping"
+    task :create_mapping => :environment do
+      Typhoeus::Request.put("#{es_url}/learning_portal/lp_v1/_mapping", :body => File.read("app/elasticsearch/lp_mapping.json"))
+
+      puts "Mapped ElasticSearch 'lp_v1' to 'learning_portal' index."
+    end
+
+    desc "Start ElasticSearch river"
+    task :start_river => :environment do
+      Typhoeus::Request.put("#{es_url}/_river/lp_river/_meta", :body => File.read("app/elasticsearch/river.json"))
+      puts "Started ElasticSearch river from 'app/elasticsearch/river.json'."
+    end
+
+    desc "Stop ElasticSearch river (will start over indexing documents if recreated)"
+    task :stop_river => :environment do
+      Typhoeus::Request.delete("#{es_url}/_river/lp_river")
+      puts "Stop ElasticSearch river."
+    end
+
+    desc "Delete ElasticSearch index"
+    task :delete_index => :environment do
+      Typhoeus::Request.delete("#{es_url}/learning_portal")
+      puts "Deleted ElasticSearch index."
+    end
+  end
+
   desc "Schedule background score indexing for all documents"
   task :recalculate_scores => :environment do
     # perform queuing of document score recalculation
@@ -17,7 +64,7 @@ namespace :lp do
     end
   end
 
-  desc "Create all buckets"
+  desc "Drop all buckets"
   task :drop => :environment do
     Couch.delete!(:bucket => 'default')
     Couch.delete!(:bucket => 'views')
@@ -25,7 +72,7 @@ namespace :lp do
     Couch.delete!(:bucket => 'system')
   end
 
-  desc "Drop all buckets"
+  desc "Create all buckets"
   task :create => :environment do
     Couch.create!(:bucket => 'default',  :ram => 128)
     Couch.create!(:bucket => 'views',    :ram => 128)
@@ -36,14 +83,17 @@ namespace :lp do
   desc "Reset all data (create, drop, migrate, seed)"
   task :reset => :environment do
     Rake::Task["lp:drop"].invoke
-    sleep 5 # couchbase prefers we wait...
+    puts "Pausing for 10 seconds to please Couchbase..."
+    sleep 10 # couchbase prefers we wait...
     Rake::Task["lp:create"].invoke
-    sleep 5 # couchbase prefers we wait...
+    puts "Pausing another 10 seconds to please Couchbase..."
+    sleep 10 # couchbase prefers we wait...
     Rake::Task["lp:migrate"].invoke
     Rake::Task["lp:seed"].invoke
     Rake::Task["lp:top_tags_authors"].invoke
     Rake::Task["lp:recalculate_scores"].invoke
     Rake::Task["lp:reindex"].invoke
+    Rake::Task["lp:es:reset"].invoke
   end
 
   desc "Recalculate active content"
@@ -95,4 +145,45 @@ namespace :lp do
     end
   end
 
+end
+
+# Shorthand (keep maintained!)
+namespace :lp do
+  namespace :es do
+    def es_url
+      "#{ENV['ELASTIC_SEARCH_URL']}"
+    end
+
+    desc "Delete and recreate ElasticSearch index and river"
+    task :reset          => "learningportal:elasticsearch:reset"
+    desc "Create ElasticSearch index"
+    task :create_index   => "learningportal:elasticsearch:create_index"
+    desc "Create ElasticSearch mapping"
+    task :create_mapping => "learningportal:elasticsearch:create_mapping"
+    desc "Start ElasticSearch river"
+    task :start_river    => "learningportal:elasticsearch:start_river"
+    desc "Stop ElasticSearch river (will start over indexing documents if recreated)"
+    task :stop_river     => "learningportal:elasticsearch:stop_river"
+    desc "Delete ElasticSearch index"
+    task :delete_index   => "learningportal:elasticsearch:delete_index"
+  end
+
+  desc "Schedule background score indexing for all documents"
+  task :recalculate_scores => "learningportal:recalculate_scores"
+  desc "Drop all buckets"
+  task :drop               => "learningportal:drop"
+  desc "Create all buckets"
+  task :create             => "learningportal:create"
+  desc "Reset all data (create, drop, migrate, seed)"
+  task :reset              => "learningportal:reset"
+  desc "Recalculate active content"
+  task :recalculate_active => "learningportal:recalculate_active"
+  desc "Update top tags and authors"
+  task :top_tags_authors   => "learningportal:top_tags_authors"
+  desc "Update couchbase views"
+  task :migrate            => "learningportal:migrate"
+  desc "Seed 100 documents"
+  task :seed               => "learningportal:seed"
+  desc "Regenerate all indexes"
+  task :reindex            => "learningportal:reindex"
 end

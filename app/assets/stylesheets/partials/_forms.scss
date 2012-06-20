@@ -26,7 +26,11 @@
   margin-left: 15px;
 }
 
-.search-filter {
+.search-form {
+  margin-bottom: 0;
+}
+
+input.search-filter {
   background-color: #BFBFBF;
   border: 1px solid $black;
   float: left;
@@ -34,8 +38,8 @@
   color: #4C4C4C;
   height: 12px;
   line-height: 12px;
-  padding: 15px 6px 15px 10px;
-  width: 72px;
+  padding: 15px 11px 27px 10px;
+  width: 90px;
   @include border-radius(3px 0 0 3px);
   span {
     vertical-align: top;
