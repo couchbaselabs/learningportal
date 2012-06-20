@@ -18,6 +18,9 @@ class Article < Couchbase::Model
     ids = []
 
     begin
+      Tire.configure do
+        url ENV["ELASTIC_SEARCH_URL"]
+      end
       s = Tire.search "learning_portal" do
         query do
           string "title:#{term}"
