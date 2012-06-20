@@ -60,3 +60,4 @@ The following is a list of tasks that are useful for managing the application.
 * https://github.com/dbalatero/typhoeus
 * http://www.elasticsearch.org/guide/reference/setup/installation.html
 * https://gist.github.com/2933202
+
