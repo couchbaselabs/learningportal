@@ -1,6 +1,7 @@
-.search-filter
-  %span Search
-  %i.fr.icon-chevron-down
-%form.search-form
-  %input.search-field
-  .search-icon
+%form{:name => "email", :id => "email", :action => "/search", :method => "get", :enctype => "text/plain"}
+  .search-filter
+    %input{:type => "submit", :value => "Search", :class => "button"}
+    %i.fr.icon-chevron-down
+  %form.search-form
+    %input.search-field{:name => "q", :value => @term}
+    .search-icon

@@ -1,7 +1,24 @@
 class ArticlesController < ApplicationController
 
-  before_filter :fetch_authors_and_categories, :only => [:index, :show]
+  before_filter :fetch_authors_and_categories, :only => [:popular, :index, :show]
   after_filter  :limit_endless_scroll, :only => [:index]
+
+  def popular
+    @total    = Article.view_stats[:count]
+    @per_page = 10
+    @page     = (params[:page] || 1).to_i
+    @skip     = (@page - 1) * @per_page
+
+    @items = Article.popular(:limit => @per_page, :skip => @skip, :include_docs => true).entries
+    # @items = WillPaginate::Collection.create(@page, @per_page, @total) do |pager|
+      # pager.replace(@items.to_a)
+    # end
+
+    respond_to do |format|
+      format.html { render }
+      format.js   { render :partial => "shared/endless_scroll.js" }
+    end
+  end
 
   def index
     type = case params[:type]

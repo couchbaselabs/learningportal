@@ -14,6 +14,35 @@ class Article < Couchbase::Model
   attr_accessor :id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity
   @@keys = [:id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity]
 
+  def self.search(term="")
+    ids = []
+
+    begin
+      s = Tire.search "learning_portal" do
+        query do
+          string "title:#{term}"
+          string "content:#{term}"
+          string "type:#{term}"
+          string "contributors:#{term}"
+          string "categories:#{term}"
+        end
+      end
+
+      ids = s.results.take(10).collect(&:id)
+
+    rescue Tire::Search::SearchRequestFailed
+      # Search failed!
+    end
+
+    ids.map { |id| find(id) }
+
+    # BUG!
+    # Causes bug in couchbase client where it hangs the Ruby process
+    # indefinitely and can only fixed by killing the process.
+    #
+    # docs = Couch.client(:bucket => "default").all_docs(:keys => ids, :include_docs => true)
+  end
+
   def self.totals
     total = { :overall => 0, :image => 0, :video => 0, :text => 0 }
     Couch.client.design_docs["article"].by_type(:group => true, :group_level => 1).entries.each do |row|

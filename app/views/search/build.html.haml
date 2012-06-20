@@ -1,0 +1,17 @@
+%section.article-navigation
+  %nav.fixed-navigation
+    %span.title
+      %strong
+        SHOWING: POPULAR CONTENT
+        = "(#{@content_totals[:overall]} results)"
+    .right-fixed.pull-right
+      %span.desc Sort By:
+      .btn-group.pull-right
+        %button.btn Most Popular
+        %button.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+          %span.caret
+        %ul.dropdown-menu
+          / dropdown menu links
+  = render :partial => "shared/articles"
+= render :partial => "shared/loading_content"
+= render :partial => "shared/scroll"

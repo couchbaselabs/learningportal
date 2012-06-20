@@ -23,12 +23,7 @@ LearningPortal::Application.routes.draw do
     resources :snapshots
   end
 
-  resource :search do
-    collection do
-      get :result
-    end
-  end
-  root :to => 'searches#build'
+  root :to => 'articles#popular'
 
   match '/tag_sidebar' => 'sidebar#all_tags', :as => :sidebar_tag
   match '/contributor_sidebar' => 'sidebar#all_contributors', :as => :sidebar_contributor
@@ -38,5 +33,7 @@ LearningPortal::Application.routes.draw do
   match '/:type' => "articles#index", :constraints => { :type => /articles|images|videos/}, :as => :articles
   match 'admin/login_as/:user_id' => "admin/users#login_as", :as => :login_as
   match 'admin/login_as_random' => "admin/users#login_as_random", :as => :login_as_random
+
+  match "/search" => "search#build", :as => :search
 
 end
