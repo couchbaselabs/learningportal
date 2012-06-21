@@ -70,10 +70,6 @@
                   %span.text Images
             .tab-content-sidebar
               .tab-pane= render "sidebar/sidebar_search"
-              /#allcontent.tab-pane= render "sidebar/sidebar_search"
-              /#articles.tab-pane= render "sidebar/sidebar_search"
-              /#videos.tab-pane= render "sidebar/sidebar_search"
-              /#images.tab-pane= render "sidebar/sidebar_search"
             #sidebar-content.pull-left
               = render "sidebar/overview"
         #content{ :class => (request.path.include?('/author')) ? "single-contributor" : "" }
