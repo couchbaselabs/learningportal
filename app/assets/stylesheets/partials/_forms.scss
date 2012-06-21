@@ -130,7 +130,26 @@ label.tags {
   margin-left: 10px;
 }
 
+.advanced-options .control-label {
+  color: $advancedSearchLabel;
+  width: 58px;
+}
 
+.advanced-options .control-group {
+  background-color: $advancedSearchBg;
+  border: 1px solid $advancedSearchBorder;
+  margin-bottom: 5px;
+  padding: 5px 5px 5px 7px;
+  @include border-radius(3px);
+}
+
+.advanced-options .controls {
+  margin-left: 141px;
+}
+
+.advanced-options .input-xlarge {
+  width: 274px;
+}
 
 
 

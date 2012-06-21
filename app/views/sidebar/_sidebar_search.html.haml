@@ -5,3 +5,9 @@
 %a.adv-options-link{ :href => "", :data => { :remote => true } }
   Advanced Options
 .advanced-options
+  %form.form-horizontal
+    - 6.times do
+      .control-group
+        %label.control-label{ :for => "input01" } Text input
+        .controls
+          %input#input01.input-xlarge{ :type => "text", :placeholder => "Search content titles..." }
