@@ -60,8 +60,8 @@ input.search-filter {
   height: 34px;
   margin-bottom: 0;
   padding: 4px 30px 4px 14px;
-  width: 305px;
-  @include border-radius(0 3px 3px 0);
+  width: 395px;
+  @include border-radius(3px);
 }
 
 .search-icon {
@@ -129,3 +129,21 @@ label.tags {
 .article-body input.btn {
   margin-left: 10px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

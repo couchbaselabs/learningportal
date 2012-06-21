@@ -709,12 +709,24 @@ article.single .contributors ul { //override
 
 .loading {
   color:$lightTitle;
-  font-size:24px;
-  font-style:oblique;
-  padding:150px;
-  text-align:center;
+  font-size: 24px;
+  font-style: oblique;
+  padding: 150px;
+  text-align: center;
   span {
     margin-left: 5px;
-    vertical-align:middle;
+    vertical-align: middle;
+  }
+}
+
+.adv-options-link {
+  color: $white;
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 3px 0 15px 0;
+  &:hover {
+    color: $white;
+    text-decoration: none;
   }
 }
