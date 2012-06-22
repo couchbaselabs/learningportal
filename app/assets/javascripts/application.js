@@ -17,14 +17,16 @@
 //= require bootstrap
 
 $(function(){
+  "use strict";
   $('.admin-edit .tag').live('click', function(){
-    var elem = $(this)
-    var tag  = elem.find('.tag-text, .tag-nub')
-    remove_category = $('#article_delete_category')
-    remove_category.val(tag.clone().find('*').remove().end().text().trim())
+    var elem = $(this);
+    var tag  = elem.find('.tag-text, .tag-nub');
+    var remove_category = '';
+    remove_category = $('#article_delete_category');
+    remove_category.val(tag.clone().find('*').remove().end().text().trim());
     tag.remove();
-    $('.tagform form').submit()
-  })
+    $('.tagform form').submit();
+  });
   if($('.alert').length > 0){
     $('.app .alert').delay(5000).fadeOut();
     $('.admin .alert').delay(5000).slideUp();
@@ -44,4 +46,4 @@ $(function(){
     $('.advanced-options').slideToggle('fast');
     return false;
   });
-})
+});
