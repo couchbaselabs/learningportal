@@ -5,9 +5,18 @@
 %a.adv-options-link{ :href => "", :data => { :remote => true } }
   Advanced Options
 .advanced-options
-  %form.form-horizontal
-    - 6.times do
+  %form.form-horizontal.clearfix{ :action => "/search", :method => "get", :enctype => "text/plain" }
+    - 5.times do
       .control-group
-        %label.control-label{ :for => "input01" } Text input
+        %label.control-label{ :for => "input01" } Content title
         .controls
           %input#input01.input-xlarge{ :type => "text", :placeholder => "Search content titles..." }
+    .control-group
+      %label.control-label{ :for => "select01" } Select media type
+      .controls
+        %select#select01.input-xlarge{ :type => "text" }
+          %option All content selected
+          %option Text
+          %option Video
+          %option Image
+    %button.btn.pull-right.btn-large.btn-primary{ :type => "submit" } Update search results

@@ -132,14 +132,15 @@ label.tags {
 
 .advanced-options .control-label {
   color: $advancedSearchLabel;
-  width: 58px;
+  text-align:left;
+  width: 130px;
 }
 
 .advanced-options .control-group {
   background-color: $advancedSearchBg;
   border: 1px solid $advancedSearchBorder;
   margin-bottom: 5px;
-  padding: 5px 5px 5px 7px;
+  padding: 5px 5px 5px 9px;
   @include border-radius(3px);
 }
 
@@ -148,11 +149,16 @@ label.tags {
 }
 
 .advanced-options .input-xlarge {
-  width: 274px;
+  width: 272px;
 }
 
+.advanced-options select.input-xlarge {
+  width: 282px;
+}
 
-
+.advanced-options .btn-large {
+  margin-top: 5px;
+}
 
 
 
