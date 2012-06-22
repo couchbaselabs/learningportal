@@ -40,4 +40,8 @@ $(function(){
     $(this).parent().remove();
     return false;
   });
+  $('.adv-options-link').click(function(){
+    $('.advanced-options').slideToggle('fast');
+    return false;
+  });
 })

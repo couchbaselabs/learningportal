@@ -2,15 +2,29 @@
   %form.search-form
     %input.search-field{ :name => "q", :value => @term, :placeholder => 'Search all content...' }
     .search-icon
-%a.adv-options-link{ :href => "", :data => { :remote => true } }
-  Advanced Options
-.advanced-options
+%a.adv-options-link{ :href => "", :data => { :remote => true } } Advanced Options
+.advanced-options.hide
   %form.form-horizontal.clearfix{ :action => "/search", :method => "get", :enctype => "text/plain" }
-    - 5.times do
-      .control-group
-        %label.control-label{ :for => "input01" } Content title
-        .controls
-          %input#input01.input-xlarge{ :type => "text", :placeholder => "Search content titles..." }
+    .control-group
+      %label.control-label{ :for => "content-title" } Content title
+      .controls
+        %input#content-title.input-xlarge{ :type => "text", :placeholder => "Search content titles..." }
+    .control-group
+      %label.control-label{ :for => "content-summary" } Content summary
+      .controls
+        %input#content-summary.input-xlarge{ :type => "text", :placeholder => "Search content summaries..." }
+    .control-group
+      %label.control-label{ :for => "author-name" } Author name
+      .controls
+        %input#author-name.input-xlarge{ :type => "text", :placeholder => "Search author names..." }
+    .control-group
+      %label.control-label{ :for => "contributor-name" } Contributor name
+      .controls
+        %input#contributor-name.input-xlarge{ :type => "text", :placeholder => "Search contributor names..." }
+    .control-group
+      %label.control-label{ :for => "tag-name" } Tag name
+      .controls
+        %input#tag-name.input-xlarge{ :type => "text", :placeholder => "Search tag names..." }
     .control-group
       %label.control-label{ :for => "select01" } Select media type
       .controls
