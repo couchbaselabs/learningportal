@@ -1,7 +1,7 @@
 {
   "type" : "couchbase",
   "couchbase" : {
-    "uris": ["http://192.168.2.100:8091/pools"],
+    "uris": ["http://127.0.0.1:8091/pools"],
     "bucket": "default",
     "bucketPassword": "",
     "autoBackﬁll": true,
