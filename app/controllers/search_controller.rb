@@ -5,6 +5,9 @@ class SearchController < ApplicationController
 
   def build
     @term  = params[:q] || ""
+    if @term.blank?
+      redirect_to root_path
+    end
     @items = Article.search(@term)
     @total = @items.count rescue 0
   end
