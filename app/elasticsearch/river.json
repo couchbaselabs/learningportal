@@ -1,7 +1,7 @@
 {
   "type" : "couchbase",
   "couchbase" : {
-    "uris": ["COUCHBASE_HOST/pools"],
+    "uris": ["COUCHBASE_URL/pools"],
     "bucket": "default",
     "bucketPassword": "",
     "autoBackﬁll": true,

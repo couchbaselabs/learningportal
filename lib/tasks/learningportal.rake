@@ -5,12 +5,8 @@ namespace :learningportal do
       "#{ENV['ELASTIC_SEARCH_URL']}"
     end
 
-    def couchbase_host
-      if Rails.env.development?
-        "#{ENV["COUCHBASE_URL"]}"
-      else
-        "#{ENV["COUCHBASE_HOST"]}:#{ENV["COUCHBASE_PORT"]}"
-      end
+    def couchbase_url
+      "#{ENV["COUCHBASE_URL"]}"
     end
 
     desc "Delete and recreate ElasticSearch index and river"
@@ -31,13 +27,15 @@ namespace :learningportal do
     desc "Create ElasticSearch mapping"
     task :create_mapping => :environment do
       Typhoeus::Request.put("#{es_url}/learning_portal/lp_v1/_mapping", :body => File.read("app/elasticsearch/lp_mapping.json"))
-
       puts "Mapped ElasticSearch 'lp_v1' to 'learning_portal' index."
     end
 
     desc "Start ElasticSearch river"
     task :start_river => :environment do
-      body = File.read("app/elasticsearch/river.json").gsub("COUCHBASE_HOST", couchbase_host)
+      body = File.read("app/elasticsearch/river.json")
+      body.gsub!("COUCHBASE_URL", couchbase_url)
+      body.gsub!("COUCHBASE_PASS", ENV['COUCHBASE_PASS'])
+
       Typhoeus::Request.put("#{es_url}/_river/lp_river/_meta", :body => body)
       puts "Started ElasticSearch river from 'app/elasticsearch/river.json'."
     end
