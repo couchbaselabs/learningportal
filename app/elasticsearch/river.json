@@ -14,6 +14,6 @@
     "type" : "lp_v1",
     "bulk_size" : "100",
     "bulk_timeout" : "10ms",
-    "throttle_size" : 500
+    "throttle_size" : 100
   }
 }
