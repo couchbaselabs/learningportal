@@ -21,7 +21,7 @@ class Article < Couchbase::Model
       Tire.configure do
         url ENV["ELASTIC_SEARCH_URL"]
       end
-      s = Tire.search "learning_portal" do
+      s = Tire.search("learning_portal") do
         query do
           string "title:#{term}"
           string "content:#{term}"
@@ -47,9 +47,12 @@ class Article < Couchbase::Model
         facet "type" do
           terms :type
         end
+
+        # limit results
+        size 25
       end
 
-      ids = s.results.take(10).collect(&:id)
+      ids = s.results.take(25).collect(&:id)
 
     rescue Tire::Search::SearchRequestFailed
       # Search failed!
