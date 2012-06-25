@@ -29,24 +29,24 @@ class Article < Couchbase::Model
           string "contributors:#{term}"
           string "categories:#{term}"
         end
-        facet "title" do
-          terms :title
-        end
-        facet "summary" do
-          terms :content
-        end
-        facet "author" do
-          terms :author
-        end
-        facet "contributors" do
-          terms :contributors
-        end
-        facet "tags" do
-          terms :categories
-        end
-        facet "type" do
-          terms :type
-        end
+        # facet "title" do
+        #   terms :title
+        # end
+        # facet "summary" do
+        #   terms :content
+        # end
+        # facet "author" do
+        #   terms :author
+        # end
+        # facet "contributors" do
+        #   terms :contributors
+        # end
+        # facet "tags" do
+        #   terms :categories
+        # end
+        # facet "type" do
+        #   terms :type
+        # end
 
         # limit results
         size 25
