@@ -34,7 +34,7 @@ namespace :learningportal do
     task :start_river => :environment do
       body = File.read("app/elasticsearch/river.json")
       body.gsub!("COUCHBASE_URL", couchbase_url)
-      body.gsub!("COUCHBASE_PASS", ENV['COUCHBASE_PASS'])
+      # body.gsub!("COUCHBASE_PASS", ENV['COUCHBASE_PASS'])
 
       puts body
 
