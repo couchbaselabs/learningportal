@@ -36,6 +36,8 @@ namespace :learningportal do
       body.gsub!("COUCHBASE_URL", couchbase_url)
       body.gsub!("COUCHBASE_PASS", ENV['COUCHBASE_PASS'])
 
+      puts body
+
       Typhoeus::Request.put("#{es_url}/_river/lp_river/_meta", :body => body)
       puts "Started ElasticSearch river from 'app/elasticsearch/river.json'."
     end
