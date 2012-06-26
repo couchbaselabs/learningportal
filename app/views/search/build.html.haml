@@ -2,8 +2,8 @@
   %nav.fixed-navigation
     %span.title
       %strong
-        SHOWING: POPULAR CONTENT
-        = "(#{@content_totals[:overall]} results)"
+        = "SHOWING SEARCH RESULTS FOR '#{params[:q]}'"
+        = "(#{@items.count} results)"
     .right-fixed.pull-right
       %span.desc Sort By:
       .btn-group.pull-right
