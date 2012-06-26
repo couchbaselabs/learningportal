@@ -46,4 +46,7 @@ $(function(){
     $('.advanced-options').slideToggle('fast');
     return false;
   });
+  if($('.advanced-options form input').val() != ''){
+    $('.advanced-options').show();
+  }
 });
