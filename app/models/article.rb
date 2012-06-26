@@ -23,11 +23,11 @@ class Article < Couchbase::Model
       end
       s = Tire.search("learning_portal") do
         query do
-          string "title:#{term}"
-          string "content:#{term}"
-          string "type:#{term}"
-          string "contributors:#{term}"
-          string "categories:#{term}"
+          # string "title:#{term}"
+          # string "content:#{term}"
+          # string "type:#{term}"
+          # string "contributors:#{term}"
+          string "#{term}"
         end
         # facet "title" do
         #   terms :title
