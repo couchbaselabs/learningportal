@@ -1,6 +1,6 @@
 %form.search-form{ :name => "email", :id => "email", :action => "/search", :method => "get", :enctype => "text/plain" }
   %form.search-form
-    %input.search-field{ :name => "q", :value => @term, :placeholder => 'Search all content...' }
+    %input.search-field{ :name => "q", :placeholder => 'Search all content...' }
     .search-icon
 %a.adv-options-link{ :href => "", :data => { :remote => true } } Advanced Options
 .advanced-options.hide
@@ -8,23 +8,23 @@
     .control-group
       %label.control-label{ :for => "content-title" } Content title
       .controls
-        %input#content-title.input-xlarge{ :type => "text", :placeholder => "Search content titles..." }
+        %input#content-title.input-xlarge{ :name => "title", :type => "text", :placeholder => "Search content titles..." }
     .control-group
       %label.control-label{ :for => "content-summary" } Content summary
       .controls
-        %input#content-summary.input-xlarge{ :type => "text", :placeholder => "Search content summaries..." }
+        %input#content-summary.input-xlarge{ :name => "content", :type => "text", :placeholder => "Search content summaries..."}
     .control-group
       %label.control-label{ :for => "author-name" } Author name
       .controls
-        %input#author-name.input-xlarge{ :type => "text", :placeholder => "Search author names..." }
+        %input#author-name.input-xlarge{ :name => "author", :type => "text", :placeholder => "Search author names..." }
     .control-group
       %label.control-label{ :for => "contributor-name" } Contributor name
       .controls
-        %input#contributor-name.input-xlarge{ :type => "text", :placeholder => "Search contributor names..." }
+        %input#contributor-name.input-xlarge{ :name => "contributor", :type => "text", :placeholder => "Search contributor names..." }
     .control-group
       %label.control-label{ :for => "tag-name" } Tag name
       .controls
-        %input#tag-name.input-xlarge{ :type => "text", :placeholder => "Search tag names..." }
+        %input#tag-name.input-xlarge{ :name => "tag", :type => "text", :placeholder => "Search tag names..." }
     .control-group
       %label.control-label{ :for => "select01" } Select media type
       .controls

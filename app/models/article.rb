@@ -23,30 +23,15 @@ class Article < Couchbase::Model
       end
       s = Tire.search("learning_portal") do
         query do
-          # string "title:#{term}"
-          # string "content:#{term}"
-          # string "type:#{term}"
-          # string "contributors:#{term}"
-          string "#{term}"
+          # Search All on the normal field
+          string "#{term['q']}"
+          # 'faceted' search, based on fields with a logical AND
+          string "title:#{term['title']}",              :default_operator => "AND"  if term['title'].present?
+          string "content:#{term['content']}",          :default_operator => "AND"  if term['content'].present?
+          string "contributors:#{term['contributor']}", :default_operator => "AND"  if term['contributor'].present?
+          string "categories:#{term['category']}",      :default_operator => "AND"  if term['category'].present?
+          #string "type:#{term['type']}",               :default_operator => "AND"  if term['type'].present?
         end
-        # facet "title" do
-        #   terms :title
-        # end
-        # facet "summary" do
-        #   terms :content
-        # end
-        # facet "author" do
-        #   terms :author
-        # end
-        # facet "contributors" do
-        #   terms :contributors
-        # end
-        # facet "tags" do
-        #   terms :categories
-        # end
-        # facet "type" do
-        #   terms :type
-        # end
 
         # limit results
         size 25
