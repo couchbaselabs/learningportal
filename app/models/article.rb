@@ -55,6 +55,7 @@ class Article < Couchbase::Model
       ids = s.results.take(25).collect(&:id)
 
     rescue Tire::Search::SearchRequestFailed
+    rescue RestClient::Exception
       # Search failed!
     end
 
