@@ -4,10 +4,7 @@ class SearchController < ApplicationController
   after_filter  :limit_endless_scroll, :only => [:build]
 
   def build
-    @term  = params[:q] || ""
-    if @term.blank?
-      redirect_to root_path
-    end
+    @term = params || ""
     @items = Article.search(@term)
     @total = @items.count rescue 0
   end
