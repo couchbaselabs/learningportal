@@ -1,36 +1,36 @@
 %form.search-form{ :name => "email", :id => "email", :action => "/search", :method => "get", :enctype => "text/plain" }
   %form.search-form
-    %input.search-field{ :name => "q", :placeholder => 'Search all content...' }
+    %input.search-field{ :name => "q", :placeholder => 'Search all content...', :value => @search_terms["q"] }
     .search-icon
-%a.adv-options-link{ :href => "", :data => { :remote => true } } Advanced Options
-.advanced-options.hide
-  %form.form-horizontal.clearfix{ :action => "/search", :method => "get", :enctype => "text/plain" }
-    .control-group
-      %label.control-label{ :for => "content-title" } Content title
-      .controls
-        %input#content-title.input-xlarge{ :name => "title", :type => "text", :placeholder => "Search content titles..." }
-    .control-group
-      %label.control-label{ :for => "content-summary" } Content summary
-      .controls
-        %input#content-summary.input-xlarge{ :name => "content", :type => "text", :placeholder => "Search content summaries..."}
-    .control-group
-      %label.control-label{ :for => "author-name" } Author name
-      .controls
-        %input#author-name.input-xlarge{ :name => "author", :type => "text", :placeholder => "Search author names..." }
-    .control-group
-      %label.control-label{ :for => "contributor-name" } Contributor name
-      .controls
-        %input#contributor-name.input-xlarge{ :name => "contributor", :type => "text", :placeholder => "Search contributor names..." }
-    .control-group
-      %label.control-label{ :for => "tag-name" } Tag name
-      .controls
-        %input#tag-name.input-xlarge{ :name => "tag", :type => "text", :placeholder => "Search tag names..." }
-    .control-group
-      %label.control-label{ :for => "select01" } Select media type
-      .controls
-        %select#select01.input-xlarge{ :type => "text" }
-          %option All content selected
-          %option Text
-          %option Video
-          %option Image
-    %button.btn.pull-right.btn-large.btn-primary{ :type => "submit" } Update search results
+    %a.adv-options-link{ :href => "", :data => { :remote => true } } Advanced Options
+    .advanced-options.hide
+      %div.form-horizontal.clearfix
+        .control-group
+          %label.control-label{ :for => "content-title" } Content title
+          .controls
+            %input#content-title.input-xlarge{ :name => "title", :type => "text", :placeholder => "Search content titles...", :value => @search_terms["title"] }
+        .control-group
+          %label.control-label{ :for => "content-summary" } Content summary
+          .controls
+            %input#content-summary.input-xlarge{ :name => "content", :type => "text", :placeholder => "Search content summaries...", :value => @search_terms["content"]}
+        .control-group
+          %label.control-label{ :for => "author-name" } Author name
+          .controls
+            %input#author-name.input-xlarge{ :name => "author", :type => "text", :placeholder => "Search author names...", :value => @search_terms["author"] }
+        .control-group
+          %label.control-label{ :for => "contributor-name" } Contributor name
+          .controls
+            %input#contributor-name.input-xlarge{ :name => "contributor", :type => "text", :placeholder => "Search contributor names...", :value => @search_terms["contributor"] }
+        .control-group
+          %label.control-label{ :for => "tag-name" } Tag name
+          .controls
+            %input#tag-name.input-xlarge{ :name => "tag", :type => "text", :placeholder => "Search tag names...", :value => @search_terms["tag"] }
+        .control-group
+          %label.control-label{ :for => "select01" } Select media type
+          .controls
+            %select#select01.input-xlarge{ :name => "type", :type => "text", :selected => @search_terms["type"].downcase }
+              %option{ :value => "" } All content selected
+              %option{ :selected => selected?("text")  } Text
+              %option{ :selected => selected?("video") } Video
+              %option{ :selected => selected?("image") } Image
+        %button.btn.pull-right.btn-large.btn-primary{ :type => "submit" } Update search results

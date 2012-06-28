@@ -4,8 +4,13 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
   before_filter :content_totals
   before_filter :users
+  before_filter :search_terms
 
   private
+
+  def search_terms
+    @search_terms = {}.merge(params)
+  end
 
   def fetch_authors_and_categories
     @authors = Author.popular

@@ -14,7 +14,7 @@ class Article < Couchbase::Model
   attr_accessor :id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity
   @@keys = [:id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity]
 
-  def self.search(term="")
+  def self.search(term="", options={})
     ids = []
 
     begin
@@ -30,11 +30,12 @@ class Article < Couchbase::Model
           string "content:#{term['content']}",          :default_operator => "AND"  if term['content'].present?
           string "contributors:#{term['contributor']}", :default_operator => "AND"  if term['contributor'].present?
           string "categories:#{term['category']}",      :default_operator => "AND"  if term['category'].present?
-          #string "type:#{term['type']}",               :default_operator => "AND"  if term['type'].present?
+          string "type:#{term['type']}",                :default_operator => "AND"  if term['type'].present?
         end
 
         # limit results
-        size 25
+        size options[:size] || 10
+        from options[:from] || 0
       end
 
       ids = s.results.take(25).collect(&:id)
@@ -44,7 +45,10 @@ class Article < Couchbase::Model
       # Search failed!
     end
 
-    ids.map { |id| find(id) }
+    {
+      results: ids.map! { |id| find(id) },
+      total_results: s.results.total
+    }
 
     # BUG!
     # Causes bug in couchbase client where it hangs the Ruby process

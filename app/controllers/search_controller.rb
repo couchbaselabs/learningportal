@@ -4,9 +4,18 @@ class SearchController < ApplicationController
   after_filter  :limit_endless_scroll, :only => [:build]
 
   def build
-    @term = params || ""
-    @items = Article.search(@term)
-    @total = @items.count rescue 0
+    @per_page = 10
+    @page     = (params[:page] || 1).to_i
+    @skip     = (@page - 1) * @per_page
+
+    @search = Article.search(@search_terms, :from => @skip, :size => @per_page)
+    @items = @search[:results]
+    @total = @search[:total_results]
+
+    respond_to do |format|
+      format.html { render }
+      format.js   { render :partial => "shared/endless_scroll.js" }
+    end
   end
 
 end

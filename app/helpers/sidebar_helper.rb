@@ -9,4 +9,8 @@ module SidebarHelper
       ""
     end
   end
+
+  def selected?(option)
+    @search_terms["type"].downcase == option rescue false
+  end
 end

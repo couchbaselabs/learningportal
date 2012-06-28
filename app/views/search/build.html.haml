@@ -3,7 +3,7 @@
     %span.title
       %strong
         = "SHOWING SEARCH RESULTS FOR '#{params[:q]}'"
-        = "(#{@items.count} results)"
+        = "(#{pluralize(@total, "result")})"
     .right-fixed.pull-right
       %span.desc Sort By:
       .btn-group.pull-right
