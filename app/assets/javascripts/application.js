@@ -46,7 +46,7 @@ $(function(){
     $('.advanced-options').slideToggle('fast');
     return false;
   });
-  if($('.advanced-options form input').val() != ''){
+  if($('.advanced-options input[value!=""]').length > 0){
     $('.advanced-options').show();
   }
 });
