@@ -516,6 +516,7 @@ article.single .contributors ul { //override
   float: left;
   height: 22px;
   margin-right: 10px;
+  margin-bottom:1px;
   width: 22px;
   @include border-radius(2px);
   @include background-size(contain);
