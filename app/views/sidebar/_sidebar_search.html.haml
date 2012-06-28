@@ -28,7 +28,7 @@
         .control-group
           %label.control-label{ :for => "select01" } Select media type
           .controls
-            %select#select01.input-xlarge{ :name => "type", :type => "text", :selected => @search_terms["type"].downcase }
+            %select#select01.input-xlarge{ :name => "type", :type => "text" }
               %option{ :value => "" } All content selected
               %option{ :selected => selected?("text")  } Text
               %option{ :selected => selected?("video") } Video
