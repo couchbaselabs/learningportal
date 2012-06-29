@@ -16,6 +16,10 @@ class Article < Couchbase::Model
 
   def self.search(term="", options={})
     ids = []
+    results = {
+      :results => [],
+      :total_results => 0
+    }
 
     begin
       Tire.configure do
@@ -40,15 +44,14 @@ class Article < Couchbase::Model
 
       ids = s.results.take(25).collect(&:id)
 
+      results[:results]       = ids.map! { |id| find(id) }
+      results[:total_results] = s.results.total
     rescue Tire::Search::SearchRequestFailed
     rescue RestClient::Exception
       # Search failed!
     end
 
-    {
-      results: ids.map! { |id| find(id) },
-      total_results: s.results.total
-    }
+    return results
 
     # BUG!
     # Causes bug in couchbase client where it hangs the Ruby process
