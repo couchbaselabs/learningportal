@@ -46,7 +46,7 @@ $(function(){
     $('.advanced-options').slideToggle('fast');
     return false;
   });
-  if($('.advanced-options input[value!=""]').length > 0){
+  if($('.advanced-options input[value!=""], .advanced-options select option[value!=""]:selected').length > 0){
     $('.advanced-options').show();
   }
 });

@@ -14,38 +14,72 @@ class Article < Couchbase::Model
   attr_accessor :id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity
   @@keys = [:id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity]
 
-  def self.search(term="", options={})
+  def self.search(term={}, options={})
     ids = []
     results = {
       :results => [],
       :total_results => 0
     }
+    @term = term.symbolize_keys
 
     begin
       Tire.configure do
         url ENV["ELASTIC_SEARCH_URL"]
       end
-      s = Tire.search("learning_portal") do
-        query do
-          # Search All on the normal field
-          string "#{term['q']}"
-          # 'faceted' search, based on fields with a logical AND
-          string "title:#{term['title']}",              :default_operator => "AND"  if term['title'].present?
-          string "content:#{term['content']}",          :default_operator => "AND"  if term['content'].present?
-          string "contributors:#{term['contributor']}", :default_operator => "AND"  if term['contributor'].present?
-          string "categories:#{term['category']}",      :default_operator => "AND"  if term['category'].present?
-          string "type:#{term['type']}",                :default_operator => "AND"  if term['type'].present?
+      s = Tire.search("learning_portal") do |search|
+        search.query do |query|
+          query.boolean do |bool|
+            # Search All on the normal field
+            bool.must { |must| must.string "#{@term[:q]}" }
+
+            bool.must { |must| must.string "title:#{@term[:title]}" }                    if @term[:title].present?
+            bool.must { |must| must.string "content:#{@term[:content]}" }                if @term[:content].present?
+            bool.must { |must| must.string "authors.name:#{@term[:author]}" }            if @term[:author].present?
+            bool.must { |must| must.string "contributors.name:#{@term[:contributor]}" }  if @term[:contributor].present?
+            bool.must { |must| must.string "categories:#{@term[:category]}" }            if @term[:category].present?
+            bool.must { |must| must.string "type:#{@term[:type]}" }                      if @term[:type].present?
+          end
+        end
+
+        # we may not want this, or at least use a different analyzer
+        search.facet "title" do
+          terms :title
+        end
+
+        # we may not want this, or at least use a different analyzer
+        search.facet "content" do
+          terms :content
+        end
+
+        search.facet "authors" do
+          terms :authors, :field => "authors.name"
+        end
+
+        search.facet "contributors" do
+          terms :contributors, :field => "contributors.name"
+        end
+
+        # currently 'breaks' tags down into each of their keywords rather than
+        # based on the whole tag. e.g. "Living people" - becomes - ["living", "people"]
+        search.facet "tags" do
+          terms :categories
+        end
+
+        search.facet "type" do
+          terms :type
         end
 
         # limit results
-        size options[:size] || 10
-        from options[:from] || 0
+        search.size options[:size] || 10
+        search.from options[:from] || 0
       end
 
       ids = s.results.take(25).collect(&:id)
 
       results[:results]       = ids.map! { |id| find(id) }
       results[:total_results] = s.results.total
+      results[:raw_search]    = s
+
     rescue Tire::Search::SearchRequestFailed
     rescue RestClient::Exception
       # Search failed!

@@ -24,14 +24,14 @@
         .control-group
           %label.control-label{ :for => "tag-name" } Tag name
           .controls
-            %input#tag-name.input-xlarge{ :name => "tag", :type => "text", :placeholder => "Search tag names...", :value => @search_terms["tag"] }
+            %input#tag-name.input-xlarge{ :name => "category", :type => "text", :placeholder => "Search tag names...", :value => @search_terms["category"] }
         .control-group
           %label.control-label{ :for => "select01" } Select media type
           .controls
             %select#select01.input-xlarge{ :name => "type", :type => "text" }
               %option{ :value => "" } All content selected
-              %option{ :selected => selected?("text")  } Text
-              %option{ :selected => selected?("video") } Video
-              %option{ :selected => selected?("image") } Image
+              %option{ :selected => selected?("text"),  :value => "text"  } Text
+              %option{ :selected => selected?("video"), :value => "video" } Video
+              %option{ :selected => selected?("image"), :value => "image" } Image
     %div.clearfix
       %button.btn.pull-right.btn-large.btn-primary{ :type => "submit" } Search
