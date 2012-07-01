@@ -14,9 +14,10 @@
   Popular Tags
   = link_to "View all", sidebar_tag_path, :remote => true, :class => 'btn btn-primary btn-small pull-right viewall'
 %section.pane
-  %ul
-    - @categories.each do |tag|
-      %li.tag
-        = link_to tag_path(:tag => tag.name) do
-          .tag-nub
-          .tag-text= tag.name
+  - if @categories.present?
+    %ul
+      - @categories.each do |tag|
+        %li.tag
+          = link_to tag_path(:tag => tag.name) do
+            .tag-nub
+            .tag-text= tag.name
