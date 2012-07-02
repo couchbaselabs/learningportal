@@ -1,9 +1,10 @@
-class ViewStats < Couchbase::Model
+class GlobalViewStats < Couchbase::Model
 
   # We want to make sure we use the correct views bucket.
-  BUCKET = "views"
+  PERIOD_COUNTER = "views"
+
   def self.bucket
-    Couch.client(:bucket => BUCKET)
+    Couch.client(:bucket => PERIOD_COUNTER)
   end
 
   view :by_popularity, :views_by_type
@@ -11,13 +12,13 @@ class ViewStats < Couchbase::Model
   def self.popular_content(options={})
     defaults = { :descending => true, :reduce => false, :limit => 1000 }
     options = defaults.merge!(options)
-    Couch.client(:bucket => BUCKET).design_docs["view_stats"].by_popularity(options).entries
+    bucket.design_docs["view_stats"].by_popularity(options).entries
   end
 
   # gathers view total counts by type from content documents in views bucket
   def self.views_by_type(opts={})
     options = { :group => true, :reduce => true }.merge!(opts)
-    results = Couch.client(:bucket => BUCKET).design_docs["view_stats"].views_by_type(options).entries
+    results = bucket.design_docs["global_view_stats"].views_by_type(options).entries
 
     result_hash = { :text => 0, :video => 0, :image => 0 }
     results.each do |r|
@@ -25,6 +26,10 @@ class ViewStats < Couchbase::Model
       result_hash[r.key] = r.value
     end
     result_hash.symbolize_keys
+  end
+
+  def self.update_counter(doc, counter)
+    Couch.client(:bucket => "global").set("#{doc.id}", { :count => counter, :type => doc.type } )
   end
 
 end

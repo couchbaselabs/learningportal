@@ -30,7 +30,7 @@ The following commands will get you setup for the *first time*.
     open /Applications/Couchbase\ Server.app/
 
     # setup buckets, views and seed content from wikipedia
-    rake lp:bootstrap
+    rake lp:reset
 
     # start rails app server and delayed_job  workers
     foreman start

@@ -6,7 +6,7 @@ A Couchbase / Elastic Search proof of concept app.
 
 ### Stable
 
-The following dependencies are considered stable and working as a minimum version. 
+The following dependencies are considered stable and working as a minimum version.
 
 * elastic search **0.19.3**
 * Ruby **1.9.3-p0**
@@ -44,6 +44,13 @@ The following is a list of tasks that are useful for managing the application.
     rake lp:create              # Create all buckets
     rake lp:drop                # Drop all buckets
     rake lp:migrate             # Update couchbase views
+    rake lp:ensure_buckets      # Detect and create missing buckets (Safe operation)
+    rake lp:es:create_index     # Create ElasticSearch index
+    rake lp:es:create_mapping   # Create ElasticSearch mapping
+    rake lp:es:delete_index     # Delete ElasticSearch index
+    rake lp:es:reset            # Delete and recreate ElasticSearch index and river
+    rake lp:es:start_river      # Start ElasticSearch river
+    rake lp:es:stop_river       # Stop ElasticSearch river (will start over indexing documents if recreated)
     rake lp:recalculate_active  # Recalculate active content
     rake lp:recalculate_scores  # Schedule background score indexing for all documents
     rake lp:reindex             # Regenerate all indexes

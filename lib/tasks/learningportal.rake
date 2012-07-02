@@ -34,9 +34,6 @@ namespace :learningportal do
     task :start_river => :environment do
       body = File.read("app/elasticsearch/river.json")
       body.gsub!("COUCHBASE_URL", couchbase_url)
-      # body.gsub!("COUCHBASE_PASS", ENV['COUCHBASE_PASS'])
-
-      puts body
 
       Typhoeus::Request.put("#{es_url}/_river/lp_river/_meta", :body => body)
       puts "Started ElasticSearch river from 'app/elasticsearch/river.json'."
@@ -59,7 +56,6 @@ namespace :learningportal do
   task :recalculate_scores => :environment do
     # perform queuing of document score recalculation
     # in a batch size of 1000 to avoid using too much memoery
-
     total_docs = Article.view_stats[:count]
     batch_size = 1000
     num_batches = (total_docs / batch_size.to_f).ceil # include all docs in final batch if less than batch_size
@@ -79,6 +75,7 @@ namespace :learningportal do
     Couch.delete!(:bucket => 'views')
     Couch.delete!(:bucket => 'profiles')
     Couch.delete!(:bucket => 'system')
+    Couch.delete!(:bucket => 'global')
   end
 
   desc "Create all buckets"
@@ -87,6 +84,7 @@ namespace :learningportal do
     Couch.create!(:bucket => 'views',    :ram => 128)
     Couch.create!(:bucket => 'profiles', :ram => 128)
     Couch.create!(:bucket => 'system',   :ram => 128)
+    Couch.create!(:bucket => 'global',   :ram => 128)
   end
 
   desc "Reset all data (create, drop, migrate, seed)"
@@ -107,7 +105,7 @@ namespace :learningportal do
 
   desc "Recalculate active content"
   task :recalculate_active => :environment do
-    ViewStats.popular_content.each do |row|
+    PeriodViewStats.popular_content.each do |row|
       Delayed::Job.enqueue( DocumentScoreJob.new( row.id ) )
     end
   end
@@ -123,7 +121,8 @@ namespace :learningportal do
     Article.ensure_design_document!
     Author.ensure_design_document!
     Category.ensure_design_document!
-    ViewStats.ensure_design_document!
+    PeriodViewStats.ensure_design_document!
+    GlobalViewStats.ensure_design_document!
   end
 
   desc "Seed 100 documents"
@@ -150,6 +149,21 @@ namespace :learningportal do
           @design_doc.send(view, :include_docs => false, :stale => :update_after, :limit => 1)
         end
         puts ""
+      end
+    end
+  end
+
+  desc "Detect and create missing buckets (Safe operation)"
+  task :ensure_buckets => :environment do
+    buckets = %w(default views profiles system global)
+    buckets.each do |bucket|
+      print "Detecting '#{bucket}' bucket..."
+      begin
+        Couch.client(:bucket => bucket)
+        puts " Exists, nothing to do."
+      rescue Couchbase::Error::BucketNotFound
+        puts " Not Found! Creating it."
+        Couch.create! :bucket => bucket, :ram => 128
       end
     end
   end
@@ -195,4 +209,6 @@ namespace :lp do
   task :seed               => "learningportal:seed"
   desc "Regenerate all indexes"
   task :reindex            => "learningportal:reindex"
+  desc "Detect and create missing buckets (Safe operation)"
+  task :ensure_buckets     => "learningportal:ensure_buckets"
 end

@@ -6,33 +6,43 @@ class DocumentScoreJob
   end
 
   def perform
-    # 1. what is the maximum amount of views of a piece of content
+    # what is the maximum amount of views of a piece of content
     #    => 100
     max_views = Article.view_stats[:max]
 
-    # 2. what is the all time amount of views for this document?
-    document = Article.find("#{@document_id}")
-    total = document['views'] || 0
-    popularity = document['popularity'] || 0
-
-    # 3. what is the recent count of views
-    views = 0
+    # what is the all time amount of views for this document?
+    global_views = 0
     begin
-      result = Couch.client(:bucket => "views").get("#{@document_id}")
-      views = result['count'] || 0
+      global       = Couch.client(:bucket => "global").get("#{@document_id}")
+      global_views = global['count'] || 0
     rescue Couchbase::Error::NotFound
       # do nothing! we are already 0
     end
 
-    # 4. total
-    total = total + views
-    popularity = popularity + views
+    # what is the recent count of views
+    period_views = 0
+    begin
+      period       = Couch.client(:bucket => "views").get("#{@document_id}")
+      period_views = period['count'] || 0
+    rescue Couchbase::Error::NotFound
+      # do nothing! we are already 0
+    end
 
-    # 5. update the document with the new all time total and popularity
-    document.update_attributes(:views => total, :popularity => popularity)
+    document     = Article.find("#{@document_id}")
+    popularity   = document['popularity'] || 0
 
-    # 6. reset the counter
-    Couch.client(:bucket => "views").set("#{@document_id}", {:count => 0, :type => document.type})
+    # total
+    global_views  = global_views + period_views
+    popularity    = popularity   + period_views
+
+    # update the document with the new all time total and popularity
+    document.update_attributes(:popularity => popularity)
+
+    # store the updated global counter
+    GlobalViewStats.update_counter document, global_views
+
+    # reset the period counter
+    PeriodViewStats.reset_counter document
   end
 
 end
