@@ -13,6 +13,7 @@ Couch.create!(:bucket => 'views',    :ram => ENV['BUCKET_RAM_VIEWS'])
 Couch.create!(:bucket => 'profiles', :ram => ENV['BUCKET_RAM_PROFILES'])
 Couch.create!(:bucket => 'system',   :ram => ENV['BUCKET_RAM_SYSTEM'])
 Couch.create!(:bucket => 'global',   :ram => ENV['BUCKET_RAM_GLOBAL'])
+Couch.create!(:bucket => 'events',   :ram => ENV['BUCKET_RAM_EVENTS'])
 
 Couchbase::Model.ensure_design_document!
 # Article.ensure_design_document!

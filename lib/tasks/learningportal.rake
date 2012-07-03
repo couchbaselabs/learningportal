@@ -76,6 +76,7 @@ namespace :learningportal do
     Couch.delete!(:bucket => 'profiles')
     Couch.delete!(:bucket => 'system')
     Couch.delete!(:bucket => 'global')
+    Couch.delete!(:bucket => 'events')
   end
 
   desc "Create all buckets"
@@ -85,6 +86,7 @@ namespace :learningportal do
     Couch.create!(:bucket => 'profiles', :ram => ENV['BUCKET_RAM_PROFILES'])
     Couch.create!(:bucket => 'system',   :ram => ENV['BUCKET_RAM_SYSTEM'])
     Couch.create!(:bucket => 'global',   :ram => ENV['BUCKET_RAM_GLOBAL'])
+    Couch.create!(:bucket => 'events',   :ram => ENV['BUCKET_RAM_EVENTS'])
   end
 
   desc "Reset all data (create, drop, migrate, seed)"
@@ -132,7 +134,7 @@ namespace :learningportal do
 
   desc "Regenerate all indexes"
   task :reindex => :environment do
-    buckets = %w(default views system profiles)
+    buckets = %w(default views system profiles events)
 
     buckets.each do |bucket|
       puts "===> Triggering reindex of all views in '#{bucket}' bucket"
@@ -155,7 +157,7 @@ namespace :learningportal do
 
   desc "Detect and create missing buckets (Safe operation)"
   task :ensure_buckets => :environment do
-    buckets = %w(default views profiles system global)
+    buckets = %w(default views profiles system global events)
     buckets.each do |bucket|
       print "Detecting '#{bucket}' bucket..."
       begin
