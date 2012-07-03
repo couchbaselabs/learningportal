@@ -12,6 +12,8 @@
           %span.caret
         %ul.dropdown-menu
           / dropdown menu links
+  /%pre{ :style => "padding:25px" }= JSON.pretty_generate(JSON.parse(@search.to_json))
+  %pre{ :style => "padding:25px" }= @search.class
   = render :partial => "shared/articles"
 = render :partial => "shared/loading_content"
 = render :partial => "shared/scroll"

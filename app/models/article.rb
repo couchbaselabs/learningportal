@@ -43,14 +43,19 @@ class Article < Couchbase::Model
           end
 
           # custom filters score
-          query.custom_filters_score do |score|
-            # score.query { string "melbourne" }
-            score.query { terms :type, 'video' }
-            score.filter do |filter|
-              filter.filter :match_all
-              filter.boost 2.0
+          query.custom_filters_score do
+            query { string "melbourne" }
+            # query { term :type, 'video' }
+            # query { :match_all }
+            filter do
+              filter :match_all
+              # boost 1.0
             end
-            score.score_mode "total"
+            filter do
+              filter { term :type, "video" }
+              boost 2.0
+            end
+            score_mode "first"
           end
         end
 
@@ -93,7 +98,7 @@ class Article < Couchbase::Model
       results[:total_results] = s.results.total
       results[:raw_search]    = s
 
-    rescue Tire::Search::SearchRequestFailed
+    # rescue Tire::Search::SearchRequestFailed
     rescue RestClient::Exception
       # Search failed!
     end

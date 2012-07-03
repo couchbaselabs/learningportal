@@ -9,8 +9,9 @@ class SearchController < ApplicationController
     @skip     = (@page - 1) * @per_page
 
     @search = Article.search(@search_terms, :from => @skip, :size => @per_page)
-    @items = @search[:results]
-    @total = @search[:total_results]
+    @items  = @search[:results]
+    @total  = @search[:total_results]
+    @search = @search[:raw_search]
 
     respond_to do |format|
       format.html { render }
