@@ -231,6 +231,8 @@ GEM
       multi_json (~> 1.0)
       rake
       rest-client (~> 1.6)
+    tire-contrib (0.1.1)
+      tire
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
@@ -292,6 +294,7 @@ DEPENDENCIES
   spork
   thin
   tire
+  tire-contrib
   turn (= 0.8.2)
   typhoeus
   uglifier (>= 1.0.3)

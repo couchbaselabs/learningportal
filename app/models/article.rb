@@ -1,3 +1,5 @@
+require 'tire/queries/custom_filters_score'
+
 class Article < Couchbase::Model
 
   include ActiveModel::Validations
@@ -38,6 +40,17 @@ class Article < Couchbase::Model
             bool.must { |must| must.string "contributors.name:#{@term[:contributor]}" }  if @term[:contributor].present?
             bool.must { |must| must.string "categories:#{@term[:category]}" }            if @term[:category].present?
             bool.must { |must| must.string "type:#{@term[:type]}" }                      if @term[:type].present?
+          end
+
+          # custom filters score
+          query.custom_filters_score do |score|
+            # score.query { string "melbourne" }
+            score.query { terms :type, 'video' }
+            score.filter do |filter|
+              filter.filter :match_all
+              filter.boost 2.0
+            end
+            score.score_mode "total"
           end
         end
 

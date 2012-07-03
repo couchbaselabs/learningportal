@@ -50,6 +50,7 @@ gem "haml-rails"
 gem 'jquery-rails'
 gem 'rails_exception_handler', :git => 'git://github.com/rumblelabs/rails_exception_handler.git'
 gem 'tire'
+gem 'tire-contrib'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
