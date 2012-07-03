@@ -8,11 +8,11 @@ Couch.delete!(:bucket => 'profiles')
 Couch.delete!(:bucket => 'system')
 Couch.delete!(:bucket => 'global')
 
-Couch.create!(:bucket => 'default',  :ram => 128)
-Couch.create!(:bucket => 'views',    :ram => 128)
-Couch.create!(:bucket => 'profiles', :ram => 128)
-Couch.create!(:bucket => 'system',   :ram => 128)
-Couch.create!(:bucket => 'global',   :ram => 128)
+Couch.create!(:bucket => 'default',  :ram => ENV['BUCKET_RAM_DEFAULT'])
+Couch.create!(:bucket => 'views',    :ram => ENV['BUCKET_RAM_VIEWS'])
+Couch.create!(:bucket => 'profiles', :ram => ENV['BUCKET_RAM_PROFILES'])
+Couch.create!(:bucket => 'system',   :ram => ENV['BUCKET_RAM_SYSTEM'])
+Couch.create!(:bucket => 'global',   :ram => ENV['BUCKET_RAM_GLOBAL'])
 
 Couchbase::Model.ensure_design_document!
 # Article.ensure_design_document!

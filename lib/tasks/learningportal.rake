@@ -80,11 +80,11 @@ namespace :learningportal do
 
   desc "Create all buckets"
   task :create => :environment do
-    Couch.create!(:bucket => 'default',  :ram => 128)
-    Couch.create!(:bucket => 'views',    :ram => 128)
-    Couch.create!(:bucket => 'profiles', :ram => 128)
-    Couch.create!(:bucket => 'system',   :ram => 128)
-    Couch.create!(:bucket => 'global',   :ram => 128)
+    Couch.create!(:bucket => 'default',  :ram => ENV['BUCKET_RAM_DEFAULT'])
+    Couch.create!(:bucket => 'views',    :ram => ENV['BUCKET_RAM_VIEWS'])
+    Couch.create!(:bucket => 'profiles', :ram => ENV['BUCKET_RAM_PROFILES'])
+    Couch.create!(:bucket => 'system',   :ram => ENV['BUCKET_RAM_SYSTEM'])
+    Couch.create!(:bucket => 'global',   :ram => ENV['BUCKET_RAM_GLOBAL'])
   end
 
   desc "Reset all data (create, drop, migrate, seed)"
@@ -163,7 +163,11 @@ namespace :learningportal do
         puts " Exists, nothing to do."
       rescue Couchbase::Error::BucketNotFound
         puts " Not Found! Creating it."
-        Couch.create! :bucket => bucket, :ram => 128
+        ram = ENV["BUCKET_RAM_#{bucket.upcase}"]
+        options = {}
+        options[:bucket] = bucket
+        options[:ram]    = ram unless ram.nil?
+        Couch.create!(options)
       end
     end
   end

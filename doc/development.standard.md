@@ -17,7 +17,13 @@
     COUCHBASE_HOST=localhost
     COUCHBASE_USER=Administrator
     COUCHBASE_PASS=Administrator
-    HTTP_AUTH_PASSWORD=xxxx" > .env
+    HTTP_AUTH_PASSWORD=xxxx
+    BUCKET_RAM_DEFAULT=100
+    BUCKET_RAM_VIEWS=100
+    BUCKET_RAM_PROFILES=100
+    BUCKET_RAM_GLOBAL=100
+    BUCKET_RAM_SYSTEM=100
+    BUCKET_RAM_EVENTS=100" > .env
 
 [foreman](https://github.com/ddollar/foreman) uses a `.env` file for ENV variables and loads this automatically when running `foreman start`. To load variables for other processes
 

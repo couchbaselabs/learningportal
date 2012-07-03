@@ -45,6 +45,13 @@ re-install couchbase on an ec2 instance.
     sudo rpm -i couchbase-server-community_x86_64_2.0.0dp4r-730-rel.rpm
     sudo /etc/init.d/couchbase-server start
 
+# Migrating Staging / Production Buckets
+
+When adding new buckets to staging or production we sometimes only want to create and migrate the buckets which do not yet exist.
+This is done by the following:
+
+    rake lp:ensure_buckets
+    rake lp:migrate
 
 ## Management Tasks
 

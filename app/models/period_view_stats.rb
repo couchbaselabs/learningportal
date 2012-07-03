@@ -1,10 +1,10 @@
 class PeriodViewStats < Couchbase::Model
 
   # We want to make sure we use the correct views bucket.
-  GLOBAL_COUNTER = "global"
+  BUCKET = "views"
 
   def self.bucket
-    Couch.client(:bucket => GLOBAL_COUNTER)
+    Couch.client(:bucket => BUCKET)
   end
 
   view :by_popularity, :views_by_type
@@ -12,7 +12,7 @@ class PeriodViewStats < Couchbase::Model
   def self.popular_content(options={})
     defaults = { :descending => true, :reduce => false, :limit => 1000 }
     options = defaults.merge!(options)
-    bucket.design_docs["view_stats"].by_popularity(options).entries
+    bucket.design_docs["period_view_stats"].by_popularity(options).entries
   end
 
   # gathers view total counts by type from content documents in views bucket
