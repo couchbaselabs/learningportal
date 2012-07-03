@@ -35,6 +35,16 @@ Once you've done that, for local development we have two approaches
 
 The benefit of a VM is such that new development releases of couchbase server can be tested (and isolated) from the learningportal app.
 
+### Production (EC2)
+
+re-install couchbase on an ec2 instance.
+
+    sudo /etc/init.d/couchbase-server stop
+    sudo rpm -e couchbase-server-2.0.0dp4r-730.x86_64
+    sudo rm -rf /opt/couchbase
+    sudo rpm -i couchbase-server-community_x86_64_2.0.0dp4r-730-rel.rpm
+    sudo /etc/init.d/couchbase-server start
+
 
 ## Management Tasks
 
