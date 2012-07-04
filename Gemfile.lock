@@ -6,6 +6,13 @@ GIT
       couchbase (~> 1.2.0.dp)
 
 GIT
+  remote: git://github.com/kierangraham/tire-contrib.git
+  revision: a9455e4303fd6c25b0acaaab87d1c7952de7fa0b
+  specs:
+    tire-contrib (0.1.1)
+      tire
+
+GIT
   remote: git://github.com/rumblelabs/rails_exception_handler.git
   revision: 647626cd740152e695c3be01d9b81093cd4d16f4
   specs:
@@ -231,8 +238,6 @@ GEM
       multi_json (~> 1.0)
       rake
       rest-client (~> 1.6)
-    tire-contrib (0.1.1)
-      tire
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
@@ -294,7 +299,7 @@ DEPENDENCIES
   spork
   thin
   tire
-  tire-contrib
+  tire-contrib!
   turn (= 0.8.2)
   typhoeus
   uglifier (>= 1.0.3)

@@ -30,33 +30,44 @@ class Article < Couchbase::Model
       end
       s = Tire.search("learning_portal") do |search|
         search.query do |query|
-          query.boolean do |bool|
-            # Search All on the normal field
-            bool.must { |must| must.string "#{@term[:q]}" }
 
-            bool.must { |must| must.string "title:#{@term[:title]}" }                    if @term[:title].present?
-            bool.must { |must| must.string "content:#{@term[:content]}" }                if @term[:content].present?
-            bool.must { |must| must.string "authors.name:#{@term[:author]}" }            if @term[:author].present?
-            bool.must { |must| must.string "contributors.name:#{@term[:contributor]}" }  if @term[:contributor].present?
-            bool.must { |must| must.string "categories:#{@term[:category]}" }            if @term[:category].present?
-            bool.must { |must| must.string "type:#{@term[:type]}" }                      if @term[:type].present?
+          query.string "#{@term[:q]}"
+
+          # custom scoring query with logical and matching for advanced search
+          query.custom_score do |query|
+            query.custom_filters_score do |score|
+              score.query do |query|
+                query.boolean do |bool|
+                  # Search All on the normal field
+                  bool.must { |must| must.string "#{@term[:q]}" }
+
+                  bool.must { |must| must.string "title:#{@term[:title]}" }                    if @term[:title].present?
+                  bool.must { |must| must.string "content:#{@term[:content]}" }                if @term[:content].present?
+                  bool.must { |must| must.string "authors.name:#{@term[:author]}" }            if @term[:author].present?
+                  bool.must { |must| must.string "contributors.name:#{@term[:contributor]}" }  if @term[:contributor].present?
+                  bool.must { |must| must.string "categories:#{@term[:category]}" }            if @term[:category].present?
+                  bool.must { |must| must.string "type:#{@term[:type]}" }                      if @term[:type].present?
+                end
+              end
+              # score.query { |query| query.string "#{@term[:q]}" }
+              score.filter do
+                filter :term, :type => "video"
+                boost User.first.preferences["types"]["video"]
+              end
+
+              score.filter do
+                filter :term, :type => "image"
+                boost User.first.preferences["types"]["image"]
+              end
+
+              score.filter do
+                filter :term, :type => "text"
+                boost User.first.preferences["types"]["text"]
+              end
+              score.score_mode "first"
+            end
           end
 
-          # custom filters score
-          query.custom_filters_score do
-            query { string "melbourne" }
-            # query { term :type, 'video' }
-            # query { :match_all }
-            filter do
-              filter :match_all
-              # boost 1.0
-            end
-            filter do
-              filter { term :type, "video" }
-              boost 2.0
-            end
-            score_mode "first"
-          end
         end
 
         # we may not want this, or at least use a different analyzer
@@ -98,7 +109,7 @@ class Article < Couchbase::Model
       results[:total_results] = s.results.total
       results[:raw_search]    = s
 
-    # rescue Tire::Search::SearchRequestFailed
+    rescue Tire::Search::SearchRequestFailed
     rescue RestClient::Exception
       # Search failed!
     end
