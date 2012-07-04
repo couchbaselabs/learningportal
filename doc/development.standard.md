@@ -23,7 +23,8 @@
     BUCKET_RAM_PROFILES=100
     BUCKET_RAM_GLOBAL=100
     BUCKET_RAM_SYSTEM=100
-    BUCKET_RAM_EVENTS=100" > .env
+    BUCKET_RAM_EVENTS=100
+    EVENT_STREAM_TTL=86400" > .env
 
 [foreman](https://github.com/ddollar/foreman) uses a `.env` file for ENV variables and loads this automatically when running `foreman start`. To load variables for other processes
 
