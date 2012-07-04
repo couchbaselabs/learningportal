@@ -59,6 +59,7 @@ class ArticlesController < ApplicationController
     if current_user
       if current_user.preferences
         current_user.increment!(@article['type'])
+        Event.new(:type => Event::ACCESS, :user => current_user.email, :resource => @article.id.to_s).save
       end
       # current_user.save
     end
@@ -68,6 +69,8 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article.update_attributes(params[:article])
     @tag = params[:article][:new_category]
+
+    Event.new(:type => Event::TAGGED, :user => current_user.email, :resource => @article.id.to_s).save
 
     respond_to do |format|
       format.html { redirect_to(@article, :notice => '<strong>Success!</strong> Article was successfully updated.'.html_safe) }

@@ -17,6 +17,7 @@ class WikipediaDownloadJob
     articles.each do |article|
       id, document = Wikipedia.parse( article, avg )
       Couch.client.set(id.to_s, document)
+      Event.new(:type => Event::CREATE, :user => nil, :resource => id.to_s).save
     end
   end
 
