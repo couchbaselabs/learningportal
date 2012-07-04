@@ -18,6 +18,6 @@ class Event < Couchbase::Model
   attribute :timestamp, :default => lambda { Time.now.utc }
 
   def save
-    super(:ttl => ENV['EVENT_STREAM_TTL'])
+    super(:ttl => ENV['EVENT_STREAM_TTL'].to_i)
   end
 end
