@@ -27,7 +27,7 @@ class Article < Couchbase::Model
     # parameterize a main query if only advanced options are provided
     # into 'title:title search '
     if @term[:q].empty?
-      @main_query = @term.reject { |k,v| k == :q || v.empty? }.map { |k,v| "#{k}:\"#{v}\"" }.join " "
+      @main_query = @term.reject { |k,v| (k == :q || v.empty?) }.map { |k,v| "#{k}:\"#{v}\"" }.join " "
     else
       @main_query = @term[:q]
     end
@@ -42,10 +42,10 @@ class Article < Couchbase::Model
           query.string "#{@main_query}"
 
           # custom scoring query with logical and matching for advanced search
-          query.custom_score do |query|
-            query.custom_filters_score do |score|
-              score.query do |query|
-                query.boolean do |bool|
+          query.custom_score script: "_score * (doc['popularity'] + 1)" do |custom_query|
+            custom_query.custom_filters_score do |score|
+              score.query do |score_query|
+                score_query.boolean do |bool|
                   # Search All on the normal field
                   bool.must { |must| must.string "#{@main_query}" }
 
@@ -57,20 +57,20 @@ class Article < Couchbase::Model
                   bool.must { |must| must.string "type:#{@term[:type]}" }                      if @term[:type].present?
                 end
               end
-              # score.query { |query| query.string "#{@term[:q]}" }
+
               score.filter do
                 filter :term, :type => "video"
-                boost User.first.preferences["types"]["video"]
+                boost User.current.preferences["types"]["video"] + 1
               end
 
               score.filter do
                 filter :term, :type => "image"
-                boost User.first.preferences["types"]["image"]
+                boost User.current.preferences["types"]["image"] + 1
               end
 
               score.filter do
                 filter :term, :type => "text"
-                boost User.first.preferences["types"]["text"]
+                boost User.current.preferences["types"]["text"] + 1
               end
               score.score_mode "first"
             end
@@ -262,16 +262,24 @@ class Article < Couchbase::Model
   end
 
   def count_as_viewed
-    c = Couch.client(:bucket => "views")
+    period = Couch.client(:bucket => "views")
+    global = Couch.client(:bucket => "global")
     views = 0
     begin
-      result = c.get("#{id}")
+      result = period.get("#{id}")
       views = result['count'] || 0
       views += 1
     rescue Couchbase::Error::NotFound => e
       views = 1
     end
-    c.set("#{id}", {:count => views, :type => type})
+    period.set("#{id}", {:count => views, :type => type})
+
+    begin
+      result = global.get("#{id}")
+      views += result['count']
+    rescue Couchbase::Error::NotFound
+
+    end
     views
   end
 

@@ -5,8 +5,13 @@ class ApplicationController < ActionController::Base
   before_filter :content_totals
   before_filter :users
   before_filter :search_terms
+  before_filter :assign_current_user
 
   private
+
+  def assign_current_user
+    User.current = current_user if current_user.present?
+  end
 
   def search_terms
     @search_terms = {}.merge(params)

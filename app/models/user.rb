@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
+  cattr_accessor  :current
+
   after_create :create_preferences!
   # serialize :preferences
 

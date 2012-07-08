@@ -49,7 +49,7 @@ gem "haml"
 gem "haml-rails"
 gem 'jquery-rails'
 gem 'rails_exception_handler', :git => 'git://github.com/rumblelabs/rails_exception_handler.git'
-gem 'tire'
+gem 'tire', :git => 'git://github.com/kierangraham/tire.git'
 gem 'tire-contrib', :git => 'git://github.com/kierangraham/tire-contrib.git'
 
 # To use ActiveModel has_secure_password
