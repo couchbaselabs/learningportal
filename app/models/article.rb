@@ -24,6 +24,14 @@ class Article < Couchbase::Model
     }
     @term = term.symbolize_keys
 
+    # parameterize a main query if only advanced options are provided
+    # into 'title:title search '
+    if @term[:q].empty?
+      @main_query = @term.reject { |k,v| k == :q || v.empty? }.map { |k,v| "#{k}:\"#{v}\"" }.join " "
+    else
+      @main_query = @term[:q]
+    end
+
     begin
       Tire.configure do
         url ENV["ELASTIC_SEARCH_URL"]
@@ -31,7 +39,7 @@ class Article < Couchbase::Model
       s = Tire.search("learning_portal") do |search|
         search.query do |query|
 
-          query.string "#{@term[:q]}"
+          query.string "#{@main_query}"
 
           # custom scoring query with logical and matching for advanced search
           query.custom_score do |query|
@@ -39,7 +47,7 @@ class Article < Couchbase::Model
               score.query do |query|
                 query.boolean do |bool|
                   # Search All on the normal field
-                  bool.must { |must| must.string "#{@term[:q]}" }
+                  bool.must { |must| must.string "#{@main_query}" }
 
                   bool.must { |must| must.string "title:#{@term[:title]}" }                    if @term[:title].present?
                   bool.must { |must| must.string "content:#{@term[:content]}" }                if @term[:content].present?
