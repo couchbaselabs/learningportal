@@ -12,6 +12,8 @@
           %span.caret
         %ul.dropdown-menu
           / dropdown menu links
+  - if params["es_debug"].present?
+    %pre= JSON.pretty_generate(JSON.parse(@search.to_json))
   = render :partial => "shared/articles"
 = render :partial => "shared/loading_content"
 = render :partial => "shared/scroll"
