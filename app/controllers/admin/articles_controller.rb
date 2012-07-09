@@ -1,15 +1,24 @@
 class Admin::ArticlesController < AdminController
 
   def index
-    @total    = Article.view_stats[:count]
-    @per_page = 10
-    @page     = (params[:page] || 1).to_i
-    @skip     = (@page - 1) * @per_page
+    @total      = Article.view_stats[:count]
+    @per_page   = 10
+    @page       = (params[:page] || 1).to_i
+    @after_key  = params[:after_key]
+    @after_id   = params[:after_id]
+    # @skip     = (@page - 1) * @per_page
 
-    @articles = Article.popular(:limit => @per_page, :skip => @skip, :include_docs => true).entries
-    @articles = WillPaginate::Collection.create(@page, @per_page, @total) do |pager|
-      pager.replace(@articles.to_a)
+    options = { :limit => @per_page, :include_docs => true, :inclusive_end => false }
+
+    # get documents from particular key and id
+    if @after_key.present? && @after_id.present?
+      options.merge(:start_key => @after_key.to_i, :startkey_docid => @after_id)
     end
+
+    # get 11 docs so we can display 10 and use the 11th to be the basis of the next pagination set
+    @articles = Article.popular(options).entries
+    @next_article = { :after_id => @articles.last.id, :after_key => @articles.last.popularity }
+    @articles.slice! 10
   end
 
   def edit
