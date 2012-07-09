@@ -1,1 +1,1 @@
-Tire.configure { logger 'log/elasticsearch.log', :level => 'debug' }
+Tire.configure { logger $stdout, :level => 'debug' }
