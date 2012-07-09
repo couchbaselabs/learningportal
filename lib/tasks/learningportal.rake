@@ -125,6 +125,7 @@ namespace :learningportal do
     Category.ensure_design_document!
     PeriodViewStats.ensure_design_document!
     GlobalViewStats.ensure_design_document!
+    Event.ensure_design_document!
   end
 
   desc "Seed 100 documents"
