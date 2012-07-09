@@ -3,6 +3,8 @@ class Event < Couchbase::Model
   # We want to make sure we use the correct events bucket.
   BUCKET = "events"
 
+  view :by_type
+
   def self.bucket
     Couch.client(:bucket => BUCKET)
   end
