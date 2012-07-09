@@ -258,7 +258,17 @@ class Article < Couchbase::Model
   end
 
   def destroy
+    # clone this document to be 'soft deleted' into the system bucket
+    doc = self.as_json
+
+    # remove from elasticsearch index
+    Typhoeus::Request.delete("#{ENV['ELASTIC_SEARCH_URL']}/learning_portal/lp_v1/#{id}", :refresh => true)
+
+    # remove from default bucket
     Couch.client.delete(@id)
+
+    # save a clone of this document into the 'system' bucket
+    Couch.client(:bucket => "system").set("#{doc['id']}", doc)
   end
 
   def count_as_viewed
@@ -281,6 +291,10 @@ class Article < Couchbase::Model
 
     end
     views
+  end
+
+  def as_json
+    self.attrs.as_json
   end
 
 end
