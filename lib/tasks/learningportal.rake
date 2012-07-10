@@ -175,6 +175,11 @@ namespace :learningportal do
     end
   end
 
+  desc "Perform a Couchbase performance benchmark"
+  task :benchmark => :environment do
+    CouchbasePerformance.benchmark
+  end
+
 end
 
 # Shorthand (keep maintained!)
@@ -218,4 +223,6 @@ namespace :lp do
   task :reindex            => "learningportal:reindex"
   desc "Detect and create missing buckets (Safe operation)"
   task :ensure_buckets     => "learningportal:ensure_buckets"
+  desc "Perform a Couchbase performance benchmark"
+  task :benchmark          => "learningportal:benchmark"
 end
