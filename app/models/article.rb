@@ -197,7 +197,7 @@ class Article < Couchbase::Model
   def self.popular_by_type(opts={})
     # Couch.client.design_docs["article"].by_type(:reduce => false).entries.collect { |row| Article.find(row.key[1]) }
     type = opts.delete(:type)
-    options = { :reduce => false, :descending => true, :include_docs => true }.merge(opts)
+    options = { :reduce => false, :descending => true, :include_docs => true, :stale => false }.merge(opts)
     if type
       options.merge!({ :startkey => [type, Article.view_stats[:max]], :endkey => [type, 0] })
     end
@@ -205,7 +205,7 @@ class Article < Couchbase::Model
   end
 
   def self.popular(opts={})
-    options = { :descending => true, :reduce => false, :include_docs => true, :limit => 10 }.merge(opts)
+    options = { :descending => true, :reduce => false, :include_docs => true, :limit => 10, :stale => false }.merge(opts)
     by_popularity(options).entries
   end
 
@@ -262,7 +262,7 @@ class Article < Couchbase::Model
     doc = self.as_json
 
     # remove from elasticsearch index
-    Typhoeus::Request.delete("#{ENV['ELASTIC_SEARCH_URL']}/learning_portal/lp_v1/#{id}", :refresh => true)
+    Typhoeus::Request.delete("#{ENV['ELASTIC_SEARCH_URL']}/learning_portal/lp_v1/#{id}?refresh=true")
 
     # remove from default bucket
     Couch.client.delete(@id)
