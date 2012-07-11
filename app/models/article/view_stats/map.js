@@ -1,5 +1,5 @@
 function (doc) {
   if (doc.type){
-    emit(doc._id, doc.views || 0);
+    emit(doc._id, doc.popularity || 0);
   }
 }

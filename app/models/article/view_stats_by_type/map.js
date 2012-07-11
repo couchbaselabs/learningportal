@@ -1,3 +1,3 @@
 function (doc) {
-  emit(doc.type, doc.views || 0);
+  emit(doc.type, doc.popularity || 0);
 }

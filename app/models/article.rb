@@ -13,8 +13,8 @@ class Article < Couchbase::Model
     @id
   end
 
-  attr_accessor :id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity
-  @@keys = [:id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity]
+  attr_accessor :id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity, :quality
+  @@keys = [:id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity, :quality]
 
   def self.search(term={}, options={})
     ids = []
@@ -32,6 +32,9 @@ class Article < Couchbase::Model
       @main_query = @term[:q]
     end
 
+    avg = Article.view_stats[:avg]
+    avg_popularity = avg <= 0.25 ? 0.25 : avg
+
     begin
       Tire.configure do
         url ENV["ELASTIC_SEARCH_URL"]
@@ -42,7 +45,7 @@ class Article < Couchbase::Model
           query.string "#{@main_query}"
 
           # custom scoring query with logical and matching for advanced search
-          query.custom_score script: "_score * (doc['popularity'] + 1)" do |custom_query|
+          query.custom_score script: "_score * ((doc['popularity'] + 1) / #{avg_popularity})" do |custom_query|
             custom_query.custom_filters_score do |score|
               score.query do |score_query|
                 score_query.boolean do |bool|
@@ -295,6 +298,12 @@ class Article < Couchbase::Model
 
   def as_json
     self.attrs.as_json
+  end
+
+  def quality
+    stats   = Article.view_stats
+    quality = (popularity.to_f - stats[:min].to_f) / stats[:max].to_f * 100
+    quality.round(2)
   end
 
 end
