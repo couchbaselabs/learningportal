@@ -264,11 +264,14 @@ class Article < Couchbase::Model
     # clone this document to be 'soft deleted' into the system bucket
     doc = self.as_json
 
+    # remove from default bucket
+    Couch.client.delete(@id)
+
     # remove from elasticsearch index
     Typhoeus::Request.delete("#{ENV['ELASTIC_SEARCH_URL']}/learning_portal/lp_v1/#{id}?refresh=true")
 
-    # remove from default bucket
-    Couch.client.delete(@id)
+    # wait period to give delete chance to take effect
+    sleep 3
 
     # save a clone of this document into the 'system' bucket
     Couch.client(:bucket => "system").set("#{doc['id']}", doc)
