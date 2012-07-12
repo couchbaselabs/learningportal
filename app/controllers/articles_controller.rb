@@ -48,25 +48,33 @@ class ArticlesController < ApplicationController
   end
 
   def show
+    count_view = params[:id].nil? && request.method == "application/json"
+
     # presume that we want a random article if there's no id
     if params[:id].nil?
       @article = Article.random
     else
       @article = Article.find(params[:id])
     end
-    @view_count = @article.count_as_viewed
+
+    @view_count = @article.count_as_viewed if count_view
 
     wiki = WikiCloth::Parser.new({
       :data => @article['content']
     })
     @content = Sanitize.clean(wiki.to_html, :elements => ['p', 'ul', 'li', 'i', 'h2', 'h3'], :remove_contents => ['table', 'div']).gsub(/\[[A-z0-9]+\]/, '')
 
-    if current_user
+    if current_user && count_view
       if current_user.preferences
         current_user.increment!(@article['type'])
         Event.new(:type => Event::ACCESS, :user => current_user.email, :resource => @article.id.to_s).save
       end
       # current_user.save
+    end
+
+    respond_to do |format|
+      format.json { render :json => { :url => article_path(@article.id, :only_path => false ) } }
+      format.html { render }
     end
   end
 
