@@ -36,8 +36,9 @@ class Article < Couchbase::Model
     @term[:popularity]  = (@term[:popularity].to_i  / 100.0).round(2)
     @term[:preferences] = (@term[:preferences].to_i / 100.0).round(2)
 
-    avg = Article.view_stats[:avg]
-    avg_popularity = avg <= 0.25 ? 0.25 : avg.round(2)
+    stats = Article.view_stats
+    avg_popularity = stats[:avg]
+    max_popularity = stats[:max]
 
     begin
       Tire.configure do
@@ -46,10 +47,16 @@ class Article < Couchbase::Model
       s = Tire.search("learning_portal") do |search|
         search.query do |query|
 
-          query.string "#{@main_query}"
+          # query.string "#{@main_query}"
+
+          if @term[:popularity] > 0
+            script = { script: "_score * (((doc['popularity'].value + 1) / #{avg_popularity} ) * #{@term[:popularity]})" }
+          else
+            script = { script: "_score"}
+          end
 
           # custom scoring query with logical and matching for advanced search
-          query.custom_score script: "_score * ( (doc['popularity'].value + 1) / #{avg_popularity} ) * #{@term[:popularity]}" do |custom_query|
+          query.custom_score(script) do |custom_query|
             custom_query.custom_filters_score do |score|
               score.query do |score_query|
                 score_query.boolean do |bool|

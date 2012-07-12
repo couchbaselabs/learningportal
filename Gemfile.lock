@@ -14,7 +14,7 @@ GIT
 
 GIT
   remote: git://github.com/kierangraham/tire.git
-  revision: 469e825baf107b889fac472b1a0669753e08e854
+  revision: 50d3b49dea3410d2e8996fd44a113777d10c2e5f
   specs:
     tire (0.4.2)
       activemodel (>= 3.0)
@@ -158,7 +158,7 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.18)
+    mime-types (1.19)
     multi_json (1.3.6)
     mysql2 (0.3.11)
     net-scp (1.0.4)

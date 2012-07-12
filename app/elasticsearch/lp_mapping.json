@@ -1,7 +1,7 @@
 {
   "lp_v1": {
     "_source": {
-      "includes" : ["_*|popularity"]
+      "includes" : ["_*", "popularity"]
     }
   }
 }
