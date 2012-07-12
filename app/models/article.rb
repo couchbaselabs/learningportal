@@ -32,8 +32,12 @@ class Article < Couchbase::Model
       @main_query = @term[:q]
     end
 
+    # popularity and preference boosting power
+    @term[:popularity]  = @term[:popularity].to_i  / 100.0
+    @term[:preferences] = @term[:preferences].to_i / 100.0
+
     avg = Article.view_stats[:avg]
-    avg_popularity = avg <= 0.25 ? 0.25 : avg
+    avg_popularity = avg <= 0.25 ? 0.25 : avg.round(2)
 
     begin
       Tire.configure do
@@ -45,7 +49,7 @@ class Article < Couchbase::Model
           query.string "#{@main_query}"
 
           # custom scoring query with logical and matching for advanced search
-          query.custom_score script: "_score * ((doc['popularity'] + 1) / #{avg_popularity})" do |custom_query|
+          query.custom_score script: "_score * ( (doc['popularity'].value + 1) / #{avg_popularity} ) * #{@term[:popularity]}" do |custom_query|
             custom_query.custom_filters_score do |score|
               score.query do |score_query|
                 score_query.boolean do |bool|
@@ -61,21 +65,26 @@ class Article < Couchbase::Model
                 end
               end
 
-              score.filter do
-                filter :term, :type => "video"
-                boost User.current.preferences["types"]["video"] + 1
+              # score.query { |query| query.string "#{@main_query}" }
+
+              score.filter do |filters|
+                filters.filter :term, :type => "video"
+                filters.boost (User.current.preferences["types"]["video"]) * @term[:preferences]
+                # filters.boost 1
               end
 
-              score.filter do
-                filter :term, :type => "image"
-                boost User.current.preferences["types"]["image"] + 1
+              score.filter do |filters|
+                filters.filter :term, :type => "image"
+                filters.boost (User.current.preferences["types"]["image"]) * @term[:preferences]
+                # filters.boost 1
               end
 
-              score.filter do
-                filter :term, :type => "text"
-                boost User.current.preferences["types"]["text"] + 1
+              score.filter do |filters|
+                filters.filter :term, :type => "text"
+                filters.boost (User.current.preferences["types"]["text"]) * @term[:preferences]
+                # filters.boost 1
               end
-              score.score_mode "first"
+              score.score_mode "total"
             end
           end
 

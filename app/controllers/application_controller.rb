@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
   end
 
   def search_terms
-    @search_terms = {}.merge(params)
+    @search_terms = {'popularity' => 100, 'preferences' => 100}.merge(params)
+    @search_terms
   end
 
   def fetch_authors_and_categories

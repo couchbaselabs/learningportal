@@ -14,6 +14,12 @@
           / dropdown menu links
   - if params["es_debug"].present?
     %pre= JSON.pretty_generate(JSON.parse(@search.to_json))
+    %pre= "Popularity Boosting: #{(@search_terms["popularity"].to_i  / 100.0)}"
+    %pre= "Preference Boosting: #{(@search_terms["preferences"].to_i / 100.0)}"
+    %pre= @search_terms
+    %pre
+      - @search.results.each do |result|
+        = "Article ID: #{result['id']} scoring #{result['_score']}\n"
   = render :partial => "shared/articles"
 = render :partial => "shared/loading_content"
 = render :partial => "shared/scroll"
