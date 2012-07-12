@@ -33,8 +33,8 @@ class Article < Couchbase::Model
     end
 
     # popularity and preference boosting power
-    @term[:popularity]  = @term[:popularity].to_i  / 100.0
-    @term[:preferences] = @term[:preferences].to_i / 100.0
+    @term[:popularity]  = (@term[:popularity].to_i  / 100.0).round(2)
+    @term[:preferences] = (@term[:preferences].to_i / 100.0).round(2)
 
     avg = Article.view_stats[:avg]
     avg_popularity = avg <= 0.25 ? 0.25 : avg.round(2)
@@ -69,20 +69,29 @@ class Article < Couchbase::Model
 
               score.filter do |filters|
                 filters.filter :term, :type => "video"
-                filters.boost (User.current.preferences["types"]["video"]) * @term[:preferences]
-                # filters.boost 1
+                if @term[:preferences] > 0
+                  filters.boost (User.current.preferences["types"]["video"]) * @term[:preferences]
+                else
+                  filters.boost 1
+                end
               end
 
               score.filter do |filters|
                 filters.filter :term, :type => "image"
-                filters.boost (User.current.preferences["types"]["image"]) * @term[:preferences]
-                # filters.boost 1
+                if @term[:preferences] > 0
+                  filters.boost (User.current.preferences["types"]["image"]) * @term[:preferences]
+                else
+                  filters.boost 1
+                end
               end
 
               score.filter do |filters|
                 filters.filter :term, :type => "text"
-                filters.boost (User.current.preferences["types"]["text"]) * @term[:preferences]
-                # filters.boost 1
+                if @term[:preferences] > 0
+                  filters.boost (User.current.preferences["types"]["text"]) * @term[:preferences]
+                else
+                  filters.boost 1
+                end
               end
               score.score_mode "total"
             end
