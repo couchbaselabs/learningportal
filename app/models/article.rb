@@ -268,7 +268,7 @@ class Article < Couchbase::Model
     Couch.client.delete(@id)
 
     # remove from elasticsearch index
-    Typhoeus::Request.delete("#{ENV['ELASTIC_SEARCH_URL']}/learning_portal/lp_v1/#{id}?refresh=true")
+    # Typhoeus::Request.delete("#{ENV['ELASTIC_SEARCH_URL']}/learning_portal/lp_v1/#{id}?refresh=true")
 
     # wait period to give delete chance to take effect
     sleep 3
