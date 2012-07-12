@@ -48,7 +48,12 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
+    # presume that we want a random article if there's no id
+    if params[:id].nil?
+      @article = Article.random
+    else
+      @article = Article.find(params[:id])
+    end
     @view_count = @article.count_as_viewed
 
     wiki = WikiCloth::Parser.new({

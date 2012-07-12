@@ -266,6 +266,24 @@ class Article < Couchbase::Model
     new( Couch.client.get(id).merge("id" => id) )
   end
 
+  def self.random
+    id = nil
+    begin
+      startkey = ""
+
+      3.times do
+        startkey += rand(10).to_s
+      end
+
+      options = { :reduce => false, :include_docs => false, :startkey => startkey, :limit => 1, :skip => rand(25) }
+      results = Couch.client.design_docs["article"].view_stats(options)
+
+      id = results.first.id rescue nil
+    end while id.nil?
+
+    find(id)
+  end
+
   def initialize(attributes={})
     @errors = ActiveModel::Errors.new(self)
 
