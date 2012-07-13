@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
 
   before_filter :fetch_authors_and_categories, :only => [:popular, :index, :show]
   after_filter  :limit_endless_scroll, :only => [:index]
-  skip_before_filter :authenticate_user!, :except => [:random], :if => Proc.new { request.format.json? }
+  skip_before_filter :authenticate_user!, :only => [:random]
 
   def popular
     @total    = Article.view_stats[:count]
@@ -60,16 +60,35 @@ class ArticlesController < ApplicationController
     if current_user
       if current_user.preferences
         current_user.increment!(@article['type'])
-        Event.new(:type => Event::ACCESS, :user => current_user.email, :resource => @article.id.to_s).save
       end
       # current_user.save
     end
+    Event.new(:type => Event::ACCESS, :user => (current_user.email rescue nil), :resource => @article.id.to_s).save
   end
 
   def random
     @article = Article.random
+
+    if request.format.html?
+      @view_count = @article.count_as_viewed
+
+      wiki = WikiCloth::Parser.new({
+        :data => @article['content']
+      })
+      @content = Sanitize.clean(wiki.to_html, :elements => ['p', 'ul', 'li', 'i', 'h2', 'h3'], :remove_contents => ['table', 'div']).gsub(/\[[A-z0-9]+\]/, '')
+
+      if current_user
+        if current_user.preferences
+          current_user.increment!(@article['type'])
+        end
+        # current_user.save
+      end
+    end
+
+    Event.new(:type => Event::ACCESS, :user => (current_user.email rescue nil), :resource => @article.id.to_s).save
+
     respond_to do |format|
-      format.html { redirect_to article_path(@article.id) }
+      format.html { render 'show' }
       format.json { render :json => { :url => article_path(@article.id, :only_path => false ) } }
     end
   end
