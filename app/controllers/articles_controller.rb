@@ -2,6 +2,7 @@ class ArticlesController < ApplicationController
 
   before_filter :fetch_authors_and_categories, :only => [:popular, :index, :show]
   after_filter  :limit_endless_scroll, :only => [:index]
+  skip_before_filter :authenticate_user!, :except => [:random], :if => Proc.new { request.format.json? }
 
   def popular
     @total    = Article.view_stats[:count]
@@ -48,33 +49,28 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    count_view = params[:id].nil? && request.method == "application/json"
-
-    # presume that we want a random article if there's no id
-    if params[:id].nil?
-      @article = Article.random
-    else
-      @article = Article.find(params[:id])
-    end
-
-    @view_count = @article.count_as_viewed if count_view
+    @article = Article.find(params[:id])
+    @view_count = @article.count_as_viewed
 
     wiki = WikiCloth::Parser.new({
       :data => @article['content']
     })
     @content = Sanitize.clean(wiki.to_html, :elements => ['p', 'ul', 'li', 'i', 'h2', 'h3'], :remove_contents => ['table', 'div']).gsub(/\[[A-z0-9]+\]/, '')
 
-    if current_user && count_view
+    if current_user
       if current_user.preferences
         current_user.increment!(@article['type'])
         Event.new(:type => Event::ACCESS, :user => current_user.email, :resource => @article.id.to_s).save
       end
       # current_user.save
     end
+  end
 
+  def random
+    @article = Article.random
     respond_to do |format|
+      format.html { redirect_to article_path(@article.id) }
       format.json { render :json => { :url => article_path(@article.id, :only_path => false ) } }
-      format.html { render }
     end
   end
 
