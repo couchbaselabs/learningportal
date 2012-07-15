@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def become_random_user!
+    sign_in(:user, User.random)
+  end
+
   def assign_current_user
     User.current = current_user if current_user.present?
   end

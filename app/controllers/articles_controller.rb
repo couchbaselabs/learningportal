@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
 
   before_filter :fetch_authors_and_categories, :only => [:popular, :index, :show]
+  before_filter :become_random_user!, :only => [:random]
   after_filter  :limit_endless_scroll, :only => [:index]
   skip_before_filter :authenticate_user!, :only => [:random]
 

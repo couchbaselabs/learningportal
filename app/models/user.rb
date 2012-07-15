@@ -24,6 +24,11 @@ class User < ActiveRecord::Base
   #   "last_login_at": 1337108502
   # }
 
+  def self.random
+    offset = rand(User.count)
+    User.first(:offset => offset)
+  end
+
   def increment!(type)
     if self.preferences
       if type

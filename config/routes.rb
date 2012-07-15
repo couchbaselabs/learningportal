@@ -36,6 +36,6 @@ LearningPortal::Application.routes.draw do
 
   match "/search" => "search#build", :as => :search
 
-  match '/random' => 'articles#random'
+  match '/random' => 'articles#random', :as => :random_article
 
 end
