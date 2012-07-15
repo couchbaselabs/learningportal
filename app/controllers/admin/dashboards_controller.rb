@@ -10,7 +10,7 @@ class Admin::DashboardsController < AdminController
 
   def simulation
     Delayed::Job.enqueue UserLoadJob.new
-    redirect_to admin_dashboard_path
+    redirect_to admin_dashboard_path, :notice => "100 user interations now queued for processing"
   end
 
 end
