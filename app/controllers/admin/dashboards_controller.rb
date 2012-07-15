@@ -8,4 +8,9 @@ class Admin::DashboardsController < AdminController
 
   end
 
+  def simulation
+    Delayed::Job.enqueue UserLoadJob.new
+    redirect_to admin_dashboard_path
+  end
+
 end
