@@ -10,14 +10,14 @@ module Couch
       ENV['COUCHBASE_PASS']
     end
 
-    def domain
-      ENV['COUCHBASE_URL'] || "http://127.0.0.1:8091/pools/default"
+    def domain(bucket='')
+      ENV["COUCHBASE_#{bucket.upcase}_URL"] || ENV["COUCHBASE_URL"]
     end
 
     def client(options = {})
       bucket = options.delete(:bucket) || "default"
       @clients ||= {}
-      @clients[bucket] ||= Couchbase.new(domain, :bucket => bucket)
+      @clients[bucket] ||= Couchbase.new(domain(bucket), :bucket => bucket)
     end
 
     def delete!(options = {})
@@ -38,7 +38,7 @@ module Couch
       bucket = options.delete(:bucket) || "default"
       ram    = options.delete(:ram)    || 1024
       puts "Creating #{bucket} bucket"
-      
+
       # -d name=#{bucket} -d authType=sasl -d replicaNumber=1 -d ramQuotaMB=#{ram} #{domain}/pools/default/buckets
       response = Typhoeus::Request.post("#{domain}/pools/default/buckets",
         :username => user, :password => pass, :params => {
@@ -58,7 +58,7 @@ module Couch
     end
 
     protected
-    
+
     def curl
       "curl -s --user #{user}:#{pass}"
     end
