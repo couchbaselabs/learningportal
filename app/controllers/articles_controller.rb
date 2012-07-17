@@ -67,7 +67,7 @@ class ArticlesController < ApplicationController
   def random
     @article = Article.random
 
-    if request.format.html?
+    if request.format.html? || request.format == "*/*"
       @view_count = @article.count_as_viewed
 
       wiki = WikiCloth::Parser.new({

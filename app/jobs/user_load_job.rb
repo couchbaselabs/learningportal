@@ -10,11 +10,14 @@ class UserLoadJob
   end
 
   def perform
-    if Rails.env.development?
-      Typhoeus::Request.get(URL)
-    else
-      Typhoeus::Request.get(URL, :username => ENV['HTTP_AUTH_USERNAME'], :password => ENV['HTTP_AUTH_PASSWORD'])
-    end
+    options = {
+      :headers => {
+        'Accepts' => "text/html"
+      }
+    }
+    options.merge! :username => ENV['HTTP_AUTH_USERNAME'], :password => ENV['HTTP_AUTH_PASSWORD'] unless Rails.env.development?
+
+    Typhoeus::Request.get(URL, options)
   end
 
 end
