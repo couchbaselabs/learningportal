@@ -16,6 +16,8 @@ class UserLoadJob
       else
         Typhoeus::Request.get(URL, :username => ENV['HTTP_AUTH_USERNAME'], :password => ENV['HTTP_AUTH_PASSWORD'])
       end
+
+      sleep 0.25
     end
   end
 
