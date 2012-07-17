@@ -23,7 +23,7 @@ module Couch
     def delete!(options = {})
       bucket = options.delete(:bucket) || "default"
       puts "Deleting #{bucket} bucket"
-      response = Typhoeus::Request.delete("#{domain}/pools/default/buckets/#{bucket}", :username => user, :password => pass)
+      response = Typhoeus::Request.delete("#{domain(bucket)}/pools/default/buckets/#{bucket}", :username => user, :password => pass)
       if response.success?
         puts "-> #{bucket} deleted successfully"
       elsif response.code == 401
@@ -40,7 +40,7 @@ module Couch
       puts "Creating #{bucket} bucket"
 
       # -d name=#{bucket} -d authType=sasl -d replicaNumber=1 -d ramQuotaMB=#{ram} #{domain}/pools/default/buckets
-      response = Typhoeus::Request.post("#{domain}/pools/default/buckets",
+      response = Typhoeus::Request.post("#{domain(bucket)}/pools/default/buckets",
         :username => user, :password => pass, :params => {
           "name" => bucket,
           "authType" => "sasl",
