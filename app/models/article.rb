@@ -147,6 +147,7 @@ class Article < Couchbase::Model
 
     rescue Tire::Search::SearchRequestFailed
     rescue RestClient::Exception
+    rescue Couchbase::Error::NotFound
       # Search failed!
     end
 
