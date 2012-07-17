@@ -9,8 +9,17 @@ class Admin::DashboardsController < AdminController
   end
 
   def simulation
-    Delayed::Job.enqueue UserLoadJob.new
-    redirect_to admin_dashboard_path, :notice => "100 user interations now queued for processing"
+    if params[:times].nil?
+      @times = 100
+    else
+      @times = params[:times].to_i
+    end
+
+    @times.times do
+      Delayed::Job.enqueue UserLoadJob.new
+    end
+
+    redirect_to admin_dashboard_path, :notice => "#{@times} user interations now queued for processing"
   end
 
 end

@@ -10,14 +10,10 @@ class UserLoadJob
   end
 
   def perform
-    100.times do
-      if Rails.env.development?
-        Typhoeus::Request.get(URL)
-      else
-        Typhoeus::Request.get(URL, :username => ENV['HTTP_AUTH_USERNAME'], :password => ENV['HTTP_AUTH_PASSWORD'])
-      end
-
-      sleep 0.5
+    if Rails.env.development?
+      Typhoeus::Request.get(URL)
+    else
+      Typhoeus::Request.get(URL, :username => ENV['HTTP_AUTH_USERNAME'], :password => ENV['HTTP_AUTH_PASSWORD'])
     end
   end
 
