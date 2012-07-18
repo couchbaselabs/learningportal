@@ -1,5 +1,7 @@
 class Snapshot < ActiveRecord::Base
 
+  default_scope :order => 'created_at DESC'
+
   #before_validation :assign_totals
 
   def perform!
