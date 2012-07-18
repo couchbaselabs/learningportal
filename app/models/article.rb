@@ -7,7 +7,7 @@ class Article < Couchbase::Model
   extend ActiveModel::Callbacks
   extend ActiveModel::Naming
 
-  view :by_type, :by_category, :by_author, :view_stats, :by_popularity_and_type, :by_popularity, :by_category_stats, :view_stats_by_type
+  view :by_type, :by_category, :by_author, :view_stats, :by_popularity_and_type, :by_popularity, :by_popularity_sum, :by_category_stats, :view_stats_by_type
 
   def persisted?
     @id
@@ -172,11 +172,29 @@ class Article < Couchbase::Model
   def self.view_stats
     defaults = {:sum => 0, :count => 0, :sumsqr => 0, :min => 0, :max => 0}
     results = {}
-    begin
-      results = Couch.client.design_docs["article"].view_stats(:reduce => true).entries.first.value.symbolize_keys
-    rescue
 
-    end
+    #
+    # NOTE: There is currently a bug in Couchbase which prevents
+    #       us from using a _stats reduce in a cluster environment.
+    #       The following implementation is what we'd ideally want to
+    #       do.
+    # begin
+    #   results = Couch.client.design_docs["article"].view_stats(:reduce => true).entries.first.value.symbolize_keys
+    # rescue
+    #   # silently fail
+    # end
+
+    # get article count
+    results[:count] = Couch.client.design_docs["article"].by_popularity(:reduce => true).entries.first.value
+    # get article sum
+    results[:sum]   = Couch.client.design_docs["article"].by_popularity_sum(:reduce => true).entries.first.value
+    # get min popularity
+    results[:min]   = Couch.client.design_docs["article"].by_popularity(:reduce => true, :group => true, :descending => false).entries.first.key
+    # get max popularity
+    results[:max]   = Couch.client.design_docs["article"].by_popularity(:reduce => true, :group => true, :descending => true).entries.first.key
+    # calculate sumsqr
+    results[:sumsqr] = results[:sum]**2
+
     results = defaults.merge!(results)
     if results[:count] == 0
       results[:avg] = 0
@@ -349,7 +367,7 @@ class Article < Couchbase::Model
 
   def quality
     stats   = Article.view_stats
-    quality = (popularity.to_f - stats[:min].to_f) / stats[:max].to_f * 100
+    quality = ((popularity+1).to_f - stats[:min].to_f) / stats[:max].to_f * 100
     quality.round(2)
   end
 
