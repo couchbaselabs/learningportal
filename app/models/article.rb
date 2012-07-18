@@ -329,6 +329,10 @@ class Article < Couchbase::Model
     # remove from default bucket
     Couch.client.delete(@id)
 
+    # TODO we should not have to delete directly from elastic search but instead
+    #      should be able to rely on the TAP function in couchbase, however
+    #      currently this event is not replicated to elastic search via the river
+    #
     # remove from elasticsearch index
     Typhoeus::Request.delete("#{ENV['ELASTIC_SEARCH_URL']}/learning_portal/lp_v1/#{id}?refresh=true")
 
