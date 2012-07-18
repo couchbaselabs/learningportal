@@ -23,13 +23,6 @@
                       %center
                         %strong= current_user.email
                     %li.divider
-                    %li.heading
-                      %strong Switch User
-                    - @users.each do |user|
-                      - unless user == current_user
-                        %li
-                          = link_to "#{user.email}", login_as_path(user.id)
-                    %li.divider
                     %li= link_to "Logout", destroy_user_session_path, :method => :delete
               %ul.pull-right
                 - if !current_user
