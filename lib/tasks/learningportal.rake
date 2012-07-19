@@ -133,6 +133,11 @@ namespace :learningportal do
     Wikipedia.seed!
   end
 
+  desc "Seed 1000 users"
+  task :seed_users => :environment do
+    User.seed!
+  end
+
   desc "Regenerate all indexes"
   task :reindex => :environment do
     buckets = %w(default views system profiles events)
@@ -175,6 +180,11 @@ namespace :learningportal do
     end
   end
 
+  desc "Perform a Couchbase performance benchmark"
+  task :benchmark => :environment do
+    CouchbasePerformance.benchmark
+  end
+
 end
 
 # Shorthand (keep maintained!)
@@ -214,8 +224,12 @@ namespace :lp do
   task :migrate            => "learningportal:migrate"
   desc "Seed 100 documents"
   task :seed               => "learningportal:seed"
+  desc "Seed 1000 users"
+  task :seed_users         => "learningportal:seed_users"
   desc "Regenerate all indexes"
   task :reindex            => "learningportal:reindex"
   desc "Detect and create missing buckets (Safe operation)"
   task :ensure_buckets     => "learningportal:ensure_buckets"
+  desc "Perform a Couchbase performance benchmark"
+  task :benchmark          => "learningportal:benchmark"
 end

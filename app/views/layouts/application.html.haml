@@ -12,7 +12,7 @@
         #sidebar
           #sidebar-inner
             %nav.header
-              %h1= link_to "LOGO", root_path
+              %h1= link_to "Learning Portal", root_path
               - if current_user
                 .btn-group.pull-right.sign-in-as
                   %a.btn.dropdown-toggle.btn-inverse{"data-toggle" => "dropdown", :href => "#"}
@@ -22,13 +22,6 @@
                     %li
                       %center
                         %strong= current_user.email
-                    %li.divider
-                    %li.heading
-                      %strong Switch User
-                    - @users.each do |user|
-                      - unless user == current_user
-                        %li
-                          = link_to "#{user.email}", login_as_path(user.id)
                     %li.divider
                     %li= link_to "Logout", destroy_user_session_path, :method => :delete
               %ul.pull-right

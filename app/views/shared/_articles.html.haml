@@ -2,6 +2,9 @@
   - @items.each do |item|
     %article{:class => item['type']}
       .article-body.clearfix
+        %span.score
+          = succeed "%" do
+            = item.quality
         .icon
           .small-type{ :class => item['type'] }
             %i.icon-lp{ :class => "icon-lp-#{item['type']}" }

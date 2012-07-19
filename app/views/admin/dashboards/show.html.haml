@@ -1,6 +1,6 @@
 %h2.pull-left.floated-admin-title= "Snapshots (#{@snapshots.size})"
 = link_to "Login as a Random User", login_as_random_path, :class => 'btn btn-small btn-primary pull-right dashboard-button'
-=# link_to "Trigger User Interaction", "#" :class =>".btn.btn-small.btn-primary.pull-right.dashboard-button"
+= link_to "Trigger User Interaction", simulation_path, :class =>"btn btn-small btn-primary pull-right dashboard-button", :method => :post
 = link_to "New Snapshot", admin_snapshots_path, :class => 'btn btn-small btn-primary pull-right dashboard-button', :method => :post
 %table.table.table-bordered.admin-table
   %thead
@@ -17,7 +17,12 @@
         %td= snapshot.text_view_count
         %td= snapshot.video_view_count
         %td= snapshot.image_view_count
-        %td= snapshot.total_view_count
+        %td
+          - if snapshot.total_view_count.is_a? Fixnum
+            = snapshot.total_view_count
+          - else
+            = "Processing... #{image_tag asset_path("loader-mini.gif")}".html_safe
+
 %h2 Overall Statistics
 %table.table.table-bordered.admin-table
   %thead

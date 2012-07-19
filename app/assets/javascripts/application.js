@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require_tree ./lib
 //= require_tree .
 // Loads all Bootstrap javascripts
 //= require bootstrap
@@ -46,7 +47,7 @@ $(function(){
     $('.advanced-options').slideToggle('fast');
     return false;
   });
-  if($('.advanced-options input[value!=""], .advanced-options select option[value!=""]:selected').length > 0){
+  if($('.advanced-options input[value!=""], .advanced-options select option[value!=""]:selected').length > 2){
     $('.advanced-options').show();
   }
 });

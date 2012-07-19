@@ -36,7 +36,7 @@ class DocumentScoreJob
     popularity    = popularity   + period_views
 
     # update the document with the new all time total and popularity
-    # document.update_attributes(:popularity => popularity)
+    document.update_attributes(:popularity => popularity)
 
     # store the updated global counter
     GlobalViewStats.update_counter document, global_views

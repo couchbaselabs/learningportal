@@ -1,3 +1,3 @@
-%div= @content.html_safe
+%div= @content.html_safe unless @content.nil?
 = render "tags"
 = render "contributors"

@@ -33,5 +33,13 @@
               %option{ :selected => selected?("text"),  :value => "text"  } Text
               %option{ :selected => selected?("video"), :value => "video" } Video
               %option{ :selected => selected?("image"), :value => "image" } Image
+        .control-group
+          %label.control-label{ :for => "popularity" } Boost Popular
+          .controls
+            %input#contributor-name.input-xlarge{ :name => "popularity", :type => "range", :min => 0, :max => 100, :step => 1, :value => @search_terms['popularity'] }
+        .control-group
+          %label.control-label{ :for => "preferences" } Boost Preferences
+          .controls
+            %input#tag-name.input-xlarge{ :name => "preferences", :type => "range", :min => 0, :max => 100, :step => 1, :value => @search_terms['preferences'] }
     %div.clearfix
       %button.btn.pull-right.btn-large.btn-primary{ :type => "submit" } Search

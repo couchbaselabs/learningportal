@@ -24,7 +24,9 @@
       %td
         - article['categories'].each do |category|
           = "#{category}#{unless category == article['categories'].last then ',' end}"
-        = link_to "Edit", edit_admin_article_path(article.id), :class => "btn btn-mini pull-right"
+        %div.clearfix
+          = link_to "Edit", edit_admin_article_path(article.id), :class => "btn btn-mini pull-right"
+          = button_to "Delete", admin_article_path(article.id), :method => "delete", :class => "btn btn-mini pull-right"
 
 %div.pagination
   = @next_article

@@ -7,14 +7,17 @@ class Article < Couchbase::Model
   extend ActiveModel::Callbacks
   extend ActiveModel::Naming
 
-  view :by_type, :by_category, :by_author, :view_stats, :by_popularity_and_type, :by_popularity, :by_category_stats, :view_stats_by_type
+  view :by_type, :by_category, :by_author, :view_stats, :by_popularity_and_type, :by_popularity, :by_popularity_sum, :by_category_stats, :view_stats_by_type
+
+  @@view_stats    = nil
+  @@views_by_type = nil
 
   def persisted?
     @id
   end
 
-  attr_accessor :id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity
-  @@keys = [:id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity]
+  attr_accessor :id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity, :quality
+  @@keys = [:id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity, :quality]
 
   def self.search(term={}, options={})
     ids = []
@@ -32,6 +35,14 @@ class Article < Couchbase::Model
       @main_query = @term[:q]
     end
 
+    # popularity and preference boosting power
+    @term[:popularity]  = (@term[:popularity].to_i  / 100.0).round(2)
+    @term[:preferences] = (@term[:preferences].to_i / 100.0).round(2)
+
+    stats = Article.view_stats
+    avg_popularity = stats[:avg]
+    max_popularity = stats[:max]
+
     begin
       Tire.configure do
         url ENV["ELASTIC_SEARCH_URL"]
@@ -39,10 +50,16 @@ class Article < Couchbase::Model
       s = Tire.search("learning_portal") do |search|
         search.query do |query|
 
-          query.string "#{@main_query}"
+          # query.string "#{@main_query}"
+
+          if @term[:popularity] > 0
+            script = { script: "_score * (((doc['popularity'].value + 1) / #{avg_popularity} ) * #{@term[:popularity]})" }
+          else
+            script = { script: "_score"}
+          end
 
           # custom scoring query with logical and matching for advanced search
-          query.custom_score script: "_score * (doc['popularity'] + 1)" do |custom_query|
+          query.custom_score(script) do |custom_query|
             custom_query.custom_filters_score do |score|
               score.query do |score_query|
                 score_query.boolean do |bool|
@@ -58,21 +75,35 @@ class Article < Couchbase::Model
                 end
               end
 
-              score.filter do
-                filter :term, :type => "video"
-                boost User.current.preferences["types"]["video"] + 1
+              # score.query { |query| query.string "#{@main_query}" }
+
+              score.filter do |filters|
+                filters.filter :term, :type => "video"
+                if @term[:preferences] > 0
+                  filters.boost (User.current.preferences["types"]["video"]) * @term[:preferences]
+                else
+                  filters.boost 1
+                end
               end
 
-              score.filter do
-                filter :term, :type => "image"
-                boost User.current.preferences["types"]["image"] + 1
+              score.filter do |filters|
+                filters.filter :term, :type => "image"
+                if @term[:preferences] > 0
+                  filters.boost (User.current.preferences["types"]["image"]) * @term[:preferences]
+                else
+                  filters.boost 1
+                end
               end
 
-              score.filter do
-                filter :term, :type => "text"
-                boost User.current.preferences["types"]["text"] + 1
+              score.filter do |filters|
+                filters.filter :term, :type => "text"
+                if @term[:preferences] > 0
+                  filters.boost (User.current.preferences["types"]["text"]) * @term[:preferences]
+                else
+                  filters.boost 1
+                end
               end
-              score.score_mode "first"
+              score.score_mode "total"
             end
           end
 
@@ -119,6 +150,7 @@ class Article < Couchbase::Model
 
     rescue Tire::Search::SearchRequestFailed
     rescue RestClient::Exception
+    rescue Couchbase::Error::NotFound
       # Search failed!
     end
 
@@ -141,33 +173,55 @@ class Article < Couchbase::Model
   end
 
   def self.view_stats
+    return @@view_stats unless @@view_stats.nil?
+
     defaults = {:sum => 0, :count => 0, :sumsqr => 0, :min => 0, :max => 0}
     results = {}
-    begin
-      results = Couch.client.design_docs["article"].view_stats(:reduce => true).entries.first.value.symbolize_keys
-    rescue
 
-    end
+    #
+    # NOTE: There is currently a bug in Couchbase which prevents
+    #       us from using a _stats reduce in a cluster environment.
+    #       The following implementation is what we'd ideally want to
+    #       do.
+    # begin
+    #   results = Couch.client.design_docs["article"].view_stats(:reduce => true).entries.first.value.symbolize_keys
+    # rescue
+    #   # silently fail
+    # end
+
+    # get article count
+    results[:count] = Couch.client.design_docs["article"].by_popularity(:reduce => true).entries.first.value
+    # get article sum
+    results[:sum]   = Couch.client.design_docs["article"].by_popularity_sum(:reduce => true).entries.first.value
+    # get min popularity
+    results[:min]   = Couch.client.design_docs["article"].by_popularity(:reduce => true, :group => true, :descending => false).entries.first.key
+    # get max popularity
+    results[:max]   = Couch.client.design_docs["article"].by_popularity(:reduce => true, :group => true, :descending => true).entries.first.key
+    # calculate sumsqr
+    results[:sumsqr] = results[:sum]**2
+
     results = defaults.merge!(results)
     if results[:count] == 0
       results[:avg] = 0
     else
       results[:avg] = (results[:sum].to_f/results[:count].to_f)
     end
-    results
+    @@view_stats = results
   end
 
   # gathers view total counts by type from content documents in default bucket
   def self.views_by_type(opts={})
+    return @@views_by_type unless @@views_by_type.nil?
+
     options = { :group => true, :reduce => true }.merge!(opts)
     results = Couch.client.design_docs["article"].view_stats_by_type(options).entries
 
-    result_hash = { :text => 0, :video => 0, :image => 0 }
+    @@views_by_type = { :text => 0, :video => 0, :image => 0 }
     results.each do |r|
       next if r.key == nil
-      result_hash[r.key] = r.value
+      @@views_by_type[r.key] = r.value
     end
-    result_hash.symbolize_keys
+    @@views_by_type.symbolize_keys!
   end
 
   def self.author(a, opts={})
@@ -197,7 +251,7 @@ class Article < Couchbase::Model
   def self.popular_by_type(opts={})
     # Couch.client.design_docs["article"].by_type(:reduce => false).entries.collect { |row| Article.find(row.key[1]) }
     type = opts.delete(:type)
-    options = { :reduce => false, :descending => true, :include_docs => true }.merge(opts)
+    options = { :reduce => false, :descending => true, :include_docs => true, :stale => false }.merge(opts)
     if type
       options.merge!({ :startkey => [type, Article.view_stats[:max]], :endkey => [type, 0] })
     end
@@ -205,7 +259,7 @@ class Article < Couchbase::Model
   end
 
   def self.popular(opts={})
-    options = { :descending => true, :reduce => false, :include_docs => true, :limit => 10 }.merge(opts)
+    options = { :descending => true, :reduce => false, :include_docs => true, :limit => 10, :stale => false }.merge(opts)
     by_popularity(options).entries
   end
 
@@ -238,6 +292,24 @@ class Article < Couchbase::Model
     new( Couch.client.get(id).merge("id" => id) )
   end
 
+  def self.random
+    id = nil
+    begin
+      startkey = ""
+
+      3.times do
+        startkey += rand(10).to_s
+      end
+
+      options = { :reduce => false, :include_docs => false, :startkey => startkey, :limit => 1, :skip => rand(25) }
+      results = Couch.client.design_docs["article"].view_stats(options)
+
+      id = results.first.id rescue nil
+    end while id.nil?
+
+    find(id)
+  end
+
   def initialize(attributes={})
     @errors = ActiveModel::Errors.new(self)
 
@@ -258,7 +330,24 @@ class Article < Couchbase::Model
   end
 
   def destroy
+    # clone this document to be 'soft deleted' into the system bucket
+    doc = self.as_json
+
+    # remove from default bucket
     Couch.client.delete(@id)
+
+    # TODO we should not have to delete directly from elastic search but instead
+    #      should be able to rely on the TAP function in couchbase, however
+    #      currently this event is not replicated to elastic search via the river
+    #
+    # remove from elasticsearch index
+    Typhoeus::Request.delete("#{ENV['ELASTIC_SEARCH_URL']}/learning_portal/lp_v1/#{id}?refresh=true")
+
+    # wait period to give delete chance to take effect
+    sleep 3
+
+    # save a clone of this document into the 'system' bucket
+    Couch.client(:bucket => "system").set("#{doc['id']}", doc)
   end
 
   def count_as_viewed
@@ -281,6 +370,16 @@ class Article < Couchbase::Model
 
     end
     views
+  end
+
+  def as_json
+    self.attrs.as_json
+  end
+
+  def quality
+    stats   = Article.view_stats
+    quality = ((popularity.to_f - stats[:min].to_f) / stats[:max].to_f * 100).round(2)
+    quality.nan? ? 0.0 : quality
   end
 
 end

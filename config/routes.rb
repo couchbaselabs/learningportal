@@ -33,7 +33,10 @@ LearningPortal::Application.routes.draw do
   match '/:type' => "articles#index", :constraints => { :type => /articles|images|videos/}, :as => :articles
   match 'admin/login_as/:user_id' => "admin/users#login_as", :as => :login_as
   match 'admin/login_as_random' => "admin/users#login_as_random", :as => :login_as_random
+  match 'admin/simulation' => 'admin/dashboards#simulation', :as => :simulation
 
   match "/search" => "search#build", :as => :search
+
+  match '/random' => 'articles#random', :as => :random_article
 
 end

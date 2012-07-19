@@ -9,12 +9,17 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def become_random_user!
+    sign_in(:user, User.random)
+  end
+
   def assign_current_user
     User.current = current_user if current_user.present?
   end
 
   def search_terms
-    @search_terms = {}.merge(params)
+    @search_terms = {'popularity' => 100, 'preferences' => 100}.merge(params)
+    @search_terms
   end
 
   def fetch_authors_and_categories

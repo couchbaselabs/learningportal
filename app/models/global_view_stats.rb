@@ -16,16 +16,26 @@ class GlobalViewStats < Couchbase::Model
   end
 
   # gathers view total counts by type from content documents in views bucket
-  def self.views_by_type(opts={})
+  def self.views_by_type(opts={}, include_period=false)
     options = { :group => true, :reduce => true }.merge!(opts)
     results = bucket.design_docs["global_view_stats"].views_by_type(options).entries
 
-    result_hash = { :text => 0, :video => 0, :image => 0 }
+    global = { :text => 0, :video => 0, :image => 0 }
     results.each do |r|
       next if r.key == nil
-      result_hash[r.key] = r.value
+      global[r.key.to_sym] = r.value
     end
-    result_hash.symbolize_keys
+
+    if include_period
+      period = PeriodViewStats.views_by_type(opts)
+
+      global[:text]    = (global[:text]  || 0) + (period[:text]  || 0)
+      global[:image]   = (global[:image] || 0) + (period[:image] || 0)
+      global[:video]   = (global[:video] || 0) + (period[:video] || 0)
+      global[:overall] = global[:text]  + global[:image] + global[:video]
+    end
+
+    global
   end
 
   def self.update_counter(doc, counter)

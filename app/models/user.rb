@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   after_create :create_preferences!
   # serialize :preferences
 
+  default_scope { order "last_sign_in_at DESC" }
+
   self.per_page = 10
 
   # {
@@ -23,6 +25,20 @@ class User < ActiveRecord::Base
   #   "total": 1000,        # DateTime.parse(date).to_i (for potential sorting purposes)
   #   "last_login_at": 1337108502
   # }
+
+  def self.seed!
+    password = "CouchbaseUser"
+    1000.times do
+      email = Faker::Internet.email
+      User.create(:email => email, :password => password)
+      puts "----> Creating user #{email}"
+    end
+  end
+
+  def self.random
+    offset = rand(User.count)
+    User.first(:offset => offset)
+  end
 
   def increment!(type)
     if self.preferences
