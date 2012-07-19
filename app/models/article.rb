@@ -9,6 +9,9 @@ class Article < Couchbase::Model
 
   view :by_type, :by_category, :by_author, :view_stats, :by_popularity_and_type, :by_popularity, :by_popularity_sum, :by_category_stats, :view_stats_by_type
 
+  @@view_stats    = nil
+  @@views_by_type = nil
+
   def persisted?
     @id
   end
@@ -170,6 +173,8 @@ class Article < Couchbase::Model
   end
 
   def self.view_stats
+    return @@view_stats unless @@view_stats.nil?
+
     defaults = {:sum => 0, :count => 0, :sumsqr => 0, :min => 0, :max => 0}
     results = {}
 
@@ -201,20 +206,22 @@ class Article < Couchbase::Model
     else
       results[:avg] = (results[:sum].to_f/results[:count].to_f)
     end
-    results
+    @@view_stats = results
   end
 
   # gathers view total counts by type from content documents in default bucket
   def self.views_by_type(opts={})
+    return @@views_by_type unless @@views_by_type.nil?
+
     options = { :group => true, :reduce => true }.merge!(opts)
     results = Couch.client.design_docs["article"].view_stats_by_type(options).entries
 
-    result_hash = { :text => 0, :video => 0, :image => 0 }
+    @@views_by_type = { :text => 0, :video => 0, :image => 0 }
     results.each do |r|
       next if r.key == nil
-      result_hash[r.key] = r.value
+      @@views_by_type[r.key] = r.value
     end
-    result_hash.symbolize_keys
+    @@views_by_type.symbolize_keys!
   end
 
   def self.author(a, opts={})
