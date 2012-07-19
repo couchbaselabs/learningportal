@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   after_create :create_preferences!
   # serialize :preferences
 
+  default_scope { order "last_sign_in_at #{Rails.env.development? ? "DESC" : "ASC"}" }
+
   self.per_page = 10
 
   # {
