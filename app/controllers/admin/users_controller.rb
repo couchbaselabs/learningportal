@@ -1,7 +1,7 @@
 class Admin::UsersController < AdminController
 
   def index
-    @users = User.order("created_at DESC").page(params[:page])
+    @users = User.order("last_sign_in_at DESC").page(params[:page])
   end
 
   def login_as

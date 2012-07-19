@@ -24,3 +24,5 @@ Couchbase::Model.ensure_design_document!
 
 # Couch.client.flush
 Wikipedia.seed!
+
+User.seed!

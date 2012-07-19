@@ -24,6 +24,15 @@ class User < ActiveRecord::Base
   #   "last_login_at": 1337108502
   # }
 
+  def self.seed!
+    password = "CouchbaseUser"
+    1000.times do
+      email = Faker::Internet.email
+      User.create(:email => email, :password => password)
+      puts "----> Creating user #{email}"
+    end
+  end
+
   def self.random
     offset = rand(User.count)
     User.first(:offset => offset)

@@ -22,6 +22,6 @@
       %td= user.preference "text"
       %td= user.preference "video"
       %td= user.preference "image"
-      %td= "#{time_ago_in_words(user.last_sign_in_at || user.created_at)} ago"
+      %td= "#{time_ago_in_words(user.last_sign_in_at)} ago" rescue "never"
       %td= user.preference "total"
 = will_paginate @users, :renderer => BootstrapPagination::Rails

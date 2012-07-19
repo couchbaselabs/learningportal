@@ -53,17 +53,7 @@ gem 'rails_exception_handler', :git => 'git://github.com/rumblelabs/rails_except
 gem 'tire', :git => 'git://github.com/kierangraham/tire.git'
 gem 'tire-contrib', :git => 'git://github.com/kierangraham/tire-contrib.git'
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
+gem 'ffaker'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
