@@ -1,8 +1,7 @@
 class Admin::DashboardsController < AdminController
 
   def show
-    @content_view_totals = PeriodViewStats.views_by_type
-    @content_view_totals[:overall] = PeriodViewStats.views_by_type.sum{|t| t.last}
+    @content_view_totals = GlobalViewStats.views_by_type({}, true)
 
     @snapshots = Snapshot.all
 
