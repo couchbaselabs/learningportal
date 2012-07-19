@@ -371,8 +371,8 @@ class Article < Couchbase::Model
 
   def quality
     stats   = Article.view_stats
-    quality = ((popularity+1).to_f - stats[:min].to_f) / stats[:max].to_f * 100
-    quality.round(2)
+    quality = ((popularity.to_f - stats[:min].to_f) / stats[:max].to_f).round(2)
+    quality.nan? ? 0.0 : quality
   end
 
 end
