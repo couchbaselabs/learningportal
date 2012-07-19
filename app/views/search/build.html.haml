@@ -21,5 +21,5 @@
       - @search.results.each do |result|
         = "Article ID: #{result['id']} scoring #{result['_score']}\n"
   = render :partial => "shared/articles"
-= render :partial => "shared/loading_content"
+  = render :partial => "shared/loading_content"
 = render :partial => "shared/scroll"
