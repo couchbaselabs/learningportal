@@ -17,7 +17,12 @@
         %td= snapshot.text_view_count
         %td= snapshot.video_view_count
         %td= snapshot.image_view_count
-        %td= snapshot.total_view_count
+        %td
+          - if snapshot.total_view_count.is_a? Fixnum
+            = snapshot.total_view_count
+          - else
+            = "Processing... #{image_tag asset_path("loader-mini.gif")}".html_safe
+
 %h2 Overall Statistics
 %table.table.table-bordered.admin-table
   %thead
