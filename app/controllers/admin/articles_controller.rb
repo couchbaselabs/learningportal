@@ -12,7 +12,10 @@ class Admin::ArticlesController < AdminController
 
     # get documents from particular key and id
     if @after_key.present? && @after_id.present?
-      options.merge(:start_key => @after_key.to_i, :startkey_docid => @after_id)
+      session[:after_id]  = @after_id  unless @after_id  == session[:after_id]
+      session[:after_key] = @after_key unless @after_key == session[:after_key]
+
+      options.merge!(:start_key => @after_key.to_i, :startkey_docid => @after_id, :skip => 1)
     end
 
     # get 11 docs so we can display 10 and use the 11th to be the basis of the next pagination set
