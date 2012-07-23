@@ -16,7 +16,6 @@
 //= require_tree ./lib
 //= require_tree .
 
-
 $(function(){
   "use strict";
   $('.admin-edit .tag').live('click', function(){
