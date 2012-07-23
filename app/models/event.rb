@@ -1,12 +1,13 @@
 class Event < Couchbase::Model
 
   # We want to make sure we use the correct events bucket.
-  BUCKET = "events"
+  cattr_accessor :bucket_name
+  self.bucket_name = "events"
 
   view :by_type
 
   def self.bucket
-    Couch.client(:bucket => BUCKET)
+    Couch.client(:bucket => bucket_name)
   end
 
   # Possible event types
