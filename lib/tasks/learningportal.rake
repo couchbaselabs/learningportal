@@ -26,13 +26,13 @@ namespace :learningportal do
 
     desc "Create ElasticSearch mapping"
     task :create_mapping => :environment do
-      Typhoeus::Request.put("#{es_url}/learning_portal/lp_v1/_mapping", :body => File.read("config/es_mapping.json"))
+      Typhoeus::Request.put("#{es_url}/learning_portal/lp_v1/_mapping", :body => File.read("#{Rails.root}/config/es_mapping.json"))
       puts "Mapped ElasticSearch 'lp_v1' to 'learning_portal' index."
     end
 
     desc "Start ElasticSearch river"
     task :start_river => :environment do
-      body = File.read("config/es_river.json")
+      body = File.read("#{Rails.root}/config/es_river.json")
       body.gsub!("COUCHBASE_URL", couchbase_url)
 
       Typhoeus::Request.put("#{es_url}/_river/lp_river/_meta", :body => body)
