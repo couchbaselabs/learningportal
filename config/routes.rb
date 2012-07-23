@@ -19,7 +19,6 @@ LearningPortal::Application.routes.draw do
     resource :dashboard
     resources :articles
     resources :users
-    resources :authors
     resources :snapshots
   end
 
