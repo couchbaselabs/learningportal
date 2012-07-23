@@ -1,13 +1,13 @@
 class Content
 
-  ARTICLE_TYPES = ["text", "video", "image"]
-  BASE_URL      = "http://en.wikipedia.org/w/api.php"
+  CONTENT_TYPES = ["text", "video", "image"]
+  WIKIPEDIA_URL = "http://en.wikipedia.org/w/api.php"
   BATCH         = 10
   BATCHES       = 100
 
   # return an array of random wikipedia article references
   def self.random
-    response = Typhoeus::Request.get(BASE_URL,
+    response = Typhoeus::Request.get(WIKIPEDIA_URL,
       :headers => {"User-Agent" => "ES-CB-WikiDownloader"},
       :params => {
         :action      => "query",
@@ -23,7 +23,7 @@ class Content
 
   def self.fetch(article_ids)
     ids = article_ids.join('|')
-    response = Typhoeus::Request.get(BASE_URL,
+    response = Typhoeus::Request.get(WIKIPEDIA_URL,
       :headers => {"User-Agent" => "ES-CB-WikiDownloader"},
       :params => {
         :action  => "query",
@@ -39,7 +39,7 @@ class Content
   end
 
   def self.image_url
-    response = Typhoeus::Request.get(BASE_URL,
+    response = Typhoeus::Request.get(WIKIPEDIA_URL,
       :headers => {"User-Agent" => "ES-CB-WikiDownloader"},
       :params => {
         :action       => "query",
@@ -106,7 +106,7 @@ class Content
     document = {
       :title => json['title'],
       :url => json['fullurl'],
-      :type => ARTICLE_TYPES[random_type],
+      :type => CONTENT_TYPES[random_type],
       :is_text => (random_type == 0),
       :is_video => (random_type == 1),
       :is_image => (random_type == 2),
