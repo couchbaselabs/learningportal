@@ -70,8 +70,8 @@ class Content
       Delayed::Job.enqueue( ContentDownloadJob.new( article_ids ) )
     end
 
-    # Delayed::Job.enqueue(TopTagsJob.new(TopTagsJob::LIMIT))
-    # Delayed::Job.enqueue(TopContributorsJob.new(TopContributorsJob::LIMIT))
+    # Delayed::Job.enqueue(TopTagsJob.new(TopTagsJob::TAGS_LIMIT))
+    # Delayed::Job.enqueue(TopContributorsJob.new(TopContributorsJob::CONTRIBUTORS_LIMIT))
   end
 
 

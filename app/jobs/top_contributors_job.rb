@@ -1,8 +1,8 @@
 class TopContributorsJob
 
-  LIMIT = 8
+  CONTRIBUTORS_LIMIT = 8
 
-  def initialize(limit=LIMIT)
+  def initialize(limit=CONTRIBUTORS_LIMIT)
     @limit = limit
   end
 
