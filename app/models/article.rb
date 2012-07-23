@@ -190,13 +190,13 @@ class Article < Couchbase::Model
     # end
 
     # get article count
-    results[:count] = Couch.client.design_docs["article"].by_popularity(:reduce => true).entries.first.value
+    results[:count] = Couch.client.design_docs["article"].by_popularity(:reduce => true).entries.first.value rescue 0
     # get article sum
-    results[:sum]   = Couch.client.design_docs["article"].by_popularity_sum(:reduce => true).entries.first.value
+    results[:sum]   = Couch.client.design_docs["article"].by_popularity_sum(:reduce => true).entries.first.value rescue 0
     # get min popularity
-    results[:min]   = Couch.client.design_docs["article"].by_popularity(:reduce => true, :group => true, :descending => false).entries.first.key
+    results[:min]   = Couch.client.design_docs["article"].by_popularity(:reduce => true, :group => true, :descending => false).entries.first.key rescue 0
     # get max popularity
-    results[:max]   = Couch.client.design_docs["article"].by_popularity(:reduce => true, :group => true, :descending => true).entries.first.key
+    results[:max]   = Couch.client.design_docs["article"].by_popularity(:reduce => true, :group => true, :descending => true).entries.first.key rescue 0
     # calculate sumsqr
     results[:sumsqr] = results[:sum]**2
 
@@ -380,6 +380,18 @@ class Article < Couchbase::Model
     stats   = Article.view_stats
     quality = ((popularity.to_f - stats[:min].to_f) / stats[:max].to_f * 100).round(2)
     quality.nan? ? 0.0 : quality
+  end
+
+  def image?
+    type == "image"
+  end
+
+  def video?
+    type == "video"
+  end
+
+  def text?
+    type == "text"
   end
 
 end

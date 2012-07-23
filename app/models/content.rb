@@ -1,4 +1,4 @@
-class Wikipedia
+class Content
 
   ARTICLE_TYPES = ["text", "video", "image"]
   BASE_URL      = "http://en.wikipedia.org/w/api.php"
@@ -38,6 +38,28 @@ class Wikipedia
     JSON.parse(response.body)["query"]["pages"].map {|key, value| value }
   end
 
+  def self.image_url
+    response = Typhoeus::Request.get(BASE_URL,
+      :headers => {"User-Agent" => "ES-CB-WikiDownloader"},
+      :params => {
+        :action       => "query",
+        :generator    => "random",
+        :grnnamespace => 6,
+        :rnlimit      => 1,
+        :prop         => "imageinfo",
+        :iiprop       => "url",
+        :iiurlwidth   => 640,
+        :iiurlheight  => 400,
+        :format       => "json"
+      }
+    )
+    JSON.parse(response.body)["query"]["pages"].first[1]["imageinfo"].first["thumburl"]
+  end
+
+  def self.video_url
+    ""
+  end
+
   def self.seed!
     # 1. iterate through batches of random articles up to number
     # 2. cache ID so no duplicate requests
@@ -45,7 +67,7 @@ class Wikipedia
     (1..BATCHES).each do |batch|
       article_ids = self.random
       puts "Batch #{batch}: #{article_ids}"
-      Delayed::Job.enqueue( WikipediaDownloadJob.new( article_ids ) )
+      Delayed::Job.enqueue( ContentDownloadJob.new( article_ids ) )
     end
 
     # Delayed::Job.enqueue(TopTagsJob.new(TopTagsJob::LIMIT))
@@ -71,6 +93,16 @@ class Wikipedia
 
     authors.uniq!
 
+    content = case random_type
+    when 0
+      revision["*"]
+    when 1
+      # self.video_url
+      revision["*"]
+    when 2
+      self.image_url
+    end
+
     document = {
       :title => json['title'],
       :url => json['fullurl'],
@@ -82,7 +114,7 @@ class Wikipedia
       :views => 0,
       :categories => categories,
       :timestamp => revision['timestamp'],
-      :content => revision['*'],
+      :content => content,
       :authors => authors,
       :contributors => contributors
     }

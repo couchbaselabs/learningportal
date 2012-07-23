@@ -130,7 +130,7 @@ namespace :learningportal do
 
   desc "Seed 100 documents"
   task :seed => :environment do
-    Wikipedia.seed!
+    Content.seed!
   end
 
   desc "Seed 1000 users"

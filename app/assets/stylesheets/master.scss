@@ -731,3 +731,10 @@ article.single .contributors ul { //override
     text-decoration: none;
   }
 }
+
+img.image {
+  display:block;
+  margin:0 auto;
+  max-height:400px;
+  max-width:640px;
+}

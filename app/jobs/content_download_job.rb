@@ -1,11 +1,11 @@
-class WikipediaDownloadJob
+class ContentDownloadJob
 
   def initialize(article_ids)
     @article_ids = article_ids
   end
 
   def perform
-    articles = Wikipedia.fetch( @article_ids )
+    articles = Content.fetch( @article_ids )
     avg = 0
     begin
       stats = Article.view_stats
@@ -15,7 +15,7 @@ class WikipediaDownloadJob
     end
 
     articles.each do |article|
-      id, document = Wikipedia.parse( article, avg )
+      id, document = Content.parse( article, avg )
       Couch.client.set(id.to_s, document)
       Event.new(:type => Event::CREATE, :user => nil, :resource => id.to_s).save
     end
