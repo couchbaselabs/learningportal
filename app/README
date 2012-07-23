@@ -1,0 +1,12 @@
+These directories are part of Rails standard app directory layout.
+
+* **assets**
+* **controllers**
+* **helpers**
+* **mailers**
+* **models**
+* **views**
+
+In addition to this we have:
+
+* **jobs**: this is a concept from [delayed_job](http://github.com/collectiveidea/delayed_job) and contains our background job processes. Each job is a simple class that responds to a `.perform` method.
