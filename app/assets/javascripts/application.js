@@ -12,10 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap
 //= require_tree ./lib
 //= require_tree .
-// Loads all Bootstrap javascripts
-//= require bootstrap
 
 $(function(){
   "use strict";
