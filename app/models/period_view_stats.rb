@@ -1,10 +1,11 @@
 class PeriodViewStats < Couchbase::Model
 
   # We want to make sure we use the correct views bucket.
-  BUCKET = "views"
+  cattr_accessor :bucket_name
+  self.bucket_name = "views"
 
   def self.bucket
-    Couch.client(:bucket => BUCKET)
+    Couch.client(:bucket => bucket_name)
   end
 
   view :by_popularity, :views_by_type

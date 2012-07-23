@@ -53,10 +53,12 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @view_count = @article.count_as_viewed
 
-    wiki = WikiCloth::Parser.new({
-      :data => @article['content']
-    })
-    @content = Sanitize.clean(wiki.to_html, :elements => ['p', 'ul', 'li', 'i', 'h2', 'h3'], :remove_contents => ['table', 'div']).gsub(/\[[A-z0-9]+\]/, '')
+    if @article.text?
+      wiki = WikiCloth::Parser.new({
+        :data => @article['content']
+      })
+      @content = Sanitize.clean(wiki.to_html, :elements => ['p', 'ul', 'li', 'i', 'h2', 'h3'], :remove_contents => ['table', 'div']).gsub(/\[[A-z0-9]+\]/, '')
+    end
 
     if current_user && current_user.preferences
       current_user.increment!(@article['type'])

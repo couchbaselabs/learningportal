@@ -23,6 +23,6 @@ Couchbase::Model.ensure_design_document!
 # GlobalViewStats.ensure_design_document!
 
 # Couch.client.flush
-Wikipedia.seed!
+Content.seed!
 
 User.seed!

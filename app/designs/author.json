@@ -1,9 +1,0 @@
-{
-  "_id": "_design/blog",
-  "language": "javascript",
-  "views": {
-    "recent_posts": {
-      "map": "function(doc){if(doc.date && doc.title){emit(doc.date, doc.title);}}"
-    }
-  }
-}

@@ -1,10 +1,11 @@
 class GlobalViewStats < Couchbase::Model
 
   # We want to make sure we use the correct views bucket.
-  BUCKET = "global"
+  cattr_accessor :bucket_name
+  self.bucket_name = "global"
 
   def self.bucket
-    Couch.client(:bucket => BUCKET)
+    Couch.client(:bucket => bucket_name)
   end
 
   view :by_popularity, :views_by_type
@@ -39,7 +40,7 @@ class GlobalViewStats < Couchbase::Model
   end
 
   def self.update_counter(doc, counter)
-    Couch.client(:bucket => BUCKET).set("#{doc.id}", { :count => counter, :type => doc.type } )
+    Couch.client(:bucket => bucket_name).set("#{doc.id}", { :count => counter, :type => doc.type } )
   end
 
 end
