@@ -2,8 +2,8 @@ class Content
 
   CONTENT_TYPES = ["text", "video", "image"]
   WIKIPEDIA_URL = "http://en.wikipedia.org/w/api.php"
-  BATCH         = 10
-  BATCHES       = 100
+  BATCH_SIZE    = 10
+  BATCH_NUMBER  = 100
 
   # return an array of random wikipedia article references
   def self.random
@@ -13,7 +13,7 @@ class Content
         :action      => "query",
         :list        => "random",
         :rnnamespace => 0,
-        :rnlimit     => BATCH,
+        :rnlimit     => BATCH_SIZE,
         :rvprop      => "content",
         :format      => "json"
       }
@@ -64,7 +64,7 @@ class Content
     # 1. iterate through batches of random articles up to number
     # 2. cache ID so no duplicate requests
     # 3. schedule delayed job for download of each article
-    (1..BATCHES).each do |batch|
+    (1..BATCH_NUMBER).each do |batch|
       article_ids = self.random
       puts "Batch #{batch}: #{article_ids}"
       Delayed::Job.enqueue( ContentDownloadJob.new( article_ids ) )
