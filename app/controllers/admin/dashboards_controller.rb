@@ -2,9 +2,7 @@ class Admin::DashboardsController < AdminController
 
   def show
     @content_view_totals = GlobalViewStats.views_by_type({}, true)
-
     @snapshots = Snapshot.all
-
   end
 
   def simulation
