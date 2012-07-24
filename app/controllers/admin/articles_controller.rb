@@ -3,25 +3,36 @@ class Admin::ArticlesController < AdminController
   def index
     @total      = Article.view_stats[:count]
     @per_page   = 10
-    @page       = (params[:page] || 1).to_i
-    @after_key  = params[:after_key]
-    @after_id   = params[:after_id]
-    # @skip     = (@page - 1) * @per_page
 
-    options = { :limit => @per_page, :include_docs => true, :inclusive_end => false }
+    @descending = params[:descending] == "true" || params[:descending].nil? ? true : false
+    @skip       = @descending == true ? 0 : @per_page
+
+    options = { :limit => @per_page + 1, :include_docs => true, :skip => @skip, :descending => @descending }
 
     # get documents from particular key and id
-    if @after_key.present? && @after_id.present?
-      session[:after_id]  = @after_id  unless @after_id  == session[:after_id]
-      session[:after_key] = @after_key unless @after_key == session[:after_key]
-
-      options.merge!(:start_key => @after_key.to_i, :startkey_docid => @after_id, :skip => 1)
+    if params[:after_key].present? && params[:after_id].present?
+      options.merge!(:start_key => params[:after_key].to_i, :startkey_docid => params[:after_id])
     end
 
-    # get 11 docs so we can display 10 and use the 11th to be the basis of the next pagination set
-    @articles = Article.popular(options).entries
-    @next_article = { :after_id => @articles.last.id, :after_key => @articles.last.popularity }
-    @articles.slice! 10
+    # get n+1 docs so we can display n and use the n+1th to be the basis of the next pagination set
+    @articles     = Article.popular(options).entries
+
+    # if going back a page we need to reverse the results for display
+    if @descending == false
+      @articles = @articles.reverse
+    end
+
+    # should we show next/prev links?
+    @has_next = @descending == true && @articles.count < @per_page + 1
+    @has_prev = @descending == false && @articles.count < @per_page + 1
+
+    # chop off the n+1th to form the next/previous links
+    @next_article = @articles.slice! -1
+
+    if @next_article.present?
+      @next_id      = @next_article.id
+      @next_key     = @next_article.popularity
+    end
   end
 
   def edit
