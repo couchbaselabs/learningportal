@@ -92,11 +92,11 @@ namespace :learningportal do
   desc "Reset all data (create, drop, migrate, seed)"
   task :reset => :environment do
     Rake::Task["lp:drop"].invoke
-    puts "Pausing for 10 seconds to please Couchbase..."
-    sleep 10 # couchbase prefers we wait...
+    puts "Pausing for 60 seconds to please Couchbase..."
+    sleep 60 # couchbase prefers we wait...
     Rake::Task["lp:create"].invoke
-    puts "Pausing another 10 seconds to please Couchbase..."
-    sleep 10 # couchbase prefers we wait...
+    puts "Pausing another 60 seconds to please Couchbase..."
+    sleep 60 # couchbase prefers we wait...
     Rake::Task["lp:migrate"].invoke
     Rake::Task["lp:seed"].invoke
     Rake::Task["lp:top_tags_authors"].invoke
