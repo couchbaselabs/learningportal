@@ -22,9 +22,10 @@ class Admin::ArticlesController < AdminController
       @articles = @articles.reverse
     end
 
-    # should we show next/prev links?
-    @has_next = @descending == true && @articles.count < @per_page + 1
-    @has_prev = @descending == false && @articles.count < @per_page + 1
+    # ensure we really have results or redirect to when we did
+    if @articles.count == 1
+      redirect_to request.referrer
+    end
 
     # chop off the n+1th to form the next/previous links
     @next_article = @articles.slice! -1
