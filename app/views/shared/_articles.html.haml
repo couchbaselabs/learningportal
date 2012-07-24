@@ -1,4 +1,4 @@
-.page
+.page{ :data => { :next_id => @next_id, :next_key => @next_key } }
   - @items.each do |item|
     %article{:class => item['type']}
       .article-body.clearfix

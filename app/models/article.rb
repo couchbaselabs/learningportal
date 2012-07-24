@@ -252,7 +252,7 @@ class Article < Couchbase::Model
     # Couch.client.design_docs["article"].by_type(:reduce => false).entries.collect { |row| Article.find(row.key[1]) }
     type = opts.delete(:type)
     options = { :reduce => false, :descending => true, :include_docs => true, :stale => false }.merge(opts)
-    if type
+    if type && !(opts.include?(:startkey) || opts.include?(:start_key))
       options.merge!({ :startkey => [type, Article.view_stats[:max]], :endkey => [type, 0] })
     end
     by_popularity_and_type(options).entries

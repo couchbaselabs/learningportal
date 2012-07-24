@@ -50,4 +50,7 @@ $(function(){
   if($('.advanced-options input[value!=""], .advanced-options select option[value!=""]:selected').length > 2){
     $('.advanced-options').show();
   }
+
+  window.next_id = $("[data-next_id]").data("next_id");
+  window.next_key = $("[data-next_key]").data("next_key");
 });

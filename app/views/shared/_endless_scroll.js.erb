@@ -1,1 +1,5 @@
+<%- if @next_key.present? && @next_id.present? -%>
+  window.next_key = "<%= @next_key %>";
+  window.next_id = "<%= @next_id %>";
+<%- end -%>
 $("<div class='page'><%= j(render :partial => 'shared/articles') %></div>").insertAfter(".page:last");

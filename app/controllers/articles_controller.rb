@@ -8,13 +8,26 @@ class ArticlesController < ApplicationController
   def popular
     @total    = Article.view_stats[:count]
     @per_page = 10
-    @page     = (params[:page] || 1).to_i
-    @skip     = (@page - 1) * @per_page
 
-    @items = Article.popular(:limit => @per_page, :skip => @skip, :include_docs => true).entries
-    # @items = WillPaginate::Collection.create(@page, @per_page, @total) do |pager|
-      # pager.replace(@items.to_a)
-    # end
+    # @page     = (params[:page] || 1).to_i
+    # @skip     = (@page - 1) * @per_page
+
+    options = { :limit => @per_page + 1, :include_docs => true }
+
+    # get documents from particular key and id
+    if params[:after_key].present? && params[:after_id].present?
+      options.merge!(:start_key => params[:after_key].to_i, :startkey_docid => params[:after_id])
+    end
+
+    @items = Article.popular(options).entries
+
+    # chop off the n+1th to form the next/previous links
+    @next_article = @items.slice! -1
+
+    if @next_article.present?
+      @next_id      = @next_article.id
+      @next_key     = @next_article.popularity
+    end
 
     respond_to do |format|
       format.html { render }
@@ -33,15 +46,27 @@ class ArticlesController < ApplicationController
     end
 
     # @items = Article.popular_by_type(type).take(10)
-    @total    = Article.view_stats[:count]
+    @total    = Article.totals[type.to_sym]
     @per_page = 10
-    @page     = (params[:page] || 1).to_i
-    @skip     = (@page - 1) * @per_page
 
-    @items = Article.popular_by_type(:limit => @per_page, :skip => @skip, :type => type).entries
-    # @items = WillPaginate::Collection.create(@page, @per_page, @total) do |pager|
-      # pager.replace(@items.to_a)
-    # end
+    options = { :limit => @per_page + 1, :include_docs => true, :type => type }
+
+    # get documents from particular key and id
+    if params[:after_key].present? && params[:after_id].present?
+      options.merge!(:startkey => [type, params[:after_key].to_i], :startkey_docid => params[:after_id])
+    end
+
+    @options = options
+
+    @items = Article.popular_by_type(options).entries
+
+    # chop off the n+1th to form the next/previous links
+    @next_article = @items.slice! -1
+
+    if @next_article.present?
+      @next_id      = @next_article.id
+      @next_key     = @next_article.popularity
+    end
 
     respond_to do |format|
       format.html { render }

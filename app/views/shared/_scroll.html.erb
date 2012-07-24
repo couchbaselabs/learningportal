@@ -15,8 +15,17 @@
     if (nearBottomOfPage()) {
       loading=true;
       page++;
-      var location = window.location.href + ((window.location.href.indexOf("?") != -1) ? "&" : "?")
-      $.getScript(location + "page=" + page)
+      var location = window.location.href;
+
+      if (window.next_key != undefined && window.next_id != undefined){
+        location += "?after_key=" + next_key;
+        location += "&after_id=" + next_id;
+      }
+      else {
+        location += "&page=" + page;
+      }
+
+      $.getScript(location)
         .success(function() { loading = false })
         .fail(function() { loading = true; $(".loading").hide(); })
     }
