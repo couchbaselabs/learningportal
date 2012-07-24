@@ -2,8 +2,8 @@ class ImageContentDownloadJob
 
   IMAGE_URL = "http://upload.wikimedia.org/wikipedia/en"
   BLACKLIST = [
-    "Question_book-new.svg", "Disambig_gray.svg", "Yes_check.svg", "Wiki_letter_w.svg", "Ambox_content.png", "Red_pog.svg"
-    "Edit-clear.svg", "Commons-logo.svg", "PD-icon.svg"
+    "Question_book-new.svg", "Disambig_gray.svg", "Yes_check.svg", "Wiki_letter_w.svg", "Ambox_content.png", "Red_pog.svg",
+    "Edit-clear.svg", "Commons-logo.svg", "PD-icon.svg", "Ambox_content.png", "P_vip.svg", "Text document with red question mark.svg"
   ]
 
   def initialize
@@ -78,7 +78,8 @@ class ImageContentDownloadJob
 
     authors.uniq!
 
-    image = image_url(json["images"].last["title"])
+    images = json["images"].reject {|image| BLACKLIST.include? "#{image["title"].gsub /^File:/, ""}" }
+    image  = image_url(images.first["title"])
 
     raise if Typhoeus::Request.get(image).code == 404
 
