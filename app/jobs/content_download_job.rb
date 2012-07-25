@@ -1,3 +1,6 @@
+#
+# @deprecated
+#
 class ContentDownloadJob
 
   def initialize(article_ids)

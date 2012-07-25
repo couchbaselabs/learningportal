@@ -1,6 +1,6 @@
 class TextContentDownloadJob
 
-  def initialize
+  def initialize(batch=1)
     response = Typhoeus::Request.get(Content::WIKIPEDIA_URL,
       :headers => {"User-Agent" => "ES-CB-WikiDownloader"},
       :params => {
@@ -13,6 +13,7 @@ class TextContentDownloadJob
       }
     )
     @article_ids = JSON.parse(response.body)["query"]["random"].map {|article| article["id"]}
+    puts "TextDownloadJob - BATCH: #{batch} - #{@article_ids}"
   end
 
   def perform

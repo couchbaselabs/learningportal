@@ -2,7 +2,7 @@ class VideoContentDownloadJob
 
   STOP_WORDS = JSON.parse(File.read("#{Rails.root}/config/stop_words.json"))
 
-  def initialize
+  def initialize(batch=1)
     response = Typhoeus::Request.get(Content::WIKIPEDIA_URL,
       :headers => {"User-Agent" => "ES-CB-WikiDownloader"},
       :params => {
@@ -15,6 +15,7 @@ class VideoContentDownloadJob
       }
     )
     @article_ids = JSON.parse(response.body)["query"]["random"].map {|article| article["id"]}
+    puts "VideoDownloadJob - BATCH: #{batch} - #{@article_ids}"
   end
 
   def perform

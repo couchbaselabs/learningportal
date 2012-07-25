@@ -10,13 +10,13 @@ class Content
     # 2. cache ID so no duplicate requests
     # 3. schedule delayed job for download of each article
     (1..BATCH_NUMBER).each do |batch|
-      job = case rand(2)
+      job = case rand(3)
       when 0
-        TextContentDownloadJob.new
+        TextContentDownloadJob.new(batch)
       when 1
-        ImageContentDownloadJob.new
+        ImageContentDownloadJob.new(batch)
       when 2
-        VideoContentDownloadJob.new
+        VideoContentDownloadJob.new(batch)
       end
 
       Delayed::Job.enqueue job

@@ -6,7 +6,7 @@ class ImageContentDownloadJob
     "Edit-clear.svg", "Commons-logo.svg", "PD-icon.svg", "Ambox_content.png", "P_vip.svg", "Text document with red question mark.svg"
   ]
 
-  def initialize
+  def initialize(batch=1)
     response = Typhoeus::Request.get(Content::WIKIPEDIA_URL,
       :headers => {"User-Agent" => "ES-CB-WikiDownloader"},
       :params => {
@@ -19,6 +19,7 @@ class ImageContentDownloadJob
       }
     )
     @article_ids = JSON.parse(response.body)["query"]["random"].map {|article| article["id"]}
+    puts "ImageDownloadJob - BATCH: #{batch} - #{@article_ids}"
   end
 
   def perform
