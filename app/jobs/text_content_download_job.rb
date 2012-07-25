@@ -30,6 +30,8 @@ class TextContentDownloadJob
       Couch.client.set(id.to_s, document)
       Event.new(:type => Event::CREATE, :user => nil, :resource => id.to_s).save
     end
+
+    true
   end
 
   def fetch(article_ids)
