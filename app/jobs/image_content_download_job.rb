@@ -37,7 +37,7 @@ class ImageContentDownloadJob
         Couch.client.set(id.to_s, document)
         Event.new(:type => Event::CREATE, :user => nil, :resource => id.to_s).save
       rescue
-
+        # error matching image content
       end
     end
 
@@ -81,7 +81,7 @@ class ImageContentDownloadJob
     images = json["images"].reject {|image| BLACKLIST.include? "#{image["title"].gsub /^File:/, ""}" }
     image  = image_url(images.first["title"])
 
-    raise if Typhoeus::Request.get(image).code == 404
+    raise "Can't match image" if Typhoeus::Request.get(image).code == 404
 
     document = {
       :title        => json['title'],

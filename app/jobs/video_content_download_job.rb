@@ -28,9 +28,13 @@ class VideoContentDownloadJob
     end
 
     articles.each do |article|
-      id, document = parse(article, avg)
-      Couch.client.set(id.to_s, document)
-      Event.new(:type => Event::CREATE, :user => nil, :resource => id.to_s).save
+      begin
+        id, document = parse(article, avg)
+        Couch.client.set(id.to_s, document)
+        Event.new(:type => Event::CREATE, :user => nil, :resource => id.to_s).save
+      rescue
+        # error matching video content
+      end
     end
 
     true
@@ -76,17 +80,17 @@ class VideoContentDownloadJob
                 .split(" ")
                 .reject { |word| (STOP_WORDS.include?(word) || word.size < 4) }
 
-    video = false
+    video = nil
     keywords.each do |keyword|
       begin
         video = search_video(keyword)
-        break if video
+        break if video.present?
       rescue
 
       end
     end
 
-    raise if video == false
+    raise "Can't match video" if video.nil?
 
     document = {
       :title        => json['title'],
