@@ -99,8 +99,6 @@ class ImageContentDownloadJob
       :contributors => contributors
     }
 
-    puts image
-
     return id, document
   end
 

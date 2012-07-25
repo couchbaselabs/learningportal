@@ -86,7 +86,7 @@ class VideoContentDownloadJob
       end
     end
 
-    raise unless video
+    raise if video == false
 
     document = {
       :title        => json['title'],
