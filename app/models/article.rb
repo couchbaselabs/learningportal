@@ -81,7 +81,7 @@ class Article < Couchbase::Model
               score.filter do |filters|
                 filters.filter :term, :type => "video"
                 if @term[:preferences] > 0
-                  filters.boost (User.current.preferences["types"]["video"]) * @term[:preferences]
+                  filters.boost (User.current.preferences["types"]["video"]) * @term[:preferences] + 1
                 else
                   filters.boost 1
                 end
@@ -90,7 +90,7 @@ class Article < Couchbase::Model
               score.filter do |filters|
                 filters.filter :term, :type => "image"
                 if @term[:preferences] > 0
-                  filters.boost (User.current.preferences["types"]["image"]) * @term[:preferences]
+                  filters.boost (User.current.preferences["types"]["image"]) * @term[:preferences] + 1
                 else
                   filters.boost 1
                 end
@@ -99,7 +99,7 @@ class Article < Couchbase::Model
               score.filter do |filters|
                 filters.filter :term, :type => "text"
                 if @term[:preferences] > 0
-                  filters.boost (User.current.preferences["types"]["text"]) * @term[:preferences]
+                  filters.boost (User.current.preferences["types"]["text"]) * @term[:preferences] + 1
                 else
                   filters.boost 1
                 end
