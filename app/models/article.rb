@@ -48,11 +48,12 @@ class Article < Couchbase::Model
         url ENV["ELASTIC_SEARCH_URL"]
       end
       s = Tire.search("learning_portal") do |search|
+
         search.query do |query|
 
           # query.string "#{@main_query}"
 
-          if @term[:popularity] > 0
+          if @term[:popularity] > 0 && avg_popularity > 0
             script = { script: "_score * (((doc['popularity'].value + 1) / #{avg_popularity} ) * #{@term[:popularity]})" }
           else
             script = { script: "_score"}
