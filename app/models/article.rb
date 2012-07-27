@@ -179,27 +179,11 @@ class Article < Couchbase::Model
     defaults = {:sum => 0, :count => 0, :sumsqr => 0, :min => 0, :max => 0}
     results = {}
 
-    #
-    # NOTE: There is currently a bug in Couchbase which prevents
-    #       us from using a _stats reduce in a cluster environment.
-    #       The following implementation is what we'd ideally want to
-    #       do.
     begin
       results = Couch.client.design_docs["article"].view_stats(:reduce => true).entries.first.value.symbolize_keys
     rescue
       # silently fail
     end
-
-    # get article count
-    #results[:count] = Couch.client.design_docs["article"].by_popularity(:reduce => true).entries.first.value rescue 0
-    # get article sum
-    #results[:sum]   = Couch.client.design_docs["article"].by_popularity_sum(:reduce => true).entries.first.value rescue 0
-    # get min popularity
-    #results[:min]   = Couch.client.design_docs["article"].by_popularity(:reduce => true, :group => true, :descending => false).entries.first.key rescue 0
-    # get max popularity
-    #results[:max]   = Couch.client.design_docs["article"].by_popularity(:reduce => true, :group => true, :descending => true).entries.first.key rescue 0
-    # calculate sumsqr
-    #results[:sumsqr] = results[:sum]**2
 
     results = defaults.merge!(results)
     if results[:count] == 0
