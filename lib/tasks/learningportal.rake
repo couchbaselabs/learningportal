@@ -69,6 +69,14 @@ namespace :learningportal do
     end
   end
 
+  desc "Simulate some user activity"
+  task :user_load => :environment do
+    times = 100
+    times.times do
+      Delayed::Job.enqueue( UserLoadJob.new )
+    end
+  end
+
   desc "Drop all buckets"
   task :drop => :environment do
     Couch.delete!(:bucket => 'default')
