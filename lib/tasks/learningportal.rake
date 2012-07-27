@@ -218,6 +218,8 @@ namespace :lp do
 
   desc "Schedule background score indexing for all documents"
   task :recalculate_scores => "learningportal:recalculate_scores"
+  desc "Simulate some user activity"
+  task :user_load => "learningportal:user_load"
   desc "Drop all buckets"
   task :drop               => "learningportal:drop"
   desc "Create all buckets"
