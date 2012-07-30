@@ -111,14 +111,14 @@ class Article < Couchbase::Model
         end
 
         # we may not want this, or at least use a different analyzer
-        search.facet "title" do
-          terms :title
-        end
+        #search.facet "title" do
+        #  terms :title
+        #end
 
         # we may not want this, or at least use a different analyzer
-        search.facet "content" do
-          terms :content
-        end
+        #search.facet "content" do
+        #  terms :content
+        #end
 
         search.facet "authors" do
           terms :authors, :field => "authors.name"
