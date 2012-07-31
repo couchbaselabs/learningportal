@@ -37,4 +37,4 @@ or upgrade
 
 ### Install Bundler
 
-    gem install bundler
+    gem install bundler --no-ri --no-rdoc --pre
