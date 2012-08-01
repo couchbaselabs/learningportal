@@ -89,7 +89,7 @@ GEM
       sass (~> 3.1)
     compass-rails (1.0.2)
       compass (>= 0.12.0, < 0.14)
-    couchbase (1.2.0.dp6)
+    couchbase (1.2.0.dp5)
       multi_json (~> 1.0)
       yaji (~> 0.3.2)
     daemons (1.1.8)
@@ -278,7 +278,7 @@ DEPENDENCIES
   ci_reporter
   coffee-rails (~> 3.2.1)
   compass-rails
-  couchbase (= 1.2.0.dp6)
+  couchbase (= 1.2.0.dp5)
   couchbase-model!
   delayed_job_active_record
   devise
