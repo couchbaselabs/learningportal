@@ -10,7 +10,7 @@ The following dependencies are considered stable and working as a minimum versio
 
 * elastic search **0.19.3**
 * Ruby **1.9.3-p0**
-* Bundler **1.1.4**
+* Bundler **1.2.0.rc**
 
 ### Development
 
