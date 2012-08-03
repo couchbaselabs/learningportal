@@ -69,6 +69,14 @@ namespace :learningportal do
     end
   end
 
+  desc "Simulate some user activity"
+  task :user_load => :environment do
+    times = 100
+    times.times do
+      Delayed::Job.enqueue( UserLoadJob.new )
+    end
+  end
+
   desc "Drop all buckets"
   task :drop => :environment do
     Couch.delete!(:bucket => 'default')
@@ -92,11 +100,11 @@ namespace :learningportal do
   desc "Reset all data (create, drop, migrate, seed)"
   task :reset => :environment do
     Rake::Task["lp:drop"].invoke
-    puts "Pausing for 10 seconds to please Couchbase..."
-    sleep 10 # couchbase prefers we wait...
+    puts "Pausing for 60 seconds to please Couchbase..."
+    sleep 60 # couchbase prefers we wait...
     Rake::Task["lp:create"].invoke
-    puts "Pausing another 10 seconds to please Couchbase..."
-    sleep 10 # couchbase prefers we wait...
+    puts "Pausing another 60 seconds to please Couchbase..."
+    sleep 60 # couchbase prefers we wait...
     Rake::Task["lp:migrate"].invoke
     Rake::Task["lp:seed"].invoke
     Rake::Task["lp:top_tags_authors"].invoke
@@ -210,6 +218,8 @@ namespace :lp do
 
   desc "Schedule background score indexing for all documents"
   task :recalculate_scores => "learningportal:recalculate_scores"
+  desc "Simulate some user activity"
+  task :user_load => "learningportal:user_load"
   desc "Drop all buckets"
   task :drop               => "learningportal:drop"
   desc "Create all buckets"
