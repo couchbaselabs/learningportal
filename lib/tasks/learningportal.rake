@@ -148,7 +148,7 @@ namespace :learningportal do
 
   desc "Regenerate all indexes"
   task :reindex => :environment do
-    buckets = %w(default views system profiles events)
+    buckets = %w(default views system profiles)
 
     buckets.each do |bucket|
       puts "===> Triggering reindex of all views in '#{bucket}' bucket"
