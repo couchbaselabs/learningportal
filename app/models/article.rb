@@ -299,9 +299,9 @@ class Article < Couchbase::Model
 
     super
 
-    self.views = self.attrs[:views] || 0
-    self.popularity = self.attrs[:popularity] || 0
-    self.categories = self.attrs[:categories] || []
+    self.views = self.views || 0
+    self.popularity = self.popularity || 0
+    self.categories = self.categories || []
   end
 
   def update
