@@ -11,7 +11,9 @@
         %h1.article-title= link_to item['title'], article_path(:id => item.id)
         .meta
           Contributed by
-
+          = item['contributors'].first['name']
+          on
+          = Time.parse(item['contributors'].first['timestamp']).strftime('%B %d, %Y at %H:%M')
         %ul.tag-section
           = render :partial => "shared/tags", :locals => { :article => item }
           .clearfix
