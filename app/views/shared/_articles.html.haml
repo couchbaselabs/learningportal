@@ -1,19 +1,19 @@
 .page{ :data => { :next_id => @next_id, :next_key => @next_key } }
   - @items.each do |item|
-    %article{:class => item['type']}
+    %article{:class => item.type}
       .article-body.clearfix
         %span.score
           = succeed "%" do
             = item.quality
         .icon
-          .small-type{ :class => item['type'] }
-            %i.icon-lp{ :class => "icon-lp-#{item['type']}" }
-        %h1.article-title= link_to item['title'], article_path(:id => item.id)
+          .small-type{ :class => item.type }
+            %i.icon-lp{ :class => "icon-lp-#{item.type}" }
+        %h1.article-title= link_to item.title, article_path(:id => item.id)
         .meta
           Contributed by
-          = item['contributors'].first['name']
+          = item.contributors.first['name']
           on
-          = Time.parse(item['contributors'].first['timestamp']).strftime('%B %d, %Y at %H:%M')
+          = Time.parse(item.contributors.first['timestamp']).strftime('%B %d, %Y at %H:%M')
         %ul.tag-section
           = render :partial => "shared/tags", :locals => { :article => item }
           .clearfix
