@@ -250,11 +250,11 @@ class Article < Couchbase::Model
 
   def update_attributes(attributes)
     attributes.each do |name, value|
-      next if (name == "new_category" || name == "delete_category") && !value.present?
-      # next unless @@keys.include?(name.to_sym)
-      send("#{name}=", value)
+      if (name == "new_category" || name == "delete_category") && !value.present?
+        attributes.delete(name)
+      end
     end
-    update
+    super
   end
 
   def [](key)
@@ -296,14 +296,9 @@ class Article < Couchbase::Model
   end
 
   def initialize(attributes={})
-    @errors = ActiveModel::Errors.new(self)
 
-    attributes.each do |name, value|
-      next unless @@keys.include?(name.to_sym)
-      send("#{name}=", value)
-    end
+    super
 
-    self.attrs = attributes.with_indifferent_access || {}
     self.views = self.attrs[:views] || 0
     self.popularity = self.attrs[:popularity] || 0
     self.categories = self.attrs[:categories] || []
