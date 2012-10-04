@@ -17,7 +17,6 @@ class Article < Couchbase::Model
   end
 
   attr_accessor :id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity, :quality
-  @@keys = [:id, :title, :type, :url, :author, :contributors, :content, :categories, :attrs, :views, :popularity, :quality]
 
   def self.search(term={}, options={})
     ids = []
@@ -255,10 +254,6 @@ class Article < Couchbase::Model
       end
     end
     super
-  end
-
-  def [](key)
-    attrs[key]
   end
 
   def new_category; nil; end
