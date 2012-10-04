@@ -1,8 +1,8 @@
 GIT
-  remote: git://github.com/kierangraham/ruby-couchbase-model.git
-  revision: b52f33e7b93d541984acddc1fabed21c749786c3
+  remote: git://github.com/avsej/ruby-couchbase-model.git
+  revision: 20fce97033badc0fc1510efc7c537fce15a14aca
   specs:
-    couchbase-model (0.1.0)
+    couchbase-model (0.4.1)
       couchbase (~> 1.2.0.dp)
 
 GIT
