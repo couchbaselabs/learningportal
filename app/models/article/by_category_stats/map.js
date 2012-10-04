@@ -1,7 +1,7 @@
-function (doc) {
+function (doc, meta) {
   if (doc.type){
     doc.categories.forEach(function(category){
-      emit([category, doc._id], 1)
+      emit([category, meta.id], 1)
     });
   }
 }

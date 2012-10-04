@@ -1,5 +1,5 @@
-function (doc) {
+function (doc, meta) {
   if (doc.type) {
-    emit([doc.type, doc._id], null);
+    emit([doc.type, meta.id], null);
   }
 }
