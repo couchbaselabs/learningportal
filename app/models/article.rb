@@ -267,11 +267,6 @@ class Article < Couchbase::Model
     self.categories << category
   end
 
-  def self.find(id)
-    id = id.to_s if id.respond_to?(:to_s)
-    new( Couch.client.get(id).merge("id" => id) )
-  end
-
   def self.random
     id = nil
     begin
