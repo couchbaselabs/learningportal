@@ -9,40 +9,16 @@ namespace :learningportal do
       "#{ENV["COUCHBASE_URL"]}"
     end
 
-    desc "Delete and recreate ElasticSearch index and river"
+    desc "Delete and recreate ElasticSearch index"
     task :reset => :environment do
-      Rake::Task["lp:es:stop_river"].invoke
       Rake::Task["lp:es:delete_index"].invoke
       Rake::Task["lp:es:create_index"].invoke
-      Rake::Task["lp:es:create_mapping"].invoke
-      Rake::Task["lp:es:start_river"].invoke
     end
 
     desc "Create ElasticSearch index"
     task :create_index => :environment do
       Typhoeus::Request.put("#{es_url}/learning_portal")
       puts "Created ElasticSearch index."
-    end
-
-    desc "Create ElasticSearch mapping"
-    task :create_mapping => :environment do
-      Typhoeus::Request.put("#{es_url}/learning_portal/lp_v1/_mapping", :body => File.read("#{Rails.root}/config/es_mapping.json"))
-      puts "Mapped ElasticSearch 'lp_v1' to 'learning_portal' index."
-    end
-
-    desc "Start ElasticSearch river"
-    task :start_river => :environment do
-      body = File.read("#{Rails.root}/config/es_river.json")
-      body.gsub!("COUCHBASE_URL", couchbase_url)
-
-      Typhoeus::Request.put("#{es_url}/_river/lp_river/_meta", :body => body)
-      puts "Started ElasticSearch river from 'config/es_river.json'."
-    end
-
-    desc "Stop ElasticSearch river (will start over indexing documents if recreated)"
-    task :stop_river => :environment do
-      Typhoeus::Request.delete("#{es_url}/_river/lp_river")
-      puts "Stop ElasticSearch river."
     end
 
     desc "Delete ElasticSearch index"
@@ -202,16 +178,10 @@ namespace :lp do
       "#{ENV['ELASTIC_SEARCH_URL']}"
     end
 
-    desc "Delete and recreate ElasticSearch index and river"
+    desc "Delete and recreate ElasticSearch index"
     task :reset          => "learningportal:elasticsearch:reset"
     desc "Create ElasticSearch index"
     task :create_index   => "learningportal:elasticsearch:create_index"
-    desc "Create ElasticSearch mapping"
-    task :create_mapping => "learningportal:elasticsearch:create_mapping"
-    desc "Start ElasticSearch river"
-    task :start_river    => "learningportal:elasticsearch:start_river"
-    desc "Stop ElasticSearch river (will start over indexing documents if recreated)"
-    task :stop_river     => "learningportal:elasticsearch:stop_river"
     desc "Delete ElasticSearch index"
     task :delete_index   => "learningportal:elasticsearch:delete_index"
   end

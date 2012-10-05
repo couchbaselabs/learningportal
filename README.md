@@ -63,11 +63,8 @@ The following is a list of tasks that are useful for managing the application.
     rake lp:migrate             # Update couchbase views
     rake lp:ensure_buckets      # Detect and create missing buckets (Safe operation)
     rake lp:es:create_index     # Create ElasticSearch index
-    rake lp:es:create_mapping   # Create ElasticSearch mapping
     rake lp:es:delete_index     # Delete ElasticSearch index
-    rake lp:es:reset            # Delete and recreate ElasticSearch index and river
-    rake lp:es:start_river      # Start ElasticSearch river
-    rake lp:es:stop_river       # Stop ElasticSearch river (will start over indexing documents if recreated)
+    rake lp:es:reset            # Delete and recreate ElasticSearch index
     rake lp:recalculate_active  # Recalculate active content
     rake lp:recalculate_scores  # Schedule background score indexing for all documents
     rake lp:reindex             # Regenerate all indexes

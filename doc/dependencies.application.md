@@ -22,5 +22,5 @@ Download and install this updated `libcouchbase` homebrew recipe.
 
     plugin -install mobz/elasticsearch-head
     plugin -install elasticsearch/elasticsearch-lang-javascript/1.1.0
-    plugin -install mschoch/elasticsearch-river-couchbase/1.0.1-SNAPSHOT
+    plugin -install couchbaselabs/elasticsearch-transport-couchbase/1.0.0-dp
 
