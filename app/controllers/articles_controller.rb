@@ -118,7 +118,7 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.find(params[:id])
     @article.update_attributes(params[:article])
-    @article.save({:cas => @article.meta['cas']})
+    @article.save
     @tag = params[:article][:new_category]
 
     Event.new(:type => Event::TAGGED, :user => current_user.email, :resource => @article.id.to_s).save

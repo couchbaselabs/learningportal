@@ -16,7 +16,7 @@ class Article < Couchbase::Model
     @id
   end
 
-  attr_accessor :id, :title, :type, :url, :authors, :contributors, :content, :categories, :attrs, :views, :popularity, :quality
+  attr_accessor :id, :meta, :title, :type, :url, :authors, :contributors, :content, :categories, :attrs, :views, :popularity, :quality
 
   def self.search(term={}, options={})
     ids = []
