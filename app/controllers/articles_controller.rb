@@ -86,7 +86,7 @@ class ArticlesController < ApplicationController
     end
 
     if current_user && current_user.preferences
-      current_user.increment!(@article['type'])
+      current_user.increment!(@article.type)
     end
     Event.new(:type => Event::ACCESS, :user => (current_user.email rescue nil), :resource => @article.id.to_s).save
   end
@@ -98,12 +98,12 @@ class ArticlesController < ApplicationController
       @view_count = @article.count_as_viewed
 
       wiki = WikiCloth::Parser.new({
-        :data => @article['content']
+        :data => @article.content
       })
       @content = Sanitize.clean(wiki.to_html, :elements => ['p', 'ul', 'li', 'i', 'h2', 'h3'], :remove_contents => ['table', 'div']).gsub(/\[[A-z0-9]+\]/, '')
 
       if current_user && current_user.preferences
-        current_user.increment!(@article['type'])
+        current_user.increment!(@article.type)
       end
     end
 
