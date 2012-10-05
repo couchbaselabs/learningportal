@@ -1,11 +1,11 @@
 %a{ :name => 'contributors' }
 .contributors
   %h4
-    = pluralize(@article['contributors'].size, 'Contributor').gsub(/^\d+\s/, "")
+    = pluralize(@article.contributors.size, 'Contributor').gsub(/^\d+\s/, "")
     = surround '(', ')' do
-      = @article['contributors'].size
-  - @article['contributors'].each do |contributor|
+      = @article.contributors.size
+  - @article.contributors.each do |contributor|
     .media.contributor
-      %a.img{:href => author_path(:author => contributor['name'])}
+      %a.img{:href => author_path(:author => contributor.name)}
         %img{:alt => "", :src => ""}/
-      .bd= link_to(contributor['name'], author_path(:author => contributor['name']))
+      .bd= link_to(contributor.name, author_path(:author => contributor.name))
