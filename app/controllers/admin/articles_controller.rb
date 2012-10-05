@@ -54,6 +54,8 @@ class Admin::ArticlesController < AdminController
         format.xml  { render :xml => @article.errors, :status => :unprocessable_entity }
       end
     end
+
+    @article.save
   end
 
   def destroy
