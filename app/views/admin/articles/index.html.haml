@@ -17,13 +17,13 @@
   %tbody
   - @articles.each do |article|
     %tr
-      %td= link_to(article['title'], article_path(article.id))
-      %td= article['type']
-      %td= article['authors'].first['name']
+      %td= link_to(article.title, article_path(article.id))
+      %td= article.type
+      %td= article.authors.first['name']
       %td= "n/a"
       %td
-        - article['categories'].each do |category|
-          = "#{category}#{unless category == article['categories'].last then ',' end}"
+        - article.categories.each do |category|
+          = "#{category}#{unless category == article.categories.last then ',' end}"
         %div.clearfix
           = link_to "Edit", edit_admin_article_path(article.id), :class => "btn btn-mini pull-right"
           = button_to "Delete", admin_article_path(article.id), :method => "delete", :class => "btn btn-mini pull-right"
