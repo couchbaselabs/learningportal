@@ -29,7 +29,7 @@ class DocumentScoreJob
     end
 
     document     = Article.find("#{@document_id}")
-    popularity   = document['popularity'] || 0
+    popularity   = document.popularity || 0
 
     # total
     global_views  = global_views + period_views
