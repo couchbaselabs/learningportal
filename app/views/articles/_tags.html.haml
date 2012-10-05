@@ -1,9 +1,9 @@
 %a{ :name => 'tags' }
 .content-tags.clearfix
   %h4
-    = pluralize(@article['categories'].size, 'Tags').gsub(/^\d+\s/, "")
+    = pluralize(@article.categories.size, 'Tags').gsub(/^\d+\s/, "")
     = surround '(', ')' do
-      %span.tagCount= @article['categories'].size
+      %span.tagCount= @article.categories.size
   %ul
     = render :partial => "shared/tags", :locals => { :article => @article }
 = simple_form_for @article, :remote => true do |f|
