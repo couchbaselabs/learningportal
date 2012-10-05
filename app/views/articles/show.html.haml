@@ -5,22 +5,22 @@
   .right-fixed.pull-right
     %span.desc
       View Source:
-      %a{ :href => "#{@article['url']}" }
-        = truncate(@article['url'].gsub("http://", ""), :length => 25)
-%article.single{:class => @article['type']}
+      %a{ :href => "#{@article.url}" }
+        = truncate(@article.url.gsub("http://", ""), :length => 25)
+%article.single{:class => @article.type}
   .article-body
     %header
-      %h1.article-title= @article['title']
+      %h1.article-title= @article.title
       .meta.clearfix
         .meta-text.pull-left
           Contributed by
           = succeed ',' do
-            = @article['contributors'].first['name']
-            - if @article['contributors'].count > 1
+            = @article.contributors.first['name']
+            - if @article.contributors.count > 1
               and
-              %a{ :href => '#contributors' }= pluralize(@article['contributors'].count, 'other')
+              %a{ :href => '#contributors' }= pluralize(@article.contributors.count, 'other')
           = pluralize(@view_count, 'view')
         %a.meta-tag.pull-left{ :href => '#tags' }
           .tag-nub
-          .tag-text= pluralize(@article['categories'].size, 'tag')
-      = render @article['type']
+          .tag-text= pluralize(@article.categories.size, 'tag')
+      = render @article.type
