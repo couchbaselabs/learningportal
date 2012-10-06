@@ -1,7 +1,7 @@
 class Content
 
   BATCH_SIZE    = 10
-  BATCH_NUMBER  = 1000
+  BATCH_NUMBER  = 100
 
   WIKIPEDIA_URL = "http://en.wikipedia.org/w/api.php"
 
